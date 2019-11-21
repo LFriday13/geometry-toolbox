@@ -18,7 +18,7 @@ class GeoNode {
 	virtual void print_GUI() const = 0;
 	virtual void print() const = 0;
 	virtual void access() const = 0;
-	virtual void mutate() const = 0;
+	virtual void mutate() = 0;
 public:
 	GeoNode();
 	virtual ~GeoNode();

@@ -21,7 +21,7 @@ void TriangleNode::access() const {
 
 }
 
-void TriangleNode::mutate() const {
+void TriangleNode::mutate() {
 
 }
 

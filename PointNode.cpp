@@ -21,7 +21,7 @@ void PointNode::access() const {
 
 }
 
-void PointNode::mutate() const {
+void PointNode::mutate() {
 
 }
 

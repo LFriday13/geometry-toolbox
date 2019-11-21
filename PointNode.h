@@ -14,7 +14,7 @@ class PointNode: public GeoNode {
 	virtual void print() const override;
 	virtual void print_GUI() const override;
 	virtual void access() const override;
-	virtual void mutate() const override;
+	virtual void mutate() override;
 public:
 	PointNode();
 	virtual ~PointNode();

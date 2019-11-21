@@ -21,7 +21,7 @@ void CircleNode::access() const {
 
 }
 
-void CircleNode::mutate() const {
+void CircleNode::mutate() {
 
 }
 

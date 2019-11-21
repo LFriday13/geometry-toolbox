@@ -21,7 +21,7 @@ void LineNode::access() const {
 
 }
 
-void LineNode::mutate() const {
+void LineNode::mutate() {
 
 }
 
