@@ -17,11 +17,15 @@ void CircleNode::print_GUI() const {
 
 }
 
-void CircleNode::access() const {
+void CircleNode::access(double data[]) const {
 
 }
 
-void CircleNode::mutate() {
+void CircleNode::mutate(double data[]) {
+
+}
+
+void CircleNode::update() {
 
 }
 
