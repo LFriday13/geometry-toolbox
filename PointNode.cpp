@@ -5,34 +5,75 @@
 
 #include "PointNode.h"
 
-PointNode::PointNode() {
-  // TODO
+PointNode::PointNode() {}
+
+PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), update_this(independent) {}
+
+PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) {
+	//TODO
 }
 
-void PointNode::print() const {
-  // TODO
+PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) {
+	//TODO
 }
 
-void PointNode::print_GUI() const {
-  //TODO
+virtual PointNode::~PointNode() {}
+
+virtual void PointNode::print() const {
+	//TODO
 }
 
-void PointNode::access(double data[]) const {
-  data[0] = this->x;
-  data[1] = this->y;
+virtual void PointNode::display() const {
+	//TODO
 }
 
-void PointNode::mutate(double data[]) {
-  // TODO
+virtual void PointNode::access(double data[]) const {
+	data[0] = x;
+	data[1] = y;
 }
 
-void PointNode::update() {
-
+virtual void PointNode::mutate(double data[]) {
+	x = data[0];
+	y = data[1];
+	update_this();
 }
 
-PointNode::~PointNode() {
-  // TODO
+virtual void PointNode::update() {
+	update_this();
 }
+
+void PointNode::independent() {}
+
+void PointNode::on_line() {
+	//TODO
+	//Adjust x and y to be on the line which is parents[0]
+}
+
+void PointNode::on_circle() {
+	//TODO
+	//Adjust x and y to be on the circle which is parents[0]
+}
+
+void PointNode::point_point_midpoint() {
+	//TODO
+}
+
+void PointNode::line_line_intersection() {
+	//TODO
+}
+
+void PointNode::line_circle_intersection() {
+	//TODO
+}
+
+void PointNode::circle_circle_higher_intersection() {
+	//TODO
+}
+
+void PointNode::circle_circle_lower_intersection() {
+	//TODO
+}
+
 /*
 function name: line_line_intersection
 property: mutator
@@ -44,7 +85,7 @@ prm[3]: line 2 x-coefficient
 prm[4]: line 2 y-coefficient
 prm[5]: line 2 c-coefficient
 implementation sketch: Cramer's rule
-*/
+
 void line_line_intersection(double prm[]) {
   double delta, delta_x, delta_y;
   double x_coeff[2] = {prm[0], prm[3]};
@@ -56,3 +97,4 @@ void line_line_intersection(double prm[]) {
   x = delta_x / delta;
   y = delta_y / delta;
 }
+*/
