@@ -17,11 +17,15 @@ void TriangleNode::print_GUI() const {
 
 }
 
-void TriangleNode::access() const {
+void TriangleNode::access(double data[]) const {
 
 }
 
-void TriangleNode::mutate() {
+void TriangleNode::mutate(double data[]) {
+
+}
+
+void TriangleNode::update() {
 
 }
 
