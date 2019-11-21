@@ -30,7 +30,7 @@ public:
 	virtual ~PointNode();
 
 private:
-	double x, y;
+	double x{0}, y{0};
 
 	virtual void print() const override;
 	virtual void display() const override;
@@ -39,7 +39,7 @@ private:
 	virtual void mutate(double data[]) override;
 
 	virtual void update() override;
-	void (*update_this)();
+	void (*update_this)() {nullptr};
 
 	void point_point_midpoint();
 	void line_line_intersection();
