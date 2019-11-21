@@ -17,13 +17,17 @@ void PointNode::print_GUI() const {
   //TODO
 }
 
-void PointNode::access(double value[]) const {
-  value[0] = this->x;
-  value[1] = this->y;
+void PointNode::access(double data[]) const {
+  data[0] = this->x;
+  data[1] = this->y;
 }
 
-void PointNode::mutate() {
+void PointNode::mutate(double data[]) {
   // TODO
+}
+
+void PointNode::update() {
+
 }
 
 PointNode::~PointNode() {
