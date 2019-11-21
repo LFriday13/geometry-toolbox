@@ -17,12 +17,16 @@ void LineNode::print_GUI() const {
 
 }
 
-void LineNode::access() const {
+void LineNode::access(double data[]) const {
 
 }
 
-void LineNode::mutate() {
+void LineNode::mutate(double data[]) {
 
+}
+
+void LineNode::update(){
+	
 }
 
 LineNode::~LineNode() {
