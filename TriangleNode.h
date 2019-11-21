@@ -13,8 +13,9 @@ class TriangleNode: public GeoNode {
 	void (*construct)();
 	virtual void print() const override;
 	virtual void print_GUI() const override;
-	virtual void access() const override;
-	virtual void mutate() override;
+	virtual void access(double data[]) const override;
+	virtual void mutate(double data[]) override;
+	virtual void update() override;
 public:
 	TriangleNode();
 	virtual ~TriangleNode();
