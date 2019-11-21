@@ -6,7 +6,6 @@
 #include "CircleNode.h"
 
 CircleNode::CircleNode() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -27,6 +26,6 @@ void CircleNode::mutate() const {
 }
 
 CircleNode::~CircleNode() {
-	// TODO Auto-generated destructor stub
+	
 }
 
