@@ -41,6 +41,9 @@ private:
 	virtual void update() override;
 	void (*update_this)() {nullptr};
 
+	void independent();
+	void on_line();
+	void on_circle();
 	void point_point_midpoint();
 	void line_line_intersection();
 	void line_circle_intersection();
