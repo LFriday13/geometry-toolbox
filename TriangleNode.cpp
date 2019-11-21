@@ -6,7 +6,6 @@
 #include "TriangleNode.h"
 
 TriangleNode::TriangleNode() {
-	// TODO Auto-generated constructor stub
 
 }
 
@@ -27,6 +26,6 @@ void TriangleNode::mutate() const {
 }
 
 TriangleNode::~TriangleNode() {
-	// TODO Auto-generated destructor stub
+	
 }
 
