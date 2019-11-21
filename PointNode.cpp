@@ -3,17 +3,8 @@
  *
  */
 
- class PointNode{
- 	double x, y;
- 	void (*construct)();
- 	void print() const;
- 	void print_GUI() const;
- 	void access(double parameters[]) const;
- 	void mutate(double parameters[]);
- public:
- 	PointNode();
- 	~PointNode();
- };
+#include "PointNode.h"
+
 PointNode::PointNode() {
   // TODO
 }
