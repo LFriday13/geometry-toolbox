@@ -7,7 +7,6 @@
 
 PointNode::PointNode() {
 
-
 }
 
 void PointNode::print() const {
