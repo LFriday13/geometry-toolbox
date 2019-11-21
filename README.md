@@ -4,7 +4,7 @@
 
 Kindly mark what you are doing to avoid overlapping!
 
-Tien: point mutators
+Tien: point updators
 
 Albert:
 
