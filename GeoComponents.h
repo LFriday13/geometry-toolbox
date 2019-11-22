@@ -11,12 +11,12 @@
 
 class GeoComponents {
 	vector <GeoNode*> geo_components;
+public:
 	void add_construction();
-	void edit_construction();
+	void edit_construction(unsigned int PID, double data[]);
 	void remove_construction(unsigned int PID);
 	void print_all_constructions();
-	void print_all_GUI();
-public:
+	void display_all();
 	GeoComponents();
 	virtual ~GeoComponents();
 };
