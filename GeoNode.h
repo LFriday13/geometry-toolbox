@@ -9,7 +9,7 @@
 using namespace std;
 
 class GeoNode {
-	
+
 public:
 	GeoNode();
 	friend class GeoComponents;
