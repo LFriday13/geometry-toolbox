@@ -7,6 +7,7 @@
 #define GEOCOMPONENTS_H_
 
 #include <vector>
+#include <algorithm>
 #include "GeoNode.h"
 
 class GeoComponents {
