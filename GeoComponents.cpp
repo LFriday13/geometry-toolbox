@@ -59,7 +59,7 @@ void GeoComponents::remove_construction(unsigned int PID){
 		}
 	}
 	
-	//Checks every element after the mutated one (innefficient)
+	//Checks every element after the deleted one (innefficient)
 	for (; it != end(geo_components);){ 
 		int num = (*it)->num_parents;
 		const GeoNode* compare = nullptr;
