@@ -14,10 +14,10 @@ enum PointType {
 	ON_CIRCLE,
 	POINT_POINT_MIDPOINT,
 	LINE_LINE_INTERSECTION,
-	LINE_CIRCLE_HIGHER_INTERSECTION,
-	LINE_CIRCLE_LOWER_INTERSECTION,
-	CIRCLE_CIRCLE_HIGHER_INTERSECTION,
-	CIRCLE_CIRCLE_LOWER_INTERSECTION
+	LINE_CIRCLE_FIRST_INTERSECTION,
+	LINE_CIRCLE_SECOND_INTERSECTION,
+	CIRCLE_CIRCLE_FIRST_INTERSECTION,
+	CIRCLE_CIRCLE_SECOND_INTERSECTION
 };
 
 class PointNode: public GeoNode {
@@ -47,10 +47,10 @@ private:
 	void on_circle();
 	void point_point_midpoint();
 	void line_line_intersection();
-	void line_circle_higher_intersection();
-	void line_circle_lower_intersection();
-	void circle_circle_higher_intersection();
-	void circle_circle_lower_intersection();
+	void line_circle_first_intersection();
+	void line_circle_second_intersection();
+	void circle_circle_first_intersection();
+	void circle_circle_second_intersection();
 
 };
 
