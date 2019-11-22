@@ -10,19 +10,17 @@
 #include "GeoNode.h"
 
 class GeoComponents {
-	
+
+	vector <GeoNode*> geo_components;
 public:
-	GeoComponents();
 	void add_construction();
-	void edit_construction(unsigned PID, double data[]);
+	void edit_construction(unsigned int PID, double data[]);
 	void remove_construction(unsigned int PID);
 	void print_all_constructions();
-	void display_all_constructions();
-	
-	virtual ~GeoComponents();
+	void display_all();
+	GeoComponents();
 
-private:
-	vector <GeoNode*> geo_components;
+	virtual ~GeoComponents();
 	
 };
 
