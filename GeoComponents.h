@@ -7,25 +7,23 @@
 #define GEOCOMPONENTS_H_
 
 #include <vector>
-#include <algorithm>
 #include "GeoNode.h"
 
 class GeoComponents {
 
 public:
-	void add_construction(GeoNode* add);
-	void edit_construction(unsigned int PID, double data[]);
-	void remove_construction(unsigned int PID);
+	GeoComponents();
+	virtual ~GeoComponents();
+
+	void add_construction(GeoNode* geo);
+	void edit_construction(unsigned int pid, double data[]);
+	void remove_construction(unsigned int pid);
 	void print_all_constructions();
 	void display_all_constructions();
-	GeoComponents();
 
-	virtual ~GeoComponents();
-	
 private:
 	vector <GeoNode*> geo_components;
 	unsigned int next_pid {0};
-	
 };
 
 #endif /* GEOCOMPONENTS_H_ */
