@@ -70,18 +70,18 @@ void PointNode::independent() {}
 
 void PointNode::on_line() {
 	double line[3];
-  parents[0]->access(line);
-  double t = (line[0] * x + line[1] * y - line[2])/(line[0] * line[0] + line[1] * line[1]);
-  x -= line[0] * t;
-  y -= line[1] * t;
+  	parents[0]->access(line);
+ 	double t = (line[0] * x + line[1] * y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+ 	x -= line[0] * t;
+ 	y -= line[1] * t;
 }
 
 void PointNode::on_circle() {
 	double circle[3];
-  parents[0]->access(circle);
-  double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
-  x = circle[0] + (x - circle[0]) * radius / current_radius;
-  y = circle[1] + (y - circle[1]) * radius / current_radius;
+ 	parents[0]->access(circle);
+ 	double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
+ 	x = circle[0] + (x - circle[0]) * radius / current_radius;
+ 	y = circle[1] + (y - circle[1]) * radius / current_radius;
 }
 
 void PointNode::point_point_midpoint() {
@@ -94,15 +94,15 @@ void PointNode::point_point_midpoint() {
 }
 
 void PointNode::line_line_intersection() {
-	  double delta, delta_x, delta_y;
-	  double line1[3], line2[3];
-    parents[0]->access(line1);
-    parents[1]->access(line2);
-	  delta = line1[0] * line2[1] - line1[1] * line2[0];
-	  delta_x = line1[3] * line2[1] - line1[1] * line2[3];
-	  delta_y = line1[0] * line2[3] - line1[3] * line2[0];
-	  x = delta_x / delta;
-	  y = delta_y / delta;
+	double delta, delta_x, delta_y;
+	double line1[3], line2[3];
+    	parents[0]->access(line1);
+    	parents[1]->access(line2);
+	delta = line1[0] * line2[1] - line1[1] * line2[0];
+	delta_x = line1[3] * line2[1] - line1[1] * line2[3];
+	delta_y = line1[0] * line2[3] - line1[3] * line2[0];
+	x = delta_x / delta;
+	y = delta_y / delta;
 }
 
 void PointNode::line_circle_higher_intersection() {
