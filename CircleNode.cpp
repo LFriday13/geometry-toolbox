@@ -13,7 +13,7 @@ void CircleNode::print() const {
 
 }
 
-void CircleNode::print_GUI() const {
+void CircleNode::display() const {
 
 }
 

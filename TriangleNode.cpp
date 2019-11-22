@@ -13,7 +13,7 @@ void TriangleNode::print() const {
 
 }
 
-void TriangleNode::print_GUI() const {
+void TriangleNode::display() const {
 
 }
 

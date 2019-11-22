@@ -13,7 +13,7 @@ void LineNode::print() const {
 
 }
 
-void LineNode::print_GUI() const {
+void LineNode::display() const {
 
 }
 

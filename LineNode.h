@@ -12,7 +12,7 @@ class LineNode: public GeoNode {
 	double x_coeff, y_coeff, c_coeff;
 	void (*construct)();
 	virtual void print() const override;
-	virtual void print_GUI() const override;
+	virtual void display() const override;
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
 	virtual void update() override;
