@@ -106,7 +106,7 @@ void GeoComponents::display_all_constructions(){
 
 GeoComponents::~GeoComponents() {
 	while(!geo_components.empty()) {
-        delete geo_components.back();
-        geo_components.pop_back();
-    }
+        	delete geo_components.back();
+        	geo_components.pop_back();
+	}
 }
