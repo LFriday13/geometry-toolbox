@@ -14,7 +14,8 @@ enum PointType {
 	ON_CIRCLE,
 	POINT_POINT_MIDPOINT,
 	LINE_LINE_INTERSECTION,
-	LINE_CIRCLE_INTERSECTION,
+	LINE_CIRCLE_HIGHER_INTERSECTION,
+	LINE_CIRCLE_LOWER_INTERSECTION,
 	CIRCLE_CIRCLE_HIGHER_INTERSECTION,
 	CIRCLE_CIRCLE_LOWER_INTERSECTION
 };
@@ -46,7 +47,8 @@ private:
 	void on_circle();
 	void point_point_midpoint();
 	void line_line_intersection();
-	void line_circle_intersection();
+	void line_circle_higher_intersection();
+	void line_circle_lower_intersection();
 	void circle_circle_higher_intersection();
 	void circle_circle_lower_intersection();
 
