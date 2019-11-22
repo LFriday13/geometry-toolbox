@@ -3,6 +3,7 @@
  *
  */
 
+#include <math.h>
 #include "PointNode.h"
 
 PointNode::PointNode() {}
@@ -68,13 +69,19 @@ virtual void PointNode::update() {
 void PointNode::independent() {}
 
 void PointNode::on_line() {
-	//TODO
-	//Adjust x and y to be on the line which is parents[0]
+	double line[3];
+  parents[0]->access(line);
+  double t = (line[0] * x + line[1] * y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+  x -= line[0] * t;
+  y -= line[1] * t;
 }
 
 void PointNode::on_circle() {
-	//TODO
-	//Adjust x and y to be on the circle which is parents[0]
+	double circle[3];
+  parents[0]->access(circle);
+  double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
+  x = circle[0] + (x - circle[0]) * radius / current_radius;
+  y = circle[1] + (y - circle[1]) * radius / current_radius;
 }
 
 void PointNode::point_point_midpoint() {
@@ -87,33 +94,15 @@ void PointNode::point_point_midpoint() {
 }
 
 void PointNode::line_line_intersection() {
-	//TODO
-
-	/*
-	function name: line_line_intersection
-	property: mutator
-	parameters:
-	prm[0]: line 1 x-coefficient
-	prm[1]: line 1 y-coefficient
-	prm[2]: line 1 c-coefficient
-	prm[3]: line 2 x-coefficient
-	prm[4]: line 2 y-coefficient
-	prm[5]: line 2 c-coefficient
-	implementation sketch: Cramer's rule
-
-	void line_line_intersection(double prm[]) {
 	  double delta, delta_x, delta_y;
-	  double x_coeff[2] = {prm[0], prm[3]};
-	  double y_coeff[2] = {prm[1], prm[4]};
-	  double c_coeff[2] = {prm[2], prm[5]};
-	  delta = x_coeff[0] * y_coeff[1] - x_coeff[1] * y_coeff[0];
-	  delta_x = c_coeff[0] * y_coeff[1] - c_coeff[1] * y_coeff[0];
-	  delta_y = x_coeff[0] * c_coeff[1] - x_coeff[1] * c_coeff[0];
+	  double line1[3], line2[3];
+    parents[0]->access(line1);
+    parents[1]->access(line2);
+	  delta = line1[0] * line2[1] - line1[1] * line2[0];
+	  delta_x = line1[3] * line2[1] - line1[1] * line2[3];
+	  delta_y = line1[0] * line2[3] - line1[3] * line2[0];
 	  x = delta_x / delta;
 	  y = delta_y / delta;
-	}
-	*/
-
 }
 
 void PointNode::line_circle_higher_intersection() {
