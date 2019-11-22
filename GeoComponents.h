@@ -24,7 +24,7 @@ public:
 	
 private:
 	vector <GeoNode*> geo_components;
-	unsigned int next_pid {1};
+	unsigned int next_pid {0};
 	
 };
 
