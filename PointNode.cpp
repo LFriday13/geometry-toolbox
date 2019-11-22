@@ -29,10 +29,10 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) 
 	switch(type) {
 		case POINT_POINT_MIDPOINT: definition = point_point_midpoint; break;
 		case LINE_LINE_INTERSECTION: definition = line_line_intersection; break;
-		case LINE_CIRCLE_HIGHER_INTERSECTION: definition = line_circle_higher_intersection; break;
-		case LINE_CIRCLE_LOWER_INTERSECTION: definition = line_circle_lower_intersection; break;
-		case CIRCLE_CIRCLE_HIGHER_INTERSECTION: definition = circle_circle_higher_intersection; break;
-		case CIRCLE_CIRCLE_LOWER_INTERSECTION: definition = circle_circle_lower_intersection; break;
+		case LINE_CIRCLE_FIRST_INTERSECTION: definition = line_circle_first_intersection; break;
+		case LINE_CIRCLE_SECOND_INTERSECTION: definition = line_circle_second_intersection; break;
+		case CIRCLE_CIRCLE_FIRST_INTERSECTION: definition = circle_circle_first_intersection; break;
+		case CIRCLE_CIRCLE_SECOND_INTERSECTION: definition = circle_circle_second_intersection; break;
 	}
 
 	parents = new const GeoNode*[num_parents];
@@ -95,27 +95,43 @@ void PointNode::point_point_midpoint() {
 void PointNode::line_line_intersection() {
 	double delta, delta_x, delta_y;
 	double line1[3], line2[3];
-    	parents[0]->access(line1);
-    	parents[1]->access(line2);
+	parents[0]->access(line1);
+	parents[1]->access(line2);
 	delta = line1[0] * line2[1] - line1[1] * line2[0];
 	delta_x = line1[3] * line2[1] - line1[1] * line2[3];
 	delta_y = line1[0] * line2[3] - line1[3] * line2[0];
 	x = delta_x / delta;
 	y = delta_y / delta;
+	//TODO
+	//Should we consider the parallel case where delta is zero?
+	//If we're considering this case, set well-defined as false when delta is too small
 }
 
-void PointNode::line_circle_higher_intersection() {
+void PointNode::line_circle_first_intersection() {
 	//TODO
+	//If the line does not intersect the circle, set well-defined as false
+	//Otherwise, calculate normally, prefering the solution with a higher y
+	//If the y's are too close, prefer the one with the higher x
 }
 
-void PointNode::line_circle_lower_intersection() {
+void PointNode::line_circle_second_intersection() {
 	//TODO
+	//If the line does not intersect the circle at a second time, set well-defined as false
+	//Otherwise, calculate normally, prefering the solution with a higher y
+	//If the y's are too close, prefer the one with the higher x
 }
 
-void PointNode::circle_circle_higher_intersection() {
+void PointNode::circle_circle_first_intersection() {
 	//TODO
+	//If the circles do not intersect, set well-defined as false
+	//Otherwise, calculate normally, prefering the solution with a higher y
+	//If the y's are too close, prefer the one with the higher x
 }
 
-void PointNode::circle_circle_lower_intersection() {
+void PointNode::circle_circle_second_intersection() {
 	//TODO
+	//TODO
+	//If the circles do not intersect at a second time, set well-defined as false
+	//Otherwise, calculate normally, prefering the solution with a higher y
+	//If the y's are too close, prefer the one with the higher x
 }
