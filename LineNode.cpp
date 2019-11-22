@@ -3,6 +3,9 @@
  *
  */
 
+#include <math.h>
+#include "LineNode.h"
+
 LineNode::LineNode() {}
 
 LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
@@ -11,8 +14,8 @@ LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 		case POINT_POINT_LINE_THROUGH: definition = point_point_line_through; break;
 		case POINT_LINE_PARALLEL_LINE_THROUGH: definition = point_line_parallel_line_through; break;
 		case POINT_POINT_PERPENDICULAR_BISECTOR: definition = point_point_perpendicular_bisector; break;
-		case POINT_CIRCLE_HIGHER_TANGENT: definition = point_circle_higher_tangent; break;
-		case POINT_CIRCLE_LOWER_TANGENT: definition = point_circle_lower_tangent; break;
+		case POINT_CIRCLE_FIRST_TANGENT: definition = point_circle_first_tangent; break;
+		case POINT_CIRCLE_SECOND_TANGENT: definition = point_circle_second_tangent; break;
 	}
 
 	parents = new const GeoNode*[num_parents];
@@ -60,13 +63,13 @@ void LineNode::point_point_perpendicular_bisector() {
 	//TODO
 }
 
-void LineNode::point_circle_higher_tangent() {
+void LineNode::point_circle_first_tangent() {
 	//TODO
 	//If the point is inside the circle, set well_defined as false
 	//Otherwise, calculate the tangent normally
 }
 
-void LineNode::point_circle_lower_tangent() {
+void LineNode::point_circle_second_tangent() {
 	//TODO
 	//If the point is inside or on the circle, set well_defined as false
 	//Otherwise, calculate the tangent normally
