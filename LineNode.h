@@ -12,8 +12,8 @@ enum LineType {
 	POINT_POINT_LINE_THROUGH,
 	POINT_LINE_PARALLEL_LINE_THROUGH,
 	POINT_POINT_PERPENDICULAR_BISECTOR,
-	POINT_CIRCLE_HIGHER_TANGENT,
-	POINT_CIRCLE_LOWER_TANGENT
+	POINT_CIRCLE_FIRST_TANGENT,
+	POINT_CIRCLE_SECOND_TANGENT
 };
 
 class LineNode: public GeoNode {
@@ -39,8 +39,8 @@ private:
 	void point_point_line_through();
 	void point_line_parallel_line_through();
 	void point_point_perpendicular_bisector();
-	void point_circle_higher_tangent();
-	void point_circle_lower_tangent();
+	void point_circle_first_tangent();
+	void point_circle_second_tangent();
 
 };
 
