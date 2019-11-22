@@ -15,7 +15,7 @@ class GeoNode {
 	string label;
 	const int num_dependences;
 	const GeoNode** parents;
-	virtual void print_GUI() const = 0;
+	virtual void display() const = 0;
 	virtual void print() const = 0;
 	virtual void access(double data[]) const = 0;
 	virtual void mutate(double data[]) = 0;
@@ -23,6 +23,7 @@ class GeoNode {
 public:
 	GeoNode();
 	virtual ~GeoNode();
+	friend class GeoComponents;
 };
 
 #endif /* GEONODE_H_ */
