@@ -13,7 +13,7 @@ class GeoNode {
 	friend class GeoComponents;
 
 public:
-	GeoNode();
+	GeoNode(int num_parents = 0); 
 	virtual ~GeoNode();
 
 	virtual void access(double data[]) const = 0;

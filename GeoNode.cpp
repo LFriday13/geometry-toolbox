@@ -5,7 +5,7 @@
 
 #include "GeoNode.h"
 
-GeoNode::GeoNode() {}
+GeoNode::GeoNode(int num_parents): num_parents(num_parents) {}
 
 GeoNode::~GeoNode() {
 	if (num_parents != 0)

@@ -10,21 +10,21 @@ PointNode::PointNode() {}
 
 PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definition(independent) {}
 
-PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : num_parents(1) {
+PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNode(1) {
 
 	switch(type) {
 		case ON_LINE: definition = on_line; break;
 		case ON_CIRCLE:	definition = on_circle; break;
 	}
 
-	parents = new GeoNode*[num_parents];
+	parents = new const GeoNode*[num_parents];
 	parents[0] = geo1;
 	this->x = x;
 	this->y = y;
-	definition();
+	(this->*definition)();
 }
 
-PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : num_parents(2) {
+PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 
 	switch(type) {
 		case POINT_POINT_MIDPOINT: definition = point_point_midpoint; break;
@@ -35,35 +35,35 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : num_parents
 		case CIRCLE_CIRCLE_LOWER_INTERSECTION: definition = circle_circle_lower_intersection; break;
 	}
 
-	parents = new GeoNode*[num_parents];
+	parents = new const GeoNode*[num_parents];
 	parents[0] = geo1;
 	parents[1] = geo2;
-	definition();
+	(this->*definition)();
 }
 
-virtual PointNode::~PointNode() {}
+PointNode::~PointNode() {}
 
-virtual void PointNode::print() const {
+void PointNode::print() const {
 	//TODO
 }
 
-virtual void PointNode::display() const {
+void PointNode::display() const {
 	//TODO
 }
 
-virtual void PointNode::access(double data[]) const {
+void PointNode::access(double data[]) const {
 	data[0] = x;
 	data[1] = y;
 }
 
-virtual void PointNode::mutate(double data[]) {
+void PointNode::mutate(double data[]) {
 	x = data[0];
 	y = data[1];
-	definition();
+	(this->*definition)();
 }
 
-virtual void PointNode::update() {
-	definition();
+void PointNode::update() {
+	(this->*definition)();
 }
 
 void PointNode::independent() {}
