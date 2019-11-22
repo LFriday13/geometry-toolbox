@@ -10,5 +10,5 @@ GeoComponents::GeoComponents() {
 }
 
 GeoComponents::~GeoComponents() {
-	
+
 }
