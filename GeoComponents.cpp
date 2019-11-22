@@ -19,7 +19,7 @@ void GeoComponents::edit_construction(unsigned int PID, double data[]){
 	for (; it != end(geo_components); ++it){ 
 		if((*it)->pid == PID){
 			if(!(*it)->user_defined){
-				cout << "The construction is not user defined." << endl;
+				cerr << "The construction is not user defined." << endl;
 				return;
 			}
 			(*(it++))->mutate(data);
@@ -34,8 +34,8 @@ void GeoComponents::edit_construction(unsigned int PID, double data[]){
 	}
 	
 	//Standard error message
-	if (mutated) {cout << "Mutated construction " << PID << " succesfully." << endl;}
-	else {cout << "The construction does not exists." << endl;}
+	if (mutated) {cerr << "Mutated construction " << PID << " succesfully." << endl;}
+	else {cerr << "The construction does not exists." << endl;}
 }
 
 void GeoComponents::remove_construction(unsigned int PID){
@@ -47,7 +47,7 @@ void GeoComponents::remove_construction(unsigned int PID){
 	for (; it != end(geo_components); ++it){ 
 		if((*it)->pid == PID){
 			if(!(*it)->user_defined){
-				cout << "The construction is not user defined." << endl;
+				cerr << "The construction is not user defined." << endl;
 				return;
 			}
 			delete (*it);
@@ -86,8 +86,8 @@ void GeoComponents::remove_construction(unsigned int PID){
 	}
 	
 	//Standard error message
-	if (removed) {cout << "Deleted construction " << PID << " succesfully." << endl;}
-	else {cout << "The construction does not exists." << endl;}
+	if (removed) {cerr << "Deleted construction " << PID << " succesfully." << endl;}
+	else {cerr << "The construction does not exists." << endl;}
 }
 
 void GeoComponents::print_all_constructions(){
