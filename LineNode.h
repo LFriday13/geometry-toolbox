@@ -20,7 +20,7 @@ class LineNode: public GeoNode {
 
 public:
 	LineNode();
-	LineNode(PointType type, GeoNode* geo1, GeoNode* geo2);
+	LineNode(LineType type, GeoNode* geo1, GeoNode* geo2);
 
 	virtual ~LineNode();
 
@@ -43,7 +43,5 @@ private:
 	void point_circle_lower_tangent();
 
 };
-
-
 
 #endif /* LINENODE_H_ */
