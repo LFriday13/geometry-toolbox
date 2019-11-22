@@ -95,6 +95,12 @@ void GeoComponents::remove_construction(unsigned int pid) {
 
 	delete [] is_child;
 
+	// Simultaneous loop through array and vector for updating pid's
+	unsigned int i = 0;
+	for (auto it = begin(geo_components); it != end(geo_components); ++it, ++i)
+		(*it)->pid = i;
+	next_pid = geo_components.size();
+
 }
 
 void GeoComponents::print_all_constructions(){
