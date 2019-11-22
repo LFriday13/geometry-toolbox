@@ -40,7 +40,7 @@ private:
 	virtual void mutate(double data[]) override;
 
 	virtual void update() override;
-	void (*update_this)() {nullptr};
+	void (PointNode::*definition)() {nullptr};
 
 	void independent();
 	void on_line();

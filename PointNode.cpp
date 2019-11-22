@@ -7,37 +7,37 @@
 
 PointNode::PointNode() {}
 
-PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), update_this(independent) {}
+PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definition(independent) {}
 
 PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : num_parents(1) {
 
 	switch(type) {
-		case ON_LINE: update_this = on_line; break;
-		case ON_CIRCLE:	update_this = on_circle; break;
+		case ON_LINE: definition = on_line; break;
+		case ON_CIRCLE:	definition = on_circle; break;
 	}
 
 	parents = new GeoNode*[num_parents];
 	parents[0] = geo1;
 	this->x = x;
 	this->y = y;
-	update_this();
+	definition();
 }
 
 PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : num_parents(2) {
 
 	switch(type) {
-		case POINT_POINT_MIDPOINT: update_this = point_point_midpoint; break;
-		case LINE_LINE_INTERSECTION: update_this = line_line_intersection; break;
-		case LINE_CIRCLE_HIGHER_INTERSECTION: update_this = line_circle_higher_intersection; break;
-		case LINE_CIRCLE_LOWER_INTERSECTION: update_this = line_circle_lower_intersection; break;
-		case CIRCLE_CIRCLE_HIGHER_INTERSECTION: update_this = circle_circle_higher_intersection; break;
-		case CIRCLE_CIRCLE_LOWER_INTERSECTION: update_this = circle_circle_lower_intersection; break;
+		case POINT_POINT_MIDPOINT: definition = point_point_midpoint; break;
+		case LINE_LINE_INTERSECTION: definition = line_line_intersection; break;
+		case LINE_CIRCLE_HIGHER_INTERSECTION: definition = line_circle_higher_intersection; break;
+		case LINE_CIRCLE_LOWER_INTERSECTION: definition = line_circle_lower_intersection; break;
+		case CIRCLE_CIRCLE_HIGHER_INTERSECTION: definition = circle_circle_higher_intersection; break;
+		case CIRCLE_CIRCLE_LOWER_INTERSECTION: definition = circle_circle_lower_intersection; break;
 	}
 
 	parents = new GeoNode*[num_parents];
 	parents[0] = geo1;
 	parents[1] = geo2;
-	update_this();
+	definition();
 }
 
 virtual PointNode::~PointNode() {}
@@ -58,11 +58,11 @@ virtual void PointNode::access(double data[]) const {
 virtual void PointNode::mutate(double data[]) {
 	x = data[0];
 	y = data[1];
-	update_this();
+	definition();
 }
 
 virtual void PointNode::update() {
-	update_this();
+	definition();
 }
 
 void PointNode::independent() {}
