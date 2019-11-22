@@ -12,7 +12,7 @@
 class GeoComponents {
 
 public:
-	void add_construction();
+	void add_construction(GeoNode* add);
 	void edit_construction(unsigned int PID, double data[]);
 	void remove_construction(unsigned int PID);
 	void print_all_constructions();
@@ -23,6 +23,7 @@ public:
 	
 private:
 	vector <GeoNode*> geo_components;
+	unsigned int next_pid {1};
 	
 };
 
