@@ -24,7 +24,7 @@ void GeoComponents::edit_construction(unsigned int PID, double data[]){
 				cerr << "The construction is not user defined." << endl;
 				return;
 			}
-			(it == end(geo_components)) ? (*it)->mutate(data): (*it++)->mutate(data);
+			(it == end(geo_components) - 1) ? (*it)->mutate(data): (*it++)->mutate(data);
 			mutated = true;
 			break;
 		}
@@ -73,7 +73,7 @@ void GeoComponents::remove_construction(unsigned int PID){
 			}
 			delete (*it);
 			family.push_back(*it);
-			(it == end(geo_components)) ? geo_components.erase(it): geo_components.erase(it++);
+			(it == end(geo_components) - 1) ? geo_components.erase(it): geo_components.erase(it++);
 			removed = true;
 			break;
 		}
