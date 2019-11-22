@@ -80,15 +80,14 @@ void PointNode::on_circle() {
 	double circle[3];
  	parents[0]->access(circle);
  	double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
- 	x = circle[0] + (x - circle[0]) * radius / current_radius;
- 	y = circle[1] + (y - circle[1]) * radius / current_radius;
+ 	x = circle[0] + (x - circle[0]) * circle[2] / current_radius;
+ 	y = circle[1] + (y - circle[1]) * circle[2] / current_radius;
 }
 
 void PointNode::point_point_midpoint() {
 	double p1[2], p2[2];
 	parents[0]->access(p1);
 	parents[1]->access(p2);
-
 	x = (p1[0]+p2[0])/2;
 	y = (p1[1]+p2[1])/2;
 }
