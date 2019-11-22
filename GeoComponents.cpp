@@ -8,8 +8,7 @@
 GeoComponents::GeoComponents() {}
 
 void GeoComponents::add_construction(GeoNode* add){
-	geo_components.push_back(add);
-	next_pid += 1;
+	//TODO
 }
 
 void GeoComponents::edit_construction(unsigned int PID, double data[]){ 
