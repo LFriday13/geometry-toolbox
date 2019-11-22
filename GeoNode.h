@@ -18,23 +18,18 @@ public:
 
 	virtual void access(double data[]) const = 0;
 
-	void set_pid(unsigned int pid);
-	void set_label(string label);
-	void toggle_display();
-	void not_user_defined();
-
 private:
 	virtual void display() const = 0;
 	virtual void print() const = 0;
 	virtual void mutate(double data[]) = 0;
 	virtual void update() = 0;
-
-protected:
+	
 	unsigned int pid {0};
 	string label {""};
 	bool user_defined {true};
 	bool need_display {true};
 
+protected:
 	const int num_parents {0};
 	const GeoNode** parents {nullptr};
 
