@@ -85,7 +85,7 @@ void GeoComponents::remove_construction(unsigned int pid) {
 	}
 
 	// Reverse simultaneous loop through array and vector for deleting nodes
-	unsigned int i = next_pid - 1;
+	i = next_pid - 1;
 	for (auto it = rbegin(geo_components); it != rend(geo_components); ++it, --i) {
 		if (is_child[i]) {
 			delete (*it);
@@ -96,7 +96,7 @@ void GeoComponents::remove_construction(unsigned int pid) {
 	delete [] is_child;
 
 	// Simultaneous loop through array and vector for updating pid's
-	unsigned int i = 0;
+	i = 0;
 	for (auto it = begin(geo_components); it != end(geo_components); ++it, ++i)
 		(*it)->pid = i;
 	next_pid = geo_components.size();
