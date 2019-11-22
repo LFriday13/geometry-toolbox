@@ -13,13 +13,13 @@ class GeoNode {
 public:
 	GeoNode();
 	friend class GeoComponents;
+	virtual void access(double data[]) const = 0;
 	
 	virtual ~GeoNode();
 	
 private: 
 	virtual void display() const = 0;
 	virtual void print() const = 0;
-	virtual void access(double data[]) const = 0;
 	virtual void mutate(double data[]) = 0;
 	virtual void update() = 0;
 	
