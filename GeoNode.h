@@ -27,12 +27,12 @@ private:
 
 	unsigned int pid {0};
 	string label {""};
-	bool well_defined {true};
 	bool need_display {true};
 
 protected:
 	const int num_parents {0};
 	const GeoNode** parents {nullptr};
+	bool well_defined {true};
 
 };
 

@@ -3,7 +3,8 @@
  *
  */
 
-#include <math.h>
+#include <cmath>
+#include <limits>
 #include "PointNode.h"
 
 PointNode::PointNode() {}
@@ -44,14 +45,13 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) 
 PointNode::~PointNode() {}
 
 void PointNode::print() const {
-	cout << label << '\t' << pid << '\t' << x << '\t' << y << endl;
-	
+	cout << "----------------------------------------\n";
+	cout << "Identifiers: " << this->get_label() << endl;
+	cout << "Data: " << x << '\t' << y << endl;
 	cout << "Parents:";
 	for(int i = 0; i < num_parents;++i)
-		cout << parents[i]->get_label;
+		cout << parents[i]->get_label();
 	cout << endl;
-	
-	//For saving purposes we only need to also collect function_name 
 }
 
 void PointNode::display() const {
