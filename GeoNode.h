@@ -17,7 +17,8 @@ public:
 	virtual ~GeoNode();
 
 	virtual void access(double data[]) const = 0;
-
+	string get_label() const;
+	
 private:
 	virtual void display() const = 0;
 	virtual void print() const = 0;

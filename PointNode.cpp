@@ -44,7 +44,14 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) 
 PointNode::~PointNode() {}
 
 void PointNode::print() const {
-	//TODO
+	cout << label << '\t' << pid << '\t' << x << '\t' << y << endl;
+	
+	cout << "Parents:";
+	for(int i = 0; i < num_parents;++i)
+		cout << parents[i]->get_label;
+	cout << endl;
+	
+	//For saving purposes we only need to also collect function_name 
 }
 
 void PointNode::display() const {
@@ -95,16 +102,19 @@ void PointNode::point_point_midpoint() {
 void PointNode::line_line_intersection() {
 	double delta, delta_x, delta_y;
 	double line1[3], line2[3];
+	
 	parents[0]->access(line1);
 	parents[1]->access(line2);
+	
 	delta = line1[0] * line2[1] - line1[1] * line2[0];
-	delta_x = line1[3] * line2[1] - line1[1] * line2[3];
-	delta_y = line1[0] * line2[3] - line1[3] * line2[0];
-	x = delta_x / delta;
-	y = delta_y / delta;
-	//TODO
-	//Should we consider the parallel case where delta is zero?
-	//If we're considering this case, set well-defined as false when delta is too small
+	if(delta < std::numeric_limits<double>::epsilon() && delta > -std::numeric_limits<double>::epsilon())
+		well_defined = false;
+	else{
+		delta_x = line1[3] * line2[1] - line1[1] * line2[3];
+		delta_y = line1[0] * line2[3] - line1[3] * line2[0];
+		x = delta_x / delta;
+		y = delta_y / delta;
+	}
 }
 
 void PointNode::line_circle_first_intersection() {
