@@ -15,8 +15,12 @@ GeoComponents::~GeoComponents() {
 }
 
 void GeoComponents::add_construction(GeoNode* geo) {
-	geo->pid = next_pid++;
-	geo_components.push_back(geo);
+	if (geo->well_defined) {
+		geo->pid = next_pid++;
+		geo_components.push_back(geo);	
+	} else {
+		delete geo;
+	}
 }
 
 void GeoComponents::edit_construction(unsigned int pid, double data[]) {
