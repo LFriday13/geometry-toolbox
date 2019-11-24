@@ -12,11 +12,11 @@ LineNode::LineNode() {}
 LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 
 	switch(type) {
-		case POINT_POINT_LINE_THROUGH: definition = point_point_line_through; break;
-		case POINT_LINE_PARALLEL_LINE_THROUGH: definition = point_line_parallel_line_through; break;
-		case POINT_POINT_PERPENDICULAR_BISECTOR: definition = point_point_perpendicular_bisector; break;
-		case POINT_CIRCLE_FIRST_TANGENT: definition = point_circle_first_tangent; break;
-		case POINT_CIRCLE_SECOND_TANGENT: definition = point_circle_second_tangent; break;
+		case POINT_POINT_LINE_THROUGH: definition = &LineNode::point_point_line_through; break;
+		case POINT_LINE_PARALLEL_LINE_THROUGH: definition = &LineNode::point_line_parallel_line_through; break;
+		case POINT_POINT_PERPENDICULAR_BISECTOR: definition = &LineNode::point_point_perpendicular_bisector; break;
+		case POINT_CIRCLE_FIRST_TANGENT: definition = &LineNode::point_circle_first_tangent; break;
+		case POINT_CIRCLE_SECOND_TANGENT: definition = &LineNode::point_circle_second_tangent; break;
 	}
 
 	parents = new const GeoNode*[num_parents];
@@ -29,11 +29,11 @@ LineNode::~LineNode() {}
 
 void LineNode::print() const {
 	cout << "----------------------------------------\n";
-	cout << "Identifiers: " << this->get_label() << endl;
+	cout << "Identifier: " << this->get_label() << endl;
 	cout << "Data: " << x_coeff << '\t' << y_coeff << '\t' << c_coeff << endl;
 	cout << "Parents:";
 	for(int i = 0; i < num_parents;++i)
-		cout << parents[i]->get_label();
+		cout << " " << parents[i]->get_label();
 	cout << endl;
 }
 
@@ -86,7 +86,13 @@ void LineNode::point_line_parallel_line_through() {
 }
 
 void LineNode::point_point_perpendicular_bisector() {
-	//TODO
+	double p1[2], p2[2];
+	parents[0]->access(p1);
+	parents[1]->access(p2);
+	
+	x_coeff = p2[0] - p1[0];
+	y_coeff = p2[1] - p1[1];
+	c_coeff = (-x_coeff)*(p1[0]+p2[0])/2 + (-y_coeff)(p1[1]+p2[1])/2;
 }
 
 void LineNode::point_circle_first_tangent() {
