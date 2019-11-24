@@ -92,7 +92,7 @@ void LineNode::point_point_perpendicular_bisector() {
 	
 	x_coeff = p2[0] - p1[0];
 	y_coeff = p2[1] - p1[1];
-	c_coeff = (-x_coeff)*(p1[0]+p2[0])/2 + (-y_coeff)(p1[1]+p2[1])/2;
+	c_coeff = (-x_coeff)*(p1[0] + p2[0])/2 + (-y_coeff)*(p1[1] + p2[1])/2;
 }
 
 void LineNode::point_circle_first_tangent() {
