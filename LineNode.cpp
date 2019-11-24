@@ -116,8 +116,8 @@ void LineNode::point_circle_first_tangent() {
 		C = point[1] - circle[1];
 		
 		B = 2*A*C;
-		A = A*A - r;
-		C = C*C - r;
+		A = A*A - circle[2];
+		C = C*C - circle[2];
 		
 		x_coeff = (- B + sqrt(B*B - 4*A*C))/(2*A);
 		y_coeff = 1;
@@ -144,8 +144,8 @@ void LineNode::point_circle_second_tangent() {
 		C = point[1] - circle[1];
 		
 		B = 2*A*C;
-		A = A*A - r;
-		C = C*C - r;
+		A = A*A - circle[2];
+		C = C*C - circle[2];
 		
 		x_coeff = (- B - sqrt(B*B - 4*A*C))/(2*A);
 		y_coeff = 1;
