@@ -96,13 +96,59 @@ void LineNode::point_point_perpendicular_bisector() {
 }
 
 void LineNode::point_circle_first_tangent() {
-	//TODO
-	//If the point is inside the circle, set well_defined as false
-	//Otherwise, calculate the tangent normally
+	double point[2], circle[3];
+	parents[0]->access(point);
+	parents[1]->access(circle);
+	
+	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
+	
+	if(distance - circle[2] < std::numeric_limits<double>::epsilon() && distance - circle[2] > -std::numeric_limits<double>::epsilon()) {
+		x_coeff = point[0] - circle[0];
+		y_coeff = point[1] - circle[1];
+		c_coeff = (-x_coeff)*point[0] + (-y_coeff)*point[1];
+		
+	} else if(distance < circle[2]) {
+		well_defined = false;
+		
+	} else {
+		double A, B, C;
+		A = circle[0] - point[0];
+		C = point[1] - circle[1];
+		
+		B = 2*A*C;
+		A = A*A - r;
+		C = C*C - r;
+		
+		x_coeff = (- B + sqrt(B*B - 4*A*C))/(2*A);
+		y_coeff = 1;
+		c_coeff = (-x_coeff)*point[0] - point[1];
+	}
 }
 
 void LineNode::point_circle_second_tangent() {
-	//TODO
-	//If the point is inside or on the circle, set well_defined as false
-	//Otherwise, calculate the tangent normally
+	double point[2], circle[3];
+	parents[0]->access(point);
+	parents[1]->access(circle);
+	
+	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
+	
+	if(distance - circle[2] < std::numeric_limits<double>::epsilon() && distance - circle[2] > -std::numeric_limits<double>::epsilon()) {
+		well_defined = false;
+		
+	} else if(distance < circle[2]) {
+		well_defined = false;
+		
+	} else {
+		double A, B, C;
+		A = circle[0] - point[0];
+		C = point[1] - circle[1];
+		
+		B = 2*A*C;
+		A = A*A - r;
+		C = C*C - r;
+		
+		x_coeff = (- B - sqrt(B*B - 4*A*C))/(2*A);
+		y_coeff = 1;
+		c_coeff = (-x_coeff)*point[0] - point[1];
+	}
 }
