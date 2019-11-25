@@ -124,7 +124,7 @@ void PointNode::line_circle_first_intersection() {
 	double project_x = circle[0], project_y = circle[1];
 	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
 	project_x -= line[0] * t;
-  project_y -= line[1] * t;
+  	project_y -= line[1] * t;
 	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
 	if(dist <= circle[2] + 1e-8)
 	{
@@ -148,7 +148,7 @@ void PointNode::line_circle_second_intersection() {
 	double project_x = circle[0], project_y = circle[1];
 	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
 	project_x -= line[0] * t;
-  project_y -= line[1] * t;
+  	project_y -= line[1] * t;
 	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
 	if(dist <= circle[2] + 1e-8)
 	{
