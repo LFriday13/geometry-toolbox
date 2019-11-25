@@ -90,7 +90,7 @@ void GeoComponents::remove_construction(unsigned int pid) {
 
 	// Reverse simultaneous loop through array and vector for deleting nodes
 	i = next_pid - 1;
-	for (auto it = rbegin(geo_components); it != rend(geo_components); ++it, --i) {
+	for (auto it = geo_components.rbegin(); it != geo_components.rend(); ++it, --i) {
 		if (is_child[i]) {
 			delete (*it);
 			geo_components.erase((it+1).base());
