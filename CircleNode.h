@@ -11,17 +11,15 @@
 enum CircleType {
 	POINT_POINT_POINT_THROUGH,
 	POINT_POINT_CENTER_THROUGH,
-	POINT_CENTER_RADIUS,
-	INDEPENDENT_CIRCLE
+	POINT_POINT_POINT_CENTER_RADIUS,
 };
 
 class CircleNode: public GeoNode {
 
 public:
 	CircleNode();
-	CircleNode(CircleType type, double center_x, double center_y, double radius);
-	CircleNode(CircleType type, GeoNode* geo, double radius);
 	CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2);
+	CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3);
 
 	virtual ~CircleNode();
 
@@ -38,9 +36,8 @@ private:
 	void (CircleNode::*definition)() {nullptr};
 
 	void point_point_point_through();
+	void point_point_point_center_radius();
 	void point_point_center_through();
-	void point_center_radius();
-	void independent();
 
 };
 

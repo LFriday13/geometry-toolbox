@@ -9,27 +9,27 @@
 
 CircleNode::CircleNode() {}
 
-CircleNode::CircleNode(CircleType type, double center_x, double center_y, double radius) : center_x(center_x), center_y(center_y), definition(&CircleNode::independent) {}
-
-CircleNode::CircleNode(CircleType type, GeoNode* geo1, double radius) : GeoNode(1) {
-	switch(type) {
-		case POINT_POINT_POINT_THROUGH: definition = &CircleNode::point_center_radius; break;
-	}
-
-	parents = new const GeoNode*[num_parents];
-	parents[0] = geo1;
-	(this->*definition)();
-}
-
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 	switch(type) {
-		case POINT_POINT_POINT_THROUGH: definition = &CircleNode::point_point_point_through; break;
 		case POINT_POINT_CENTER_THROUGH: definition = &CircleNode::point_point_center_through; break;
 	}
 
 	parents = new const GeoNode*[num_parents];
 	parents[0] = geo1;
 	parents[1] = geo2;
+	(this->*definition)();
+}
+
+CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3) : GeoNode(3) {
+	switch(type) {
+		case POINT_POINT_POINT_THROUGH: definition = &CircleNode::point_point_point_through; break;
+		case POINT_POINT_POINT_CENTER_RADIUS: definition = &CircleNode::point_point_point_center_radius; break;
+	}
+
+	parents = new const GeoNode*[num_parents];
+	parents[0] = geo1;
+	parents[1] = geo2;
+	parents[2] = geo3;
 	(this->*definition)();
 }
 
@@ -67,15 +67,47 @@ void CircleNode::update() {
 }
 
 void CircleNode::point_point_point_through() {
-	//TODO
+	double p1[2], p2[2], p3[2];
+	parents[0]->access(p1);
+	parents[1]->access(p2);
+	parents[2]->access(p3);
+	
+	center_x = ((p1[0]*p1[0] - p3[0]*p3[0]) * (p1[0] - p2[0]) 
+		+ (p1[1]*p1[1]-p3[1]*p3[1]) * (p1[0] - p2[0]) 
+		+ (p2[0]*p2[0]-p1[0]*p1[0]) * (p1[0]-p3[0]) 
+        + (p2[1]*p2[1]-p1[1]*p1[1]) * (p1[0]-p3[0]));
+		
+    center_x /=  2 * ((p3[1]-p1[1]) * (p1[0] - p2[0]) - (p2[1]-p1[1]) * (p1[0]-p3[0]));
+	
+    center_y = ((p1[0]*p1[0] - p3[0]*p3[0]) * (p1[1]-p2[1]) 
+		+ (p1[1]*p1[1]-p3[1]*p3[1]) * (p1[1]-p2[1]) 
+		+ (p2[0]*p2[0]-p1[0]*p1[0]) * (p1[1]-p3[1]) 
+		+ (p2[1]*p2[1]-p1[1]*p1[1]) * (p1[1]-p3[1]));
+		
+	center_y /= 2 * ((p3[0]-p1[0]) * (p1[1]-p2[1]) - (p2[0]-p1[0]) * (p1[1]-p3[1])); 
+	
+	radius = sqrt((p1[0]-center_x)*(p1[0]-center_x) + (p1[1]-center_y)*(p1[1]-center_y));
 }
 
 void CircleNode::point_point_center_through(){
-	//TODO
+	double p1[2], p2[2];
+	parents[0]->access(p1);
+	parents[1]->access(p2);
+	
+	center_x = p1[0];
+	center_y = p1[1];
+	
+	radius = sqrt((p2[0] - center_x)*(p2[0] - center_x) + (p2[0] - center_x)*(p2[0] - center_x));
 }
 	
-void CircleNode::point_center_radius(){
-	//TODO
-}
+void CircleNode::point_point_point_center_radius(){
+	double p1[2], p2[2], p3[2];
+	parents[0]->access(p1);
+	parents[1]->access(p2);
+	parents[2]->access(p3);
 	
-void CircleNode::independent() {}
+	center_x = p1[0];
+	center_y = p1[1];
+	
+	radius = sqrt((p3[0] - p2[0])*(p3[0] - p2[0]) + (p3[1] - p2[1])*(p3[1] - p3[1]));
+}
