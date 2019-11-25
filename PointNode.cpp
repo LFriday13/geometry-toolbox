@@ -118,18 +118,53 @@ void PointNode::line_line_intersection() {
 }
 
 void PointNode::line_circle_first_intersection() {
-    //TODO
-    //If the line does not intersect the circle, set well-defined as false
-    //Otherwise, calculate normally, prefering the solution with a higher y
-    //If the y's are too close, prefer the one with the higher x
+	double line[3], circle[3];
+	parents[0]->access(line);
+	parents[1]->access(circle);
+	double project_x = circle[0], project_y = circle[1];
+	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+	project_x -= line[0] * t;
+  project_y -= line[1] * t;
+	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
+	if(dist <= circle[2] + 1e-8)
+	{
+		double to_shift = circle[2] * circle[2] - dist * dist;
+		if(to_shift < 0.0) to_shift = 0;
+		to_shift = sqrt(to_shift);
+		double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
+		x = project_x + to_shift * line[0] / normalize_factor;
+		y = project_y + to_shift * line[1] / normalize_factor;
+	}
+	else
+	{
+		well_defined = false;
+	}
 }
 
 void PointNode::line_circle_second_intersection() {
-    //TODO
-    //If the line does not intersect the circle at a second time, set well-defined as false
-    //Otherwise, calculate normally, prefering the solution with a higher y
-    //If the y's are too close, prefer the one with the higher x
+	double line[3], circle[3];
+	parents[0]->access(line);
+	parents[1]->access(circle);
+	double project_x = circle[0], project_y = circle[1];
+	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+	project_x -= line[0] * t;
+  project_y -= line[1] * t;
+	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
+	if(dist <= circle[2] + 1e-8)
+	{
+		double to_shift = circle[2] * circle[2] - dist * dist;
+		if(to_shift < 0.0) to_shift = 0;
+		to_shift = sqrt(to_shift);
+		double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
+		x = project_x - to_shift * line[0] / normalize_factor;
+		y = project_y - to_shift * line[1] / normalize_factor;
+	}
+	else
+	{
+		well_defined = false;
+	}
 }
+
 
 void PointNode::circle_circle_first_intersection() {
     //TODO
