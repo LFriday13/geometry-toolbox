@@ -118,20 +118,27 @@ void LineNode::point_circle_first_tangent() {
 	} else if(distance < circle[2]) {
 		well_defined = false;
 		
-	} else {
-		/* Needs corrections
-		double A, B, C;
-		A = circle[0] - point[0];
-		C = point[1] - circle[1];
-		
-		B = 2*A*C;
-		A = A*A - circle[2];
-		C = C*C - circle[2];
-		
-		x_coeff = (- B + sqrt(B*B - 4*A*C))/(2*A);
-		y_coeff = 1;
-		c_coeff = (-x_coeff)*point[0] - point[1];
-		*/
+	} else { 
+        //Let the line be: (y-point_y)=k(x-point_x)
+        double sk_coeff, k_coeff, c, k;
+
+        //Define variables for simplicity
+        double delta_x, delta_y, radius;
+        delta_x = circle[0] - point[0];
+        delta_y = point[1] - circle[1];
+        radius = circle[2];
+
+        //Compute the coefficients of the quadratic
+        sk_coeff = delta_x*delta_x - radius*radius;
+        k_coeff = 2*delta_x*delta_y;
+        c = delta_y*delta_y - radius*radius;
+
+        //Solve for the slope
+        k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+
+        x_coeff = k;
+        y_coeff = -1;
+        c_coeff = -k*point[0] + point[1];
 	}
 }
 
@@ -149,18 +156,25 @@ void LineNode::point_circle_second_tangent() {
 		well_defined = false;
 		
 	} else {
-		/* Needs corrections
-		double A, B, C;
-		A = circle[0] - point[0];
-		C = point[1] - circle[1];
-		
-		B = 2*A*C;
-		A = A*A - circle[2];
-		C = C*C - circle[2];
-		
-		x_coeff = (- B - sqrt(B*B - 4*A*C))/(2*A);
-		y_coeff = 1;
-		c_coeff = (-x_coeff)*point[0] - point[1];
-		*/
+        //Let the line be: (y-point_y)=k(x-point_x)
+        double sk_coeff, k_coeff, c, k;
+
+        //Define variables for simplicity
+        double delta_x, delta_y, radius;
+        delta_x = circle[0] - point[0];
+        delta_y = point[1] - circle[1];
+        radius = circle[2];
+
+        //Compute the coefficients of the quadratic
+        sk_coeff = delta_x*delta_x - radius*radius;
+        k_coeff = 2*delta_x*delta_y;
+        c = delta_y*delta_y - radius*radius;
+
+        //Solve for the slope
+        k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+
+        x_coeff = k;
+        y_coeff = -1;
+        c_coeff = -k*point[0] + point[1];
 	}
 }
