@@ -83,34 +83,19 @@ void CircleNode::point_point_point_through() {
     double x1=p1[0], x2=p2[0], x3=p3[0];
     double y1=p1[1], y2=p2[1], y3=p3[1];
 
-    double x12 = x1 - x2;
-    double x13 = x1 - x3;
-    double y12 = y1 - y2;
-    double y13 = y1 - y3;
-    double y31 = y3 - y1;
-    double y21 = y2 - y1;
-    double x31 = x3 - x1;
-    double x21 = x2 - x1;
+    double x12 = x1 - x2, x13 = x1 - x3, x31 = x3 - x1, x21 = x2 - x1;
+    double y12 = y1 - y2, y13 = y1 - y3, y31 = y3 - y1, y21 = y2 - y1;
 
-    double sx13 = pow(x1, 2) - pow(x3, 2);
-    double sy13 = pow(y1, 2) - pow(y3, 2);
-    double sx21 = pow(x2, 2) - pow(x1, 2);
-    double sy21 = pow(y2, 2) - pow(y1, 2);
+    double sx13 = x1*x1 - x3*x3, sx21 = x2*x2 - x1*x1;
+    double sy13 = y1*y1 - y3*y3, sy21 = y2*y2 - y1*y1;
 
-    double f = ((sx13) * (x12)
-             + (sy13) * (x12)
-             + (sx21) * (x13)
-             + (sy21) * (x13))
-            / (2 * ((y31) * (x12) - (y21) * (x13)));
-    double g = ((sx13) * (y12)
-             + (sy13) * (y12)
-             + (sx21) * (y13)
-             + (sy21) * (y13))
-            / (2 * ((x31) * (y12) - (x21) * (y13)));
+    center_y = (-1)*((sx13) * (x12) + (sy13) * (x12) + (sx21) * (x13) + (sy21) * (x13));
+    center_y /= (2 * ((y31) * (x12) - (y21) * (x13)));
 
-    center_x = -g;
-    center_y = -f;
-    radius = sqrt(pow(center_x - x1,2) + pow(center_y - y1,2));
+    center_x = (-1)*((sx13) * (y12) + (sy13) * (y12)  + (sx21) * (y13) + (sy21) * (y13));
+    center_x /= (2 * ((x31) * (y12) - (x21) * (y13)));
+
+    radius = sqrt((center_x - x1)*(center_x - x1) + (center_y - y1)*(center_y - y1));
 }
 
 void CircleNode::point_point_center_through(){
