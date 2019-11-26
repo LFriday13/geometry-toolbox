@@ -25,9 +25,10 @@ public:
 
 private:
 	double center_x{0}, center_y{0}, radius{0};
+    QCPItemEllipse *circle;
 
 	virtual void print() const override;
-	virtual void display() const override;
+    virtual void display(Ui::MainWindow* ui) override;
 
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;

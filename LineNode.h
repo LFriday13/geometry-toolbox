@@ -26,9 +26,10 @@ public:
 
 private:
 	double x_coeff{0}, y_coeff{0}, c_coeff{0};
+    QCPItemStraightLine *line;
 
 	virtual void print() const override;
-	virtual void display() const override;
+    virtual void display(Ui::MainWindow* ui) override;
 
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;

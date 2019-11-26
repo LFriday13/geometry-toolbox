@@ -114,9 +114,18 @@ void GeoComponents::print_all_constructions(){
 }
 
 
-void GeoComponents::display_all_constructions(){
+void GeoComponents::display_all_constructions(Ui::MainWindow *ui){
 	for (auto it = begin(geo_components); it != end(geo_components); ++it){
 		if((*it)->need_display)
-			(*it)->display();
+            (*it)->display(ui);
 	}
+}
+
+GeoNode* GeoComponents::get_construction(unsigned int pid){
+    for (auto it = begin(geo_components); it != end(geo_components); ++it){
+        if((*it)->pid == pid)
+            return (*it);
+    }
+
+    return nullptr;
 }

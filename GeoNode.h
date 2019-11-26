@@ -7,6 +7,8 @@
 #define GEONODE_H_
 
 #include <iostream>
+#include "ui_mainwindow.h"
+#include "qcustomplot.h"
 using namespace std;
 
 class GeoNode {
@@ -20,19 +22,19 @@ public:
 	string get_label() const;
 	
 private:
-	virtual void display() const = 0;
 	virtual void print() const = 0;
+    virtual void display(Ui::MainWindow* ui) = 0;
 	virtual void mutate(double data[]) = 0;
 	virtual void update() = 0;
 
 	unsigned int pid {0};
 	string label {""};
-	bool need_display {true};
 
 protected:
 	const int num_parents {0};
 	const GeoNode** parents {nullptr};
 	bool well_defined {true};
+    bool need_display {true};
 
 };
 

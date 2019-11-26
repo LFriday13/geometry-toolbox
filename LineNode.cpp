@@ -37,8 +37,15 @@ void LineNode::print() const {
 	cout << endl;
 }
 
-void LineNode::display() const {
-	//TODO
+void LineNode::display(Ui::MainWindow *ui) {
+    if(!need_display) return;
+
+    if(line == nullptr){ //Initialization
+        line = new QCPItemStraightLine(ui->custom_plot);
+    }
+
+    line->point1->setCoords(0, - c_coeff/y_coeff);
+    line->point2->setCoords(- c_coeff/x_coeff, 0);
 }
 
 void LineNode::access(double data[]) const {

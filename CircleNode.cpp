@@ -45,8 +45,16 @@ void CircleNode::print() const {
 	cout << endl;
 }
 
-void CircleNode::display() const {
-	//TODO
+void CircleNode::display(Ui::MainWindow *ui) {
+    if(!need_display) return;
+
+    if(circle == nullptr){ //Initialization
+        circle = new QCPItemEllipse(ui->custom_plot);
+        circle->setAntialiased(true);
+    }
+
+    circle->topLeft->setCoords(center_x-radius, center_y+radius);
+    circle->bottomRight->setCoords(center_x+radius, center_y-radius);
 }
 
 void CircleNode::access(double data[]) const {
@@ -71,22 +79,38 @@ void CircleNode::point_point_point_through() {
 	parents[0]->access(p1);
 	parents[1]->access(p2);
 	parents[2]->access(p3);
-	
-	center_x = ((p1[0]*p1[0] - p3[0]*p3[0]) * (p1[0] - p2[0]) 
-		+ (p1[1]*p1[1]-p3[1]*p3[1]) * (p1[0] - p2[0]) 
-		+ (p2[0]*p2[0]-p1[0]*p1[0]) * (p1[0]-p3[0]) 
-        + (p2[1]*p2[1]-p1[1]*p1[1]) * (p1[0]-p3[0]));
-		
-    center_x /=  2 * ((p3[1]-p1[1]) * (p1[0] - p2[0]) - (p2[1]-p1[1]) * (p1[0]-p3[0]));
-	
-    center_y = ((p1[0]*p1[0] - p3[0]*p3[0]) * (p1[1]-p2[1]) 
-		+ (p1[1]*p1[1]-p3[1]*p3[1]) * (p1[1]-p2[1]) 
-		+ (p2[0]*p2[0]-p1[0]*p1[0]) * (p1[1]-p3[1]) 
-		+ (p2[1]*p2[1]-p1[1]*p1[1]) * (p1[1]-p3[1]));
-		
-	center_y /= 2 * ((p3[0]-p1[0]) * (p1[1]-p2[1]) - (p2[0]-p1[0]) * (p1[1]-p3[1])); 
-	
-	radius = sqrt((p1[0]-center_x)*(p1[0]-center_x) + (p1[1]-center_y)*(p1[1]-center_y));
+
+    double x1=p1[0], x2=p2[0], x3=p3[0];
+    double y1=p1[1], y2=p2[1], y3=p3[1];
+
+    double x12 = x1 - x2;
+    double x13 = x1 - x3;
+    double y12 = y1 - y2;
+    double y13 = y1 - y3;
+    double y31 = y3 - y1;
+    double y21 = y2 - y1;
+    double x31 = x3 - x1;
+    double x21 = x2 - x1;
+
+    double sx13 = pow(x1, 2) - pow(x3, 2);
+    double sy13 = pow(y1, 2) - pow(y3, 2);
+    double sx21 = pow(x2, 2) - pow(x1, 2);
+    double sy21 = pow(y2, 2) - pow(y1, 2);
+
+    double f = ((sx13) * (x12)
+             + (sy13) * (x12)
+             + (sx21) * (x13)
+             + (sy21) * (x13))
+            / (2 * ((y31) * (x12) - (y21) * (x13)));
+    double g = ((sx13) * (y12)
+             + (sy13) * (y12)
+             + (sx21) * (y13)
+             + (sy21) * (y13))
+            / (2 * ((x31) * (y12) - (x21) * (y13)));
+
+    center_x = -g;
+    center_y = -f;
+    radius = sqrt(pow(center_x - x1,2) + pow(center_y - y1,2));
 }
 
 void CircleNode::point_point_center_through(){
