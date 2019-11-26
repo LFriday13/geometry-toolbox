@@ -73,14 +73,17 @@ void PointNode::update() {
     (this->*definition)();
 }
 
-void PointNode::independent() {}
+void PointNode::independent() {
+    well_defined = true;
+}
 
 void PointNode::on_line() {
     double line[3];
     parents[0]->access(line);
-    double t = (line[0] * x + line[1] * y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+    double t = (line[0] * x + line[1] * y + line[2])/(line[0] * line[0] + line[1] * line[1]);
     x -= line[0] * t;
     y -= line[1] * t;
+    well_defined = true;
 }
 
 void PointNode::on_circle() {
@@ -89,6 +92,7 @@ void PointNode::on_circle() {
     double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
     x = circle[0] + (x - circle[0]) * circle[2] / current_radius;
     y = circle[1] + (y - circle[1]) * circle[2] / current_radius;
+    well_defined = true;
 }
 
 void PointNode::point_point_midpoint() {
@@ -97,6 +101,7 @@ void PointNode::point_point_midpoint() {
     parents[1]->access(p2);
     x = (p1[0]+p2[0])/2;
     y = (p1[1]+p2[1])/2;
+    well_defined = true;
 }
 
 void PointNode::line_line_intersection() {
@@ -112,8 +117,9 @@ void PointNode::line_line_intersection() {
     else{
         delta_x = line1[2] * line2[1] - line1[1] * line2[2];
         delta_y = line1[0] * line2[2] - line1[2] * line2[0];
-        x = delta_x / delta;
-        y = delta_y / delta;
+        x = -delta_x / delta;
+        y = -delta_y / delta;
+	well_defined = true;
     }
 }
 
@@ -122,7 +128,7 @@ void PointNode::line_circle_first_intersection() {
 	parents[0]->access(line);
 	parents[1]->access(circle);
 	double project_x = circle[0], project_y = circle[1];
-	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+	double t = (line[0] * project_x + line[1] * project_y + line[2])/(line[0] * line[0] + line[1] * line[1]);
 	project_x -= line[0] * t;
   	project_y -= line[1] * t;
 	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
@@ -134,6 +140,7 @@ void PointNode::line_circle_first_intersection() {
 		double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
 		x = project_x + to_shift * line[0] / normalize_factor;
 		y = project_y + to_shift * line[1] / normalize_factor;
+		well_defined = true;
 	}
 	else
 	{
@@ -146,7 +153,7 @@ void PointNode::line_circle_second_intersection() {
 	parents[0]->access(line);
 	parents[1]->access(circle);
 	double project_x = circle[0], project_y = circle[1];
-	double t = (line[0] * project_x + line[1] * project_y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+	double t = (line[0] * project_x + line[1] * project_y + line[2])/(line[0] * line[0] + line[1] * line[1]);
 	project_x -= line[0] * t;
   	project_y -= line[1] * t;
 	double dist = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
@@ -158,6 +165,7 @@ void PointNode::line_circle_second_intersection() {
 		double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
 		x = project_x - to_shift * line[0] / normalize_factor;
 		y = project_y - to_shift * line[1] / normalize_factor;
+		well_defined = true;
 	}
 	else
 	{
