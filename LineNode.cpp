@@ -119,6 +119,7 @@ void LineNode::point_circle_first_tangent() {
 		well_defined = false;
 		
 	} else {
+		/* Needs corrections
 		double A, B, C;
 		A = circle[0] - point[0];
 		C = point[1] - circle[1];
@@ -130,6 +131,7 @@ void LineNode::point_circle_first_tangent() {
 		x_coeff = (- B + sqrt(B*B - 4*A*C))/(2*A);
 		y_coeff = 1;
 		c_coeff = (-x_coeff)*point[0] - point[1];
+		*/
 	}
 }
 
@@ -147,6 +149,7 @@ void LineNode::point_circle_second_tangent() {
 		well_defined = false;
 		
 	} else {
+		/* Needs corrections
 		double A, B, C;
 		A = circle[0] - point[0];
 		C = point[1] - circle[1];
@@ -158,5 +161,6 @@ void LineNode::point_circle_second_tangent() {
 		x_coeff = (- B - sqrt(B*B - 4*A*C))/(2*A);
 		y_coeff = 1;
 		c_coeff = (-x_coeff)*point[0] - point[1];
+		*/
 	}
 }
