@@ -174,7 +174,7 @@ void PointNode::line_circle_second_intersection() {
 }
 
 
-void circle_circle_first_intersection() {
+void PointNode::circle_circle_first_intersection() {
 	double circle1[3], circle2[3];
 	double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
 	if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
@@ -204,7 +204,7 @@ void circle_circle_first_intersection() {
 	}
 }
 
-void circle_circle_second_intersection() {
+void PointNode::circle_circle_second_intersection() {
 	double circle1[3], circle2[3];
 	double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
 	if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
