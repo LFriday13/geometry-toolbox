@@ -51,6 +51,7 @@ void CircleNode::display(Ui::MainWindow *ui) {
     if(circle == nullptr){ //Initialization
         circle = new QCPItemEllipse(ui->custom_plot);
         circle->setAntialiased(true);
+        circle->setPen(QPen(QColor(120, 120, 120), 2));
     }
 
     circle->topLeft->setCoords(center_x-radius, center_y+radius);

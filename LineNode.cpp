@@ -42,6 +42,7 @@ void LineNode::display(Ui::MainWindow *ui) {
 
     if(line == nullptr){ //Initialization
         line = new QCPItemStraightLine(ui->custom_plot);
+        line->setPen(QPen(QColor(120, 120, 120), 2));
     }
 
     line->point1->setCoords(0, - c_coeff/y_coeff);
