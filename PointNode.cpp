@@ -174,17 +174,62 @@ void PointNode::line_circle_second_intersection() {
 }
 
 
-void PointNode::circle_circle_first_intersection() {
-    //TODO
-    //If the circles do not intersect, set well-defined as false
-    //Otherwise, calculate normally, prefering the solution with a higher y
-    //If the y's are too close, prefer the one with the higher x
+void circle_circle_first_intersection() {
+	double circle1[3], circle2[3];
+	double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
+	if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
+	{
+		well_defined = false;
+	}
+	else
+	{
+		if(circle1[2] < circle2[2])
+		{
+			for(int i = 0; i < 3; i++)
+				std::swap(circle1[i], circle2[i]);
+		}
+		double result_x = circle1[0], result_y = circle1[0];
+		double R = circle1[2], r = circle2[2];
+		double shift_horizontal = (R * R - r * r) / dist;
+		shift_horizontal = (dist + shift_horizontal) / 2;
+		double normalize_factor = dist;
+		result_x = result_x + (circle2[0] - circle1[0]) * shift_horizontal / normalize_factor;
+		result_y = result_y + (circle2[1] - circle1[1]) * shift_horizontal / normalize_factor;
+		double shift_verticle = sqrt(R * R - shift_horizontal * shift_horizontal);
+		result_x = result_x + (circle2[1] - circle1[1]) * shift_verticle / normalize_factor;
+		result_y = result_y - (circle2[0] - circle1[0]) * shift_verticle / normalize_factor;
+		x = result_x;
+		y = result_y;
+		well_defined = true;
+	}
 }
 
-void PointNode::circle_circle_second_intersection() {
-    //TODO
-    //TODO
-    //If the circles do not intersect at a second time, set well-defined as false
-    //Otherwise, calculate normally, prefering the solution with a higher y
-    //If the y's are too close, prefer the one with the higher x
+void circle_circle_second_intersection() {
+	double circle1[3], circle2[3];
+	double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
+	if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
+	{
+		well_defined = false;
+	}
+	else
+	{
+		if(circle1[2] < circle2[2])
+		{
+			for(int i = 0; i < 3; i++)
+				std::swap(circle1[i], circle2[i]);
+		}
+		double result_x = circle1[0], result_y = circle1[0];
+		double R = circle1[2], r = circle2[2];
+		double shift_horizontal = (R * R - r * r) / dist;
+		shift_horizontal = (dist + shift_horizontal) / 2;
+		double normalize_factor = dist;
+		result_x = result_x + (circle2[0] - circle1[0]) * shift_horizontal / normalize_factor;
+		result_y = result_y + (circle2[1] - circle1[1]) * shift_horizontal / normalize_factor;
+		double shift_verticle = -sqrt(R * R - shift_horizontal * shift_horizontal);
+		result_x = result_x + (circle2[1] - circle1[1]) * shift_verticle / normalize_factor;
+		result_y = result_y - (circle2[0] - circle1[0]) * shift_verticle / normalize_factor;
+		x = result_x;
+		y = result_y;
+		well_defined = true;
+	}
 }
