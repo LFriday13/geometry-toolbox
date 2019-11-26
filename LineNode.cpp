@@ -170,11 +170,20 @@ void LineNode::point_circle_second_tangent() {
         k_coeff = 2*delta_x*delta_y;
         c = delta_y*delta_y - radius*radius;
 
-        //Solve for the slope
-        k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+        double discriminant = k_coeff*k_coeff - 4*sk_coeff*c;
+        if(discriminant < std::numeric_limits<double>::epsilon() && discriminant > -std::numeric_limits<double>::epsilon()) {
+            y_coeff = 0;
+            x_coeff = 1;
+            c_coeff = point[1];
+        } else {
+            //Solve for the slope
+            k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
 
-        x_coeff = k;
-        y_coeff = -1;
-        c_coeff = -k*point[0] + point[1];
+            x_coeff = k;
+            y_coeff = -1;
+            c_coeff = -k*point[0] + point[1];
+
+        }
+
 	}
 }
