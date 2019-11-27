@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>571</width>
-    <height>596</height>
+    <width>572</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>571</width>
+     <width>572</width>
      <height>21</height>
     </rect>
    </property>
@@ -39,6 +39,8 @@
      <string>Add Point</string>
     </property>
     <addaction name="actionIndependent"/>
+    <addaction name="actionOn_line"/>
+    <addaction name="actionOn_Circle"/>
     <addaction name="actionMidpoint"/>
    </widget>
    <widget class="QMenu" name="menuAdd_Line">
@@ -63,9 +65,21 @@
     </property>
     <addaction name="actionEdit"/>
    </widget>
+   <widget class="QMenu" name="menuAdd_Triangle">
+    <property name="title">
+     <string>Add Triangle</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuTriangle_Centers">
+    <property name="title">
+     <string>Triangle Centers</string>
+    </property>
+   </widget>
    <addaction name="menuAdd_Point"/>
    <addaction name="menuAdd_Line"/>
    <addaction name="menuAdd_Circle"/>
+   <addaction name="menuAdd_Triangle"/>
+   <addaction name="menuTriangle_Centers"/>
    <addaction name="menuEdit"/>
    <addaction name="menuRemove"/>
   </widget>
@@ -88,6 +102,16 @@
   <action name="actionEdit">
    <property name="text">
     <string>Edit Point</string>
+   </property>
+  </action>
+  <action name="actionOn_line">
+   <property name="text">
+    <string>On line</string>
+   </property>
+  </action>
+  <action name="actionOn_Circle">
+   <property name="text">
+    <string>On Circle</string>
    </property>
   </action>
  </widget>

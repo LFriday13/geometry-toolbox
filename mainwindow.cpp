@@ -10,6 +10,7 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
+    connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
     make_plot();
 }
@@ -84,4 +85,13 @@ void MainWindow::edit() {
         geo_components->display_all_constructions(ui);
         ui->custom_plot->replot();
     }
+}
+
+void MainWindow::remove() {
+    bool ok;
+    int pid = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
+                                     tr("PID:"), 25, 0, 100, 1, &ok);
+    geo_components->remove_construction(pid);
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
 }
