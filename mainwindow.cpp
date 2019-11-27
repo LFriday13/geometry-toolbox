@@ -20,12 +20,13 @@ void MainWindow::make_plot(){
     // Set interactions
     ui->custom_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables);
 
-    geo_components->display_all_constructions(this->ui);
-
     // Layers Setup
+    ui->custom_plot->addLayer("abovemain", ui->custom_plot->layer("main"), QCustomPlot::limAbove);
     ui->custom_plot->addLayer("belowmain", ui->custom_plot->layer("main"), QCustomPlot::limBelow);
     ui->custom_plot->xAxis->grid()->setLayer("belowmain");
     ui->custom_plot->yAxis->grid()->setLayer("belowmain");
+
+    geo_components->display_all_constructions(this->ui);
 
     // set some pens, brushes and backgrounds:
     ui->custom_plot->xAxis->setBasePen(QPen(Qt::white, 1));
