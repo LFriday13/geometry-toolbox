@@ -26,7 +26,7 @@ public:
 
 private:
 	double x_coeff{0}, y_coeff{0}, c_coeff{0};
-    QCPItemStraightLine *line;
+    QCPItemStraightLine *line {nullptr};
 
 	virtual void print() const override;
     virtual void display(Ui::MainWindow* ui) override;

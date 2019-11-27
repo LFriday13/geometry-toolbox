@@ -17,7 +17,7 @@ public:
 
 	void add_construction(GeoNode* geo);
 	void edit_construction(unsigned int pid, double data[]);
-	void remove_construction(unsigned int pid);
+    void remove_construction(unsigned int pid);
     void print_all_constructions();
     void display_all_constructions(Ui::MainWindow *ui);
     GeoNode* get_construction(unsigned int pid);

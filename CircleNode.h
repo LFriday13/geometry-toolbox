@@ -25,7 +25,7 @@ public:
 
 private:
 	double center_x{0}, center_y{0}, radius{0};
-    QCPItemEllipse *circle;
+    QCPItemEllipse *circle {nullptr};
 
 	virtual void print() const override;
     virtual void display(Ui::MainWindow* ui) override;

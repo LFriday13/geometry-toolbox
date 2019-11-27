@@ -33,7 +33,10 @@ CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* g
 	(this->*definition)();
 }
 
-CircleNode::~CircleNode() {}
+CircleNode::~CircleNode() {
+    if(circle != nullptr)
+        (circle->parentPlot())->removeItem(circle);
+}
 
 void CircleNode::print() const {
 	cout << "----------------------------------------\n";
@@ -46,8 +49,6 @@ void CircleNode::print() const {
 }
 
 void CircleNode::display(Ui::MainWindow *ui) {
-    if(!need_display) return;
-
     if(circle == nullptr){ //Initialization
         circle = new QCPItemEllipse(ui->custom_plot);
         circle->setAntialiased(true);

@@ -8,6 +8,9 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
 {
     this->geo_components = geo_components;
     ui->setupUi(this);
+
+    connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
+
     make_plot();
 }
 
@@ -65,4 +68,20 @@ void MainWindow::make_plot(){
     ui->custom_plot->rescaleAxes();
     ui->custom_plot->yAxis->setRange(-100, 100);
     ui->custom_plot->xAxis->setRange(-100, 100);
+}
+
+void MainWindow::edit() {
+    bool ok;
+    int pid = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"),
+                                     tr("PID:"), 25, 0, 100, 1, &ok);
+    if(pid >= 0){
+        double coor[2];
+        coor[0]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"),
+                                      tr("x coordinate:"), 25, -100, 100, 1, &ok);
+        coor[1]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"),
+                                      tr("y coordinate:"), 25, -100, 100, 1, &ok);
+        geo_components->edit_construction(pid, coor);
+        geo_components->display_all_constructions(ui);
+        ui->custom_plot->replot();
+    }
 }

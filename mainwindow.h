@@ -21,6 +21,7 @@ public:
 
 private slots:
     void make_plot();
+    void edit();
     // A lot of buttons or menus
 
 private:

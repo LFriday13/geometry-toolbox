@@ -25,7 +25,10 @@ LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 	(this->*definition)();
 }
 
-LineNode::~LineNode() {}
+LineNode::~LineNode() {
+    if(line != nullptr)
+        (line->parentPlot())->removeItem(line);
+}
 
 void LineNode::print() const {
 	cout << "----------------------------------------\n";
@@ -38,8 +41,6 @@ void LineNode::print() const {
 }
 
 void LineNode::display(Ui::MainWindow *ui) {
-    if(!need_display) return;
-
     if(line == nullptr){ //Initialization
         line = new QCPItemStraightLine(ui->custom_plot);
         line->setPen(QPen(QColor(120, 120, 120), 2));

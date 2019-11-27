@@ -42,7 +42,10 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) 
     (this->*definition)();
 }
 
-PointNode::~PointNode() {}
+PointNode::~PointNode() {
+    if(point != nullptr)
+        (point->parentPlot())->removeGraph(point);
+}
 
 void PointNode::print() const {
     cout << "----------------------------------------\n";
@@ -55,13 +58,12 @@ void PointNode::print() const {
 }
 
 void PointNode::display(Ui::MainWindow *ui) {
-    if(!need_display) return;
-
     if(point == nullptr){ //Initialization
         point = ui->custom_plot->addGraph();
         point->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1.5), QBrush(Qt::white), 9));
         point->setPen(QPen(QColor(120, 120, 120), 2));
         point->setLayer("abovemain");
+        point->selectionDecorator()->setPen(QPen(Qt::red, 1.5));
     }
 
     point->data()->clear();

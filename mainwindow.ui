@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>571</width>
-    <height>594</height>
+    <height>596</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,8 +34,62 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAdd_Point">
+    <property name="title">
+     <string>Add Point</string>
+    </property>
+    <addaction name="actionIndependent"/>
+    <addaction name="actionMidpoint"/>
+   </widget>
+   <widget class="QMenu" name="menuAdd_Line">
+    <property name="title">
+     <string>Add Line</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAdd_Circle">
+    <property name="title">
+     <string>Add Circle</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuRemove">
+    <property name="title">
+     <string>Remove</string>
+    </property>
+    <addaction name="actionRemove"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionEdit"/>
+   </widget>
+   <addaction name="menuAdd_Point"/>
+   <addaction name="menuAdd_Line"/>
+   <addaction name="menuAdd_Circle"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuRemove"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionIndependent">
+   <property name="text">
+    <string>Independent</string>
+   </property>
+  </action>
+  <action name="actionMidpoint">
+   <property name="text">
+    <string>Midpoint</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove Construction</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit Point</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
