@@ -7,41 +7,53 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //Set GeoComponents object
     this->geo_components = geo_components;
+
+    //Setup Ui
     ui->setupUi(this);
 
+    //Connect on ClickGraph for displaying Info
+    connect(ui->custom_plot, SIGNAL(plottableClick(QCPAbstractPlottable*,int,QMouseEvent*)), this, SLOT(graphClicked(QCPAbstractPlottable*)));
+    connect(ui->custom_plot, SIGNAL(itemClick(QCPAbstractItem*, QMouseEvent*)), this, SLOT(itemClicked(QCPAbstractItem*)));
+
+    //Setup Connections for Click&Drag
+    connect(ui->custom_plot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(onMousePress(QMouseEvent*)));
+    connect(ui->custom_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
+    connect(ui->custom_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease()));
+
+    //Connect the Actions of the Menus
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
-    connect(ui->custom_plot, SIGNAL(plottableClick(QCPAbstractPlottable*,int,QMouseEvent*)), this, SLOT(graphClicked(QCPAbstractPlottable*)));
-
-    connect(ui->custom_plot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(onMousePress(QMouseEvent*)));
-    connect(ui->custom_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
-    connect(ui->custom_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease(QMouseEvent*)));
-
+    //Draw the plot
     make_plot();
 }
 
 
 MainWindow::~MainWindow()
 {
-    delete geo_components;
+    delete geo_components; // Deleted Geo_Components here, in reality only figure pointers need to be cleaned...
+
     delete ui;
 }
 
 void MainWindow::make_plot(){
     // Set interactions
-    ui->custom_plot->setInteractions(QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables);
+    ui->custom_plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectAxes | QCP::iSelectPlottables | QCP::iSelectItems);
 
     // Layers Setup
-    ui->custom_plot->addLayer("abovemain", ui->custom_plot->layer("main"), QCustomPlot::limAbove);
-    ui->custom_plot->addLayer("belowmain", ui->custom_plot->layer("main"), QCustomPlot::limBelow);
-    ui->custom_plot->xAxis->grid()->setLayer("belowmain");
-    ui->custom_plot->yAxis->grid()->setLayer("belowmain");
+    ui->custom_plot->addLayer("front", ui->custom_plot->layer("main"), QCustomPlot::limAbove);
+    ui->custom_plot->addLayer("back", ui->custom_plot->layer("main"), QCustomPlot::limBelow);
 
+    // Send axis to the back
+    ui->custom_plot->xAxis->grid()->setLayer("back");
+    ui->custom_plot->yAxis->grid()->setLayer("back");
+
+    // Draw the constructions
     geo_components->display_all_constructions(this->ui);
 
-    // set some pens, brushes and backgrounds:
+    // Set some pens, brushes and backgrounds
     ui->custom_plot->xAxis->setBasePen(QPen(Qt::white, 1));
     ui->custom_plot->yAxis->setBasePen(QPen(Qt::white, 1));
     ui->custom_plot->xAxis->setTickPen(QPen(Qt::white, 1));
@@ -61,6 +73,7 @@ void MainWindow::make_plot(){
     ui->custom_plot->xAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
     ui->custom_plot->yAxis->setUpperEnding(QCPLineEnding::esSpikeArrow);
 
+    // Backgrounds
     QLinearGradient plotGradient;
     plotGradient.setStart(0, 0);
     plotGradient.setFinalStop(0, 350);
@@ -75,62 +88,56 @@ void MainWindow::make_plot(){
     axisRectGradient.setColorAt(1, QColor(30, 30, 30));
     ui->custom_plot->axisRect()->setBackground(axisRectGradient);
 
+    // Scaling of the axis (Proportion should probably be fixed 1:1 [corresponding to the window?])
     ui->custom_plot->rescaleAxes();
     ui->custom_plot->yAxis->setRange(-100, 100);
     ui->custom_plot->xAxis->setRange(-100, 100);
 }
 
-void MainWindow::edit() {
-    bool ok;
-    int pid = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"), tr("PID:"), 25, 0, 100, 1, &ok);
-    if(pid >= 0){
-        double coor[2];
-        coor[0]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("x coordinate:"), 25, -100, 100, 1, &ok);
-        coor[1]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("y coordinate:"), 25, -100, 100, 1, &ok);
-        geo_components->edit_construction(pid, coor);
-        geo_components->display_all_constructions(ui);
-        ui->custom_plot->replot();
+// Display Info of Point Clicked
+void MainWindow::graphClicked(QCPAbstractPlottable *plottable) {
+    QCPGraph *point = qobject_cast<QCPGraph*>(plottable);
+    if(point){
+        double value = point->interface1D()->dataMainValue(0);
+        double key = point->interface1D()->dataMainKey(0);
+        QString message = QString("Selected point '%1' with coordinates (%2,%3).").arg(point->name()).arg(key).arg(value);
+        ui->statusbar->showMessage(message, 3000);
+        return;
     }
 }
 
-void MainWindow::remove() {
-    bool ok;
-    int pid = QInputDialog::getInt(this, tr("QInputDialog::getInteger()"), tr("PID:"), 25, 0, 100, 1, &ok);
-    geo_components->remove_construction(pid);
-    geo_components->display_all_constructions(ui);
-    ui->custom_plot->replot();
+// Display Info of Item Clicked
+void MainWindow::itemClicked(QCPAbstractItem *item){
+    QCPItemStraightLine *line = qobject_cast<QCPItemStraightLine*>(item);
+    if(line){
+
+        QString message = QString("Selected line '%1'.").arg("");
+        ui->statusbar->showMessage(message, 3000);
+        return;
+    }
+
+    QCPItemEllipse *circle = qobject_cast<QCPItemEllipse*>(item);
+    if(circle){
+        QString message = QString("Selected circle '%1'.").arg("");
+        ui->statusbar->showMessage(message, 3000);
+        return;
+    }
 }
 
-void MainWindow::graphClicked(QCPAbstractPlottable* point) {
-    selected = qobject_cast<QCPGraph*>(point);
-    double value = selected->interface1D()->dataMainValue(0);
-    double key = selected->interface1D()->dataMainKey(0);
-    QString message = QString("Selected point '%1' with coordinates (%2,%3).").arg(selected->name()).arg(key).arg(value);
-    ui->statusbar->showMessage(message, 2500);
-}
-
-void MainWindow::add_point_independent() {
-   //TODO
-}
-
-void MainWindow::add_point(int type, double x, double y, std::string label) {
-    geo_components->add_construction(new PointNode(static_cast<PointType>(type), x, y), label);
-}
-
+// Drag&Drop Functions
 void MainWindow::onMousePress(QMouseEvent* event){
     if(event->button() == Qt::LeftButton){
         QCPAbstractPlottable *plottable = ui->custom_plot->plottableAt(event->pos());
         if(plottable){
-           QCPGraph *graph = qobject_cast<QCPGraph*>(plottable);
-           if(graph){
-               std::string label = graph->name().toStdString();
-               this->edit_pid = geo_components->get_pid(label);
-               QString message = QString("Selected point '%1'").arg(edit_pid);
-               ui->statusbar->showMessage(message, 2500);
+            QCPGraph *graph = qobject_cast<QCPGraph*>(plottable);
+            if(graph){
+                ui->custom_plot->setInteraction(QCP::iRangeDrag, false);
+                std::string label = graph->name().toStdString();
+                this->point_to_drag = geo_components->get_pid(label);
+                QString message = QString("Dragging point '%1'").arg(QString::fromStdString(label));
+                ui->statusbar->showMessage(message);
            }
         }
-    } else {
-        //TODO
     }
 }
 
@@ -139,13 +146,82 @@ void MainWindow::onMouseMove(QMouseEvent* event){
     data[0] = this->ui->custom_plot->xAxis->pixelToCoord(event->pos().x());
     data[1] = this->ui->custom_plot->yAxis->pixelToCoord(event->pos().y());
 
-    if(edit_pid >= 0){
-        geo_components->edit_construction(static_cast<unsigned int>(edit_pid), data);
+    if(point_to_drag >= 0){
+        geo_components->edit_construction(static_cast<unsigned int>(point_to_drag), data);
         geo_components->display_all_constructions(ui);
         ui->custom_plot->replot();
     }
 }
 
-void MainWindow::onMouseRelease(QMouseEvent* event){
-    edit_pid = -1;
+void MainWindow::onMouseRelease(){
+    if(point_to_drag >= 0){
+        point_to_drag = -1;
+        ui->custom_plot->setInteraction(QCP::iRangeDrag, true);
+        ui->statusbar->clearMessage();
+    }
+}
+
+// Construction Creation Slots (This way dialogs only need to emit a signal for creation)
+    // Points
+void MainWindow::add_point(int type, double x, double y, std::string label) {
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), x, y), label);
+}
+
+void MainWindow::add_point(int type, GeoNode *geo, double x, double y, std::string label){
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), geo, x, y), label);
+}
+
+void MainWindow::add_point(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), geo1, geo2), label);
+}
+
+    // Lines
+void MainWindow::add_line(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new LineNode(static_cast<LineType>(type), geo1, geo2), label);
+}
+
+    // Circles
+void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2), label);
+}
+
+void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, GeoNode *geo3, std::string label){
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2, geo3), label);
+}
+
+
+// Actions of the menus
+void MainWindow::add_point_independent() {
+   //TODO
+}
+
+void MainWindow::edit() {
+    bool ok;
+    std::string label = (QInputDialog::getText(this,tr("Edit Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();
+    int to_edit = geo_components->get_pid(label);
+    if(to_edit >= 0){
+        double coor[2];
+        coor[0]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("x coordinate:"), 0, -100, 100, 2, &ok);
+        coor[1]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("y coordinate:"), 0, -100, 100, 2, &ok);
+        geo_components->edit_construction(static_cast<unsigned int>(to_edit),coor);
+        geo_components->display_all_constructions(ui);
+        ui->custom_plot->replot();
+    }
+}
+
+void MainWindow::remove() {
+    bool ok;
+    std::string label = (QInputDialog::getText(this,tr("Remove Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();
+    int to_remove = geo_components->get_pid(label);
+    if(to_remove >= 0){
+        geo_components->remove_construction(static_cast<unsigned int>(to_remove));
+        geo_components->display_all_constructions(ui);
+        ui->custom_plot->replot();
+    }
 }
