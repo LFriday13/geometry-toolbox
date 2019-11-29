@@ -42,16 +42,26 @@
     <addaction name="actionOn_line"/>
     <addaction name="actionOn_Circle"/>
     <addaction name="actionMidpoint"/>
+    <addaction name="actionIntersect"/>
+    <addaction name="actionSecond_Intersect"/>
    </widget>
    <widget class="QMenu" name="menuAdd_Line">
     <property name="title">
      <string>Add Line</string>
     </property>
+    <addaction name="actionNew_Line"/>
+    <addaction name="actionParallel"/>
+    <addaction name="actionPerpendicular_Bisector"/>
+    <addaction name="actionFirst_Tangent"/>
+    <addaction name="actionSecond_Tangent"/>
    </widget>
    <widget class="QMenu" name="menuAdd_Circle">
     <property name="title">
      <string>Add Circle</string>
     </property>
+    <addaction name="actionNew_Circle"/>
+    <addaction name="actionCenter_and_Radius"/>
+    <addaction name="actionCenter_and_Point"/>
    </widget>
    <widget class="QMenu" name="menuRemove">
     <property name="title">
@@ -86,7 +96,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionIndependent">
    <property name="text">
-    <string>Independent</string>
+    <string>New Point</string>
    </property>
   </action>
   <action name="actionMidpoint">
@@ -106,12 +116,62 @@
   </action>
   <action name="actionOn_line">
    <property name="text">
-    <string>On line</string>
+    <string>Point on Line</string>
    </property>
   </action>
   <action name="actionOn_Circle">
    <property name="text">
-    <string>On Circle</string>
+    <string>Point on Circle</string>
+   </property>
+  </action>
+  <action name="actionIntersect">
+   <property name="text">
+    <string>Intersect</string>
+   </property>
+  </action>
+  <action name="actionSecond_Intersect">
+   <property name="text">
+    <string>Second Intersect</string>
+   </property>
+  </action>
+  <action name="actionParallel">
+   <property name="text">
+    <string>Parallel Line</string>
+   </property>
+  </action>
+  <action name="actionNew_Line">
+   <property name="text">
+    <string>New Line</string>
+   </property>
+  </action>
+  <action name="actionPerpendicular_Bisector">
+   <property name="text">
+    <string>Perpendicular Bisector</string>
+   </property>
+  </action>
+  <action name="actionFirst_Tangent">
+   <property name="text">
+    <string>First Tangent</string>
+   </property>
+  </action>
+  <action name="actionSecond_Tangent">
+   <property name="text">
+    <string>Second Tangent</string>
+   </property>
+  </action>
+  <action name="actionNew_Circle">
+   <property name="text">
+    <string>New Circle</string>
+   </property>
+  </action>
+  <action name="actionCenter_and_Radius">
+   <property name="text">
+    <string>Center and Radius</string>
+   </property>
+  </action>
+  <action name="actionCenter_and_Point">
+   <property name="text">
+    <string>Center and Point</string>
    </property>
   </action>
  </widget>

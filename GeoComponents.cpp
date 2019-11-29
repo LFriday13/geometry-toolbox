@@ -14,9 +14,15 @@ GeoComponents::~GeoComponents() {
 	}
 }
 
-void GeoComponents::add_construction(GeoNode* geo) {
+void GeoComponents::add_construction(GeoNode* geo, string label) {
 	if (geo->well_defined) {
 		geo->pid = next_pid++;
+        if(label != ""){
+            geo->label = label;
+        } else {
+            geo->label = "default_";
+            geo->label = geo->label + std::to_string(next_label++);
+        }
 		geo_components.push_back(geo);	
 	} else {
 		delete geo;
@@ -128,4 +134,13 @@ GeoNode* GeoComponents::get_construction(unsigned int pid){
     }
 
     return nullptr;
+}
+
+int GeoComponents::get_pid(string label){
+    for (auto it = begin(geo_components); it != end(geo_components); ++it){
+        if((*it)->label == label)
+            return (*it)->pid;
+    }
+
+    return -1;
 }

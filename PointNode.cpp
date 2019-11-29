@@ -63,7 +63,7 @@ void PointNode::display(Ui::MainWindow *ui) {
         point->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1.5), QBrush(Qt::white), 9));
         point->setPen(QPen(QColor(120, 120, 120), 2));
         point->setLayer("abovemain");
-        point->selectionDecorator()->setPen(QPen(Qt::red, 1.5));
+        point->setName(QString::fromStdString(this->get_label()));
     }
 
     point->data()->clear();

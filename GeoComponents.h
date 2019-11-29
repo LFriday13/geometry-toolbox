@@ -15,16 +15,18 @@ public:
 	GeoComponents();
 	virtual ~GeoComponents();
 
-	void add_construction(GeoNode* geo);
+    void add_construction(GeoNode* geo, string label = "");
 	void edit_construction(unsigned int pid, double data[]);
     void remove_construction(unsigned int pid);
     void print_all_constructions();
     void display_all_constructions(Ui::MainWindow *ui);
     GeoNode* get_construction(unsigned int pid);
+    int get_pid(string label);
 
 private:
 	vector <GeoNode*> geo_components;
 	unsigned int next_pid {0};
+    unsigned int next_label {0};
 };
 
 #endif /* GEOCOMPONENTS_H_ */

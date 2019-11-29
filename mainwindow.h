@@ -20,15 +20,30 @@ public:
     ~MainWindow();
 
 private slots:
+    void add_point(int, double, double, std::string);
+//    void add_point(int, GeoNode*, double, double, std::string);
+//    void add_point(int, GeoNode*, GeoNode*);
+//    void add_line(int, GeoNode*, GeoNode*, std::string);
+//    void add_circle(int, GeoNode*, GeoNode*, std::string);
+//    void add_circle(int, GeoNode*, GeoNode*, GeoNode*, std::string);
+
+    void onMousePress(QMouseEvent*);
+    void onMouseMove(QMouseEvent*);
+    void onMouseRelease(QMouseEvent*);
+
+    void graphClicked(QCPAbstractPlottable* point);
+
     void make_plot();
     void edit();
     void remove();
-    // A lot of buttons or menus
+
+    void add_point_independent();
 
 private:
-    // a lot of dialog boxes
+    int edit_pid {-1};
 
     Ui::MainWindow *ui;
+    QCPGraph *selected {nullptr};
     GeoComponents* geo_components;
     vector<string> point_labels, line_labels, circle_labels;
 

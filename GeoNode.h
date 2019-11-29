@@ -15,7 +15,7 @@ class GeoNode {
 	friend class GeoComponents;
 
 public:
-	GeoNode(int num_parents = 0);
+    GeoNode(int num_parents = 0);
 	virtual ~GeoNode();
 
 	virtual void access(double data[]) const = 0;
@@ -28,7 +28,7 @@ private:
 	virtual void update() = 0;
 
 	unsigned int pid {0};
-	string label {""};
+    string label {""};
 
 protected:
 	const int num_parents {0};
