@@ -6,6 +6,8 @@
 #include "addpointon.h"
 #include "addpointoncircle.h"
 #include "addpointmidpoint.h"
+#include "addpointintersect.h"
+#include "addpointsecondintersect.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
@@ -32,6 +34,9 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     connect(ui->actionOn_line, SIGNAL(triggered()), this, SLOT(add_point_on_line()));
     connect(ui->actionOn_Circle, SIGNAL(triggered()), this, SLOT(add_point_on_circle()));
     connect(ui->actionMidpoint, SIGNAL(triggered()), this, SLOT(add_point_midpoint()));
+    connect(ui->actionIntersect, SIGNAL(triggered()), this, SLOT(add_point_intersect()));
+    connect(ui->actionSecond_Intersect, SIGNAL(triggered()), this, SLOT(add_point_second_intersect()));
+
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
@@ -267,41 +272,45 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
 
 
 // Actions of the menus
-    // Points
+// Points
 void MainWindow::add_point_independent() {
-   AddPointIndependent *dialog = new AddPointIndependent(this);
-   dialog->show();
+   AddPointIndependent *Add_Point = new AddPointIndependent(this);
+   Add_Point->show();
 }
 
 void MainWindow::add_point_on_line() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
-   AddPointOn *dialog = new AddPointOn(&line_labels, this);
-   dialog->show();
+   AddPointOn *Add_Point = new AddPointOn(&line_labels, this);
+   Add_Point->show();
 }
 
 void MainWindow::add_point_on_circle() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
-   AddPointOnCircle *dialog = new AddPointOnCircle(&circle_labels, this);
-   dialog->show();
+   AddPointOnCircle *Add_Point = new AddPointOnCircle(&circle_labels, this);
+   Add_Point->show();
 }
 
 void MainWindow::add_point_midpoint() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
-   AddPointMidpoint *dialog = new AddPointMidpoint(&point_labels, this);
-   dialog->show();
+   AddPointMidpoint *Add_Point = new AddPointMidpoint(&point_labels, this);
+   Add_Point->show();
 }
 
 void MainWindow::add_point_intersect() {
-   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
+    AddPointIntersect *Add_Point = new AddPointIntersect(&line_labels, &circle_labels, this);
+    Add_Point->show();
 }
 
 void MainWindow::add_point_second_intersect() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
+   AddPointSecondIntersect *Add_Point = new AddPointSecondIntersect(&line_labels, &circle_labels, this);
+   Add_Point->show();
 }
 
     // Edit

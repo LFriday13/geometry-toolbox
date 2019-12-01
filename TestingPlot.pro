@@ -22,9 +22,11 @@ SOURCES += \
     LineNode.cpp \
     PointNode.cpp \
     addpointindependent.cpp \
+    addpointintersect.cpp \
     addpointmidpoint.cpp \
     addpointon.cpp \
     addpointoncircle.cpp \
+    addpointsecondintersect.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
@@ -36,17 +38,21 @@ HEADERS += \
     LineNode.h \
     PointNode.h \
     addpointindependent.h \
+    addpointintersect.h \
     addpointmidpoint.h \
     addpointon.h \
     addpointoncircle.h \
+    addpointsecondintersect.h \
     mainwindow.h \
     qcustomplot.h
 
 FORMS += \
     addpointindependent.ui \
+    addpointintersect.ui \
     addpointmidpoint.ui \
     addpointon.ui \
     addpointoncircle.ui \
+    addpointsecondintersect.ui \
     mainwindow.ui
 
 # Default rules for deployment.
