@@ -4,6 +4,8 @@
 
 #include "addpointindependent.h"
 #include "addpointon.h"
+#include "addpointoncircle.h"
+#include "addpointmidpoint.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
@@ -28,6 +30,8 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     //Connect the Actions of the Menus
     connect(ui->actionIndependent, SIGNAL(triggered()), this, SLOT(add_point_independent()));
     connect(ui->actionOn_line, SIGNAL(triggered()), this, SLOT(add_point_on_line()));
+    connect(ui->actionOn_Circle, SIGNAL(triggered()), this, SLOT(add_point_on_circle()));
+    connect(ui->actionMidpoint, SIGNAL(triggered()), this, SLOT(add_point_midpoint()));
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
@@ -174,6 +178,7 @@ void MainWindow::onMouseRelease(){
 // Points
 void MainWindow::add_point(int type, double x, double y, std::string label) {
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), x, y), label);
 
     geo_components->display_all_constructions(ui);
@@ -184,10 +189,11 @@ void MainWindow::add_point(int type, double x, double y, std::string label) {
 }
 
 void MainWindow::add_point(int type, std::string geo, double x, double y, std::string label){
-    GeoNode* father = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    GeoNode* parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new PointNode(static_cast<PointType>(type), father, x, y), label);
+
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), parent_1, x, y), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -196,9 +202,13 @@ void MainWindow::add_point(int type, std::string geo, double x, double y, std::s
     ui->statusbar->showMessage(message,3000);
 }
 
-void MainWindow::add_point(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::string label){
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
+    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new PointNode(static_cast<PointType>(type), geo1, geo2), label);
+
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), parent_1, parent_2), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -207,10 +217,14 @@ void MainWindow::add_point(int type, GeoNode *geo1, GeoNode *geo2, std::string l
     ui->statusbar->showMessage(message,3000);
 }
 
-    // Lines
-void MainWindow::add_line(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+// Lines
+void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::string label){
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
+    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new LineNode(static_cast<LineType>(type), geo1, geo2), label);
+
+    geo_components->add_construction(new LineNode(static_cast<LineType>(type), parent_1, parent_2), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -219,10 +233,14 @@ void MainWindow::add_line(int type, GeoNode *geo1, GeoNode *geo2, std::string la
     ui->statusbar->showMessage(message,3000);
 }
 
-    // Circles
-void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
+// Circles
+void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string label){
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
+    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2), label);
+
+    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), parent_1, parent_2), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -231,9 +249,14 @@ void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, std::string 
     ui->statusbar->showMessage(message,3000);
 }
 
-void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, GeoNode *geo3, std::string label){
+void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string geo3, std::string label){
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
+    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2, geo3), label);
+
+    geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), parent_1, parent_2, parent_3), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -252,8 +275,33 @@ void MainWindow::add_point_independent() {
 
 void MainWindow::add_point_on_line() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+
    AddPointOn *dialog = new AddPointOn(&line_labels, this);
    dialog->show();
+}
+
+void MainWindow::add_point_on_circle() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+
+   AddPointOnCircle *dialog = new AddPointOnCircle(&circle_labels, this);
+   dialog->show();
+}
+
+void MainWindow::add_point_midpoint() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+
+   AddPointMidpoint *dialog = new AddPointMidpoint(&point_labels, this);
+   dialog->show();
+}
+
+void MainWindow::add_point_intersect() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+
+}
+
+void MainWindow::add_point_second_intersect() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+
 }
 
     // Edit

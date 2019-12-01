@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddPointOn</class>
- <widget class="QDialog" name="AddPointOn">
+ <class>AddPointMidpoint</class>
+ <widget class="QDialog" name="AddPointMidpoint">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>170</width>
-    <height>149</height>
+    <width>180</width>
+    <height>133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-10</x>
-     <y>110</y>
-     <width>171</width>
+     <x>10</x>
+     <y>90</y>
+     <width>160</width>
      <height>32</height>
     </rect>
    </property>
@@ -32,16 +32,13 @@
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>0</y>
      <width>160</width>
-     <height>100</height>
+     <height>80</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
-    <property name="labelAlignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
     <item row="0" column="0">
      <widget class="QLabel" name="labelLabel">
       <property name="text">
@@ -53,34 +50,24 @@
      <widget class="QLineEdit" name="labelLineEdit"/>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="lineLabel">
+     <widget class="QLabel" name="point1Label">
       <property name="text">
-       <string>Line:</string>
+       <string>Point 1:</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QComboBox" name="lineComboBox"/>
+     <widget class="QComboBox" name="point1ComboBox"/>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="xLabel">
+     <widget class="QLabel" name="point2Label">
       <property name="text">
-       <string>x:</string>
+       <string>Point 2:</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="xLineEdit"/>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="yLabel">
-      <property name="text">
-       <string>y:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="yLineEdit"/>
+     <widget class="QComboBox" name="point2ComboBox"/>
     </item>
    </layout>
   </widget>
@@ -90,7 +77,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>AddPointOn</receiver>
+   <receiver>AddPointMidpoint</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -106,7 +93,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>AddPointOn</receiver>
+   <receiver>AddPointMidpoint</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

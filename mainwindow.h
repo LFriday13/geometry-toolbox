@@ -22,10 +22,10 @@ public:
 private slots:
     void add_point(int, double, double, std::string);
     void add_point(int, std::string, double, double, std::string);
-    void add_point(int, GeoNode*, GeoNode*, std::string);
-    void add_line(int, GeoNode*, GeoNode*, std::string);
-    void add_circle(int, GeoNode*, GeoNode*, std::string);
-    void add_circle(int, GeoNode*, GeoNode*, GeoNode*, std::string);
+    void add_point(int, std::string, std::string, std::string);
+    void add_line(int, std::string, std::string, std::string);
+    void add_circle(int, std::string, std::string, std::string);
+    void add_circle(int, std::string, std::string, std::string, std::string);
 
     void onMousePress(QMouseEvent*);
     void onMouseMove(QMouseEvent*);
@@ -40,6 +40,10 @@ private slots:
 
     void add_point_independent();
     void add_point_on_line();
+    void add_point_on_circle();
+    void add_point_midpoint();
+    void add_point_intersect();
+    void add_point_second_intersect();
 
 private:
     Ui::MainWindow *ui;

@@ -1,19 +1,19 @@
-#ifndef ADDPOINTON_H
-#define ADDPOINTON_H
+#ifndef ADDPOINTONCIRCLE_H
+#define ADDPOINTONCIRCLE_H
 
 #include <QDialog>
 
 namespace Ui {
-class AddPointOn;
+class AddPointOnCircle;
 }
 
-class AddPointOn : public QDialog
+class AddPointOnCircle : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit AddPointOn(std::vector<std::string>* lines, QWidget *parent = nullptr);
-    ~AddPointOn();
+    explicit AddPointOnCircle(std::vector<std::string> *circles, QWidget *parent = nullptr);
+    ~AddPointOnCircle();
 
 signals:
     void add_point(int, std::string, double, double, std::string);
@@ -21,22 +21,20 @@ signals:
 private slots:
     void on_labelLineEdit_textEdited(const QString &arg1);
 
-    void on_lineComboBox_currentIndexChanged(int index);
-
     void on_xLineEdit_textEdited(const QString &arg1);
 
     void on_yLineEdit_textEdited(const QString &arg1);
 
     void on_buttonBox_accepted();
 
-    void on_lineComboBox_currentTextChanged(const QString &arg1);
+    void on_circleComboBox_currentTextChanged(const QString &arg1);
 
 private:
-    Ui::AddPointOn *ui;
+    Ui::AddPointOnCircle *ui;
 
     std::string label;
     double x,y;
     std::string geo;
 };
 
-#endif // ADDPOINTON_H
+#endif // ADDPOINTONCIRCLE_H
