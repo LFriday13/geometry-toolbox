@@ -136,3 +136,7 @@ void CircleNode::point_point_point_center_radius(){
 	
 	radius = sqrt((p3[0] - p2[0])*(p3[0] - p2[0]) + (p3[1] - p2[1])*(p3[1] - p3[1]));
 }
+
+void CircleNode::labels(vector<string>*, vector<string>*, vector<string>* circle_labels) const {
+    circle_labels->push_back(this->get_label());
+}

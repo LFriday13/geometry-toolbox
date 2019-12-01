@@ -90,7 +90,7 @@ void PointNode::independent() {}
 void PointNode::on_line() {
     double line[3];
     parents[0]->access(line);
-    double t = (line[0] * x + line[1] * y - line[2])/(line[0] * line[0] + line[1] * line[1]);
+    double t = (line[0] * x + line[1] * y + line[2])/(line[0] * line[0] + line[1] * line[1]);
     x -= line[0] * t;
     y -= line[1] * t;
 }
@@ -236,4 +236,8 @@ void PointNode::circle_circle_second_intersection() {
         y = result_y;
         well_defined = true;
     }
+}
+
+void PointNode::labels(vector<string>* point_labels, vector<string>*, vector<string>*) const {
+    point_labels->push_back(this->get_label());
 }

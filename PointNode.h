@@ -34,11 +34,11 @@ private:
 	double x{0}, y{0};
     QCPGraph *point {nullptr};
 
-	virtual void print() const override;
-
+    virtual void print() const override;
     virtual void display(Ui::MainWindow* ui) override;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*) const override;
 
-	virtual void access(double data[]) const override;
+    virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
 
 	virtual void update() override;

@@ -21,6 +21,8 @@ SOURCES += \
     GeoNode.cpp \
     LineNode.cpp \
     PointNode.cpp \
+    addpointindependent.cpp \
+    addpointon.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
@@ -31,10 +33,14 @@ HEADERS += \
     GeoNode.h \
     LineNode.h \
     PointNode.h \
+    addpointindependent.h \
+    addpointon.h \
     mainwindow.h \
     qcustomplot.h
 
 FORMS += \
+    addpointindependent.ui \
+    addpointon.ui \
     mainwindow.ui
 
 # Default rules for deployment.

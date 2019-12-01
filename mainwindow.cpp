@@ -1,14 +1,17 @@
 #include "mainwindow.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include "addpointindependent.h"
-#include "ui_addpointindependent.h"
+#include "addpointon.h"
+
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     //Set GeoComponents object
     this->geo_components = geo_components;
+    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
 
     //Setup Ui
     ui->setupUi(this);
@@ -23,6 +26,8 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     connect(ui->custom_plot, SIGNAL(mouseRelease(QMouseEvent*)), this, SLOT(onMouseRelease()));
 
     //Connect the Actions of the Menus
+    connect(ui->actionIndependent, SIGNAL(triggered()), this, SLOT(add_point_independent()));
+    connect(ui->actionOn_line, SIGNAL(triggered()), this, SLOT(add_point_on_line()));
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
@@ -90,8 +95,8 @@ void MainWindow::make_plot(){
 
     // Scaling of the axis (Proportion should probably be fixed 1:1 [corresponding to the window?])
     ui->custom_plot->rescaleAxes();
-    ui->custom_plot->yAxis->setRange(-100, 100);
-    ui->custom_plot->xAxis->setRange(-100, 100);
+    ui->custom_plot->yAxis->setRange(-default_range, default_range);
+    ui->custom_plot->xAxis->setRange(-default_range, default_range);
 }
 
 // Display Info of Point Clicked
@@ -110,15 +115,18 @@ void MainWindow::graphClicked(QCPAbstractPlottable *plottable) {
 void MainWindow::itemClicked(QCPAbstractItem *item){
     QCPItemStraightLine *line = qobject_cast<QCPItemStraightLine*>(item);
     if(line){
-
-        QString message = QString("Selected line '%1'.").arg("");
+        //TODO: Resolve Line Name
+        std::string name = "";
+        QString message = QString("Selected line '%1'.").arg(QString::fromStdString(name));
         ui->statusbar->showMessage(message, 3000);
         return;
     }
 
     QCPItemEllipse *circle = qobject_cast<QCPItemEllipse*>(item);
     if(circle){
-        QString message = QString("Selected circle '%1'.").arg("");
+        //TODO: Resolve Circle Name
+        std::string name = "";
+        QString message = QString("Selected circle '%1'.").arg(QString::fromStdString(name));
         ui->statusbar->showMessage(message, 3000);
         return;
     }
@@ -142,12 +150,13 @@ void MainWindow::onMousePress(QMouseEvent* event){
 }
 
 void MainWindow::onMouseMove(QMouseEvent* event){
-    double data[2];
-    data[0] = this->ui->custom_plot->xAxis->pixelToCoord(event->pos().x());
-    data[1] = this->ui->custom_plot->yAxis->pixelToCoord(event->pos().y());
-
     if(point_to_drag >= 0){
+        double data[2];
+        data[0] = this->ui->custom_plot->xAxis->pixelToCoord(event->pos().x());
+        data[1] = this->ui->custom_plot->yAxis->pixelToCoord(event->pos().y());
+
         geo_components->edit_construction(static_cast<unsigned int>(point_to_drag), data);
+
         geo_components->display_all_constructions(ui);
         ui->custom_plot->replot();
     }
@@ -162,45 +171,92 @@ void MainWindow::onMouseRelease(){
 }
 
 // Construction Creation Slots (This way dialogs only need to emit a signal for creation)
-    // Points
+// Points
 void MainWindow::add_point(int type, double x, double y, std::string label) {
     if(label == ""){label = "default_" + std::to_string(next_label++);}
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), x, y), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created point '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
-void MainWindow::add_point(int type, GeoNode *geo, double x, double y, std::string label){
+void MainWindow::add_point(int type, std::string geo, double x, double y, std::string label){
+    GeoNode* father = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+
     if(label == ""){label = "default_" + std::to_string(next_label++);}
-    geo_components->add_construction(new PointNode(static_cast<PointType>(type), geo, x, y), label);
+    geo_components->add_construction(new PointNode(static_cast<PointType>(type), father, x, y), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created point '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
 void MainWindow::add_point(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
     if(label == ""){label = "default_" + std::to_string(next_label++);}
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), geo1, geo2), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created point '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
     // Lines
 void MainWindow::add_line(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
     if(label == ""){label = "default_" + std::to_string(next_label++);}
     geo_components->add_construction(new LineNode(static_cast<LineType>(type), geo1, geo2), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created line '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
     // Circles
 void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, std::string label){
     if(label == ""){label = "default_" + std::to_string(next_label++);}
     geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created circle '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
 void MainWindow::add_circle(int type, GeoNode *geo1, GeoNode *geo2, GeoNode *geo3, std::string label){
     if(label == ""){label = "default_" + std::to_string(next_label++);}
     geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), geo1, geo2, geo3), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created circle '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
 }
 
 
 // Actions of the menus
+    // Points
 void MainWindow::add_point_independent() {
-   //TODO
+   AddPointIndependent *dialog = new AddPointIndependent(this);
+   dialog->show();
 }
 
+void MainWindow::add_point_on_line() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+   AddPointOn *dialog = new AddPointOn(&line_labels, this);
+   dialog->show();
+}
+
+    // Edit
 void MainWindow::edit() {
     bool ok;
     std::string label = (QInputDialog::getText(this,tr("Edit Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();
@@ -215,6 +271,7 @@ void MainWindow::edit() {
     }
 }
 
+    //Remove
 void MainWindow::remove() {
     bool ok;
     std::string label = (QInputDialog::getText(this,tr("Remove Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();

@@ -2,33 +2,34 @@
 #define ADDPOINTINDEPENDENT_H
 
 #include <QDialog>
-#include "mainwindow.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class AddPointIndependent; }
-QT_END_NAMESPACE
+namespace Ui {
+class AddPointIndependent;
+}
 
 class AddPointIndependent : public QDialog
 {
     Q_OBJECT
 
-signals:
-    void add_point(int type, double x, double y, std::string label);
-
 public:
-    AddPointIndependent(MainWindow* dummy, QWidget *parent = nullptr);
+    explicit AddPointIndependent(QWidget *parent = nullptr);
     ~AddPointIndependent();
+
+signals:
+    void add_point(int,double,double,std::string);
+
+private slots:
+    void on_buttonBox_accepted();
+    void on_labelLineEdit_textEdited(const QString &arg1);
+
+    void on_xLineEdit_textEdited(const QString &arg1);
+
+    void on_yLineEdit_textEdited(const QString &arg1);
 
 private:
     Ui::AddPointIndependent *ui;
-    double x,y;
     std::string label;
-
-private slots:
-    void on_button_box_accepted();
-    void on_x_textEdited(const QString &arg1);
-    void on_y_textEdited(const QString &arg1);
-    void on_label_textEdited(const QString &arg1);
+    double x,y;
 };
 
 #endif // ADDPOINTINDEPENDENT_H
