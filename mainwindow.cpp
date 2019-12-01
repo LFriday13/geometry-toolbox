@@ -2,12 +2,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "addpointindependent.h"
-#include "addpointon.h"
-#include "addpointoncircle.h"
-#include "addpointmidpoint.h"
-#include "addpointintersect.h"
-#include "addpointsecondintersect.h"
+#include "Dialogs/AddPointDialogs/addpointindependent.h"
+#include "Dialogs/AddPointDialogs/addpointon.h"
+#include "Dialogs/AddPointDialogs/addpointoncircle.h"
+#include "Dialogs/AddPointDialogs/addpointmidpoint.h"
+#include "Dialogs/AddPointDialogs/addpointintersect.h"
+#include "Dialogs/AddPointDialogs/addpointsecondintersect.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)

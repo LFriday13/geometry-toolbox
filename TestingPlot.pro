@@ -17,42 +17,42 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CircleNode.cpp \
+    Dialogs/AddPointDialogs/addpointindependent.cpp \
+    Dialogs/AddPointDialogs/addpointintersect.cpp \
+    Dialogs/AddPointDialogs/addpointmidpoint.cpp \
+    Dialogs/AddPointDialogs/addpointon.cpp \
+    Dialogs/AddPointDialogs/addpointoncircle.cpp \
+    Dialogs/AddPointDialogs/addpointsecondintersect.cpp \
     GeoComponents.cpp \
     GeoNode.cpp \
     LineNode.cpp \
     PointNode.cpp \
-    addpointindependent.cpp \
-    addpointintersect.cpp \
-    addpointmidpoint.cpp \
-    addpointon.cpp \
-    addpointoncircle.cpp \
-    addpointsecondintersect.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
 
 HEADERS += \
     CircleNode.h \
+    Dialogs/AddPointDialogs/addpointindependent.h \
+    Dialogs/AddPointDialogs/addpointintersect.h \
+    Dialogs/AddPointDialogs/addpointmidpoint.h \
+    Dialogs/AddPointDialogs/addpointon.h \
+    Dialogs/AddPointDialogs/addpointoncircle.h \
+    Dialogs/AddPointDialogs/addpointsecondintersect.h \
     GeoComponents.h \
     GeoNode.h \
     LineNode.h \
     PointNode.h \
-    addpointindependent.h \
-    addpointintersect.h \
-    addpointmidpoint.h \
-    addpointon.h \
-    addpointoncircle.h \
-    addpointsecondintersect.h \
     mainwindow.h \
     qcustomplot.h
 
 FORMS += \
-    addpointindependent.ui \
-    addpointintersect.ui \
-    addpointmidpoint.ui \
-    addpointon.ui \
-    addpointoncircle.ui \
-    addpointsecondintersect.ui \
+    Dialogs/AddPointDialogs/addpointindependent.ui \
+    Dialogs/AddPointDialogs/addpointintersect.ui \
+    Dialogs/AddPointDialogs/addpointmidpoint.ui \
+    Dialogs/AddPointDialogs/addpointon.ui \
+    Dialogs/AddPointDialogs/addpointoncircle.ui \
+    Dialogs/AddPointDialogs/addpointsecondintersect.ui \
     mainwindow.ui
 
 # Default rules for deployment.
