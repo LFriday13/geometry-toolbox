@@ -104,8 +104,8 @@ void MainWindow::make_plot(){
 
     // Scaling of the axis (Proportion should probably be fixed 1:1 [corresponding to the window?])
     ui->custom_plot->rescaleAxes();
-    ui->custom_plot->yAxis->setRange(-default_range, default_range);
-    ui->custom_plot->xAxis->setRange(-default_range, default_range);
+    ui->custom_plot->yAxis->setRange(-default_range_y, default_range_y);
+    ui->custom_plot->xAxis->setRange(-default_range_x, default_range_x);
 }
 
 // Display Info of Point Clicked
@@ -337,5 +337,21 @@ void MainWindow::remove() {
         geo_components->remove_construction(static_cast<unsigned int>(to_remove));
         geo_components->display_all_constructions(ui);
         ui->custom_plot->replot();
+    }
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event);
+
+    if(initialized){
+        int h = ui->custom_plot->size().height();
+        int w = ui->custom_plot->size().width();
+        default_range_y = 100 * h / w;
+        ui->custom_plot->rescaleAxes();
+        ui->custom_plot->yAxis->setRange(-default_range_y, default_range_y);
+        ui->custom_plot->xAxis->setRange(-default_range_x, default_range_x);
+        ui->custom_plot->replot();
+    } else {
+        initialized = true;
     }
 }

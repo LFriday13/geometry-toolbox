@@ -6,31 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>617</height>
+    <width>496</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QCustomPlot" name="custom_plot" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>571</width>
-      <height>571</height>
-     </rect>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QCustomPlot" name="custom_plot" native="true"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>572</width>
+     <width>496</width>
      <height>21</height>
     </rect>
    </property>

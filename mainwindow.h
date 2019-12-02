@@ -46,6 +46,8 @@ private slots:
     void add_point_intersect();
     void add_point_second_intersect();
 
+    virtual void resizeEvent(QResizeEvent *event);
+
 private:
     Ui::MainWindow *ui;
 
@@ -59,7 +61,8 @@ private:
     int next_label {0};
 
     // Axis Range
-    int default_range {100};
+    int default_range_x {100}, default_range_y {100};
+    boolean initialized {false};
 
     // Point to drag (set to a negative if none)
     int point_to_drag {-1};

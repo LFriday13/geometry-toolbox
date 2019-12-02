@@ -34,7 +34,7 @@ void TriangleNode::display(Ui::MainWindow *ui) {
     if(triangle == nullptr){
         triangle = new QCPCurve(ui->custom_plot->xAxis, ui->custom_plot->yAxis);
         triangle->setPen(Qt::NoPen);
-        triangle->setBrush(QColor(10, 100, 50, 70));
+        triangle->setBrush(QColor(10, 100, 50, 160));
         triangle->setLayer("main");
     }
 
