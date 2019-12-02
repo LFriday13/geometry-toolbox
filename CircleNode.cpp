@@ -55,6 +55,7 @@ void CircleNode::display(Ui::MainWindow *ui) {
         circle->setPen(QPen(QColor(120, 120, 120), 2));
     }
 
+    circle->setVisible(well_defined);
     circle->topLeft->setCoords(center_x-radius, center_y+radius);
     circle->bottomRight->setCoords(center_x+radius, center_y-radius);
 }
@@ -105,6 +106,7 @@ void CircleNode::point_point_point_through() {
 		center_x /= (2 * ((x31) * (y12) - (x21) * (y13)));
 
 		radius = sqrt((center_x - x1)*(center_x - x1) + (center_y - y1)*(center_y - y1));
+        well_defined = true;
 		
 	}
 }
@@ -122,6 +124,7 @@ void CircleNode::point_point_center_through(){
 		center_x = p1[0];
 		center_y = p1[1];
 		radius = distance;
+        well_defined = true;
 	}
 }
 	

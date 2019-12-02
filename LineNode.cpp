@@ -46,6 +46,7 @@ void LineNode::display(Ui::MainWindow *ui) {
         line->setPen(QPen(QColor(120, 120, 120), 2));
     }
 
+    line->setVisible(well_defined);
     line->point1->setCoords(0, - c_coeff/y_coeff);
     line->point2->setCoords(- c_coeff/x_coeff, 0);
 }
@@ -80,6 +81,7 @@ void LineNode::point_point_line_through() {
 			well_defined = false;
 	} else { 
 		c_coeff = (-y_coeff)*p1[1] + (-x_coeff)*p1[0];
+        well_defined = true;
 	}
 }
 
@@ -115,6 +117,7 @@ void LineNode::point_circle_first_tangent() {
 		x_coeff = point[0] - circle[0];
 		y_coeff = point[1] - circle[1];
 		c_coeff = (-x_coeff)*point[0] + (-y_coeff)*point[1];
+        well_defined = true;
 		
 	} else if(distance < circle[2]) {
 		well_defined = false;
@@ -140,6 +143,7 @@ void LineNode::point_circle_first_tangent() {
         x_coeff = k;
         y_coeff = -1;
         c_coeff = -k*point[0] + point[1];
+        well_defined = true;
 	}
 }
 
@@ -176,6 +180,7 @@ void LineNode::point_circle_second_tangent() {
             y_coeff = 0;
             x_coeff = 1;
             c_coeff = point[1];
+
         } else {
             //Solve for the slope
             k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
@@ -185,6 +190,7 @@ void LineNode::point_circle_second_tangent() {
             c_coeff = -k*point[0] + point[1];
 
         }
+        well_defined = true;
 
 	}
 }

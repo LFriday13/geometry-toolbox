@@ -6,6 +6,7 @@
 #include "PointNode.h"
 #include "LineNode.h"
 #include "CircleNode.h"
+#include "TriangleNode.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

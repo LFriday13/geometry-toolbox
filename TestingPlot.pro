@@ -27,6 +27,7 @@ SOURCES += \
     GeoNode.cpp \
     LineNode.cpp \
     PointNode.cpp \
+    TriangleNode.cpp \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
@@ -43,6 +44,7 @@ HEADERS += \
     GeoNode.h \
     LineNode.h \
     PointNode.h \
+    TriangleNode.h \
     mainwindow.h \
     qcustomplot.h
 

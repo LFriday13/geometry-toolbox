@@ -66,6 +66,7 @@ void PointNode::display(Ui::MainWindow *ui) {
         point->setName(QString::fromStdString(this->get_label()));
     }
 
+    point->setVisible(well_defined);
     point->data()->clear();
     point->addData(x, y);
 }
@@ -126,6 +127,7 @@ void PointNode::line_line_intersection() {
         delta_y = - line1[0] * line2[2] + line1[2] * line2[0];
         x = delta_x / delta;
         y = delta_y / delta;
+        well_defined = true;
     }
 }
 
@@ -151,6 +153,7 @@ void PointNode::line_circle_first_intersection() {
         double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
         x = project_x + to_shift * line[0] / normalize_factor;
 		y = project_y + to_shift * line[1] / normalize_factor;
+        well_defined = true;
 
     } else {
 		well_defined = false;
@@ -183,6 +186,7 @@ void PointNode::line_circle_second_intersection() {
 		double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
 		x = project_x - to_shift * line[0] / normalize_factor;
 		y = project_y - to_shift * line[1] / normalize_factor;
+        well_defined = true;
 
 	}
 	else
