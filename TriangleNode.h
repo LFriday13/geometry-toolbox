@@ -14,7 +14,7 @@ enum TriangleType {
 };
 
 class TriangleNode: public GeoNode {
-	friend class: TriangleCentersNode;
+	friend class TriangleCentersNode;
 	
 	private:
 	double side_a, side_b, side_c;
