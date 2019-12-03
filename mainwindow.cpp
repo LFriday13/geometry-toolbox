@@ -118,24 +118,27 @@ void MainWindow::graphClicked(QCPAbstractPlottable *plottable) {
         ui->statusbar->showMessage(message, 3000);
         return;
     }
+
+    QCPCurve *triangle = qobject_cast<QCPCurve*>(plottable);
+    if(triangle){
+        QString message = QString("Selected triangle '%1'.").arg(triangle->name());
+        ui->statusbar->showMessage(message, 3000);
+        return;
+    }
 }
 
 // Display Info of Item Clicked
 void MainWindow::itemClicked(QCPAbstractItem *item){
     QCPItemStraightLine *line = qobject_cast<QCPItemStraightLine*>(item);
     if(line){
-        //TODO: Resolve Line Name
-        std::string name = "";
-        QString message = QString("Selected line '%1'.").arg(QString::fromStdString(name));
+        QString message = QString("Selected line '%1'.").arg(line->objectName());
         ui->statusbar->showMessage(message, 3000);
         return;
     }
 
     QCPItemEllipse *circle = qobject_cast<QCPItemEllipse*>(item);
     if(circle){
-        //TODO: Resolve Circle Name
-        std::string name = "";
-        QString message = QString("Selected circle '%1'.").arg(QString::fromStdString(name));
+        QString message = QString("Selected circle '%1'.").arg(circle->objectName());
         ui->statusbar->showMessage(message, 3000);
         return;
     }

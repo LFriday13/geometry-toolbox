@@ -53,6 +53,7 @@ void CircleNode::display(Ui::MainWindow *ui) {
         circle = new QCPItemEllipse(ui->custom_plot);
         circle->setAntialiased(true);
         circle->setPen(QPen(QColor(120, 120, 120), 2));
+        circle->setObjectName(QString::fromStdString(this->get_label()));
     }
 
     circle->setVisible(well_defined);

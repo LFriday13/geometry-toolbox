@@ -36,6 +36,7 @@ void TriangleNode::display(Ui::MainWindow *ui) {
         triangle->setPen(Qt::NoPen);
         triangle->setBrush(QColor(10, 100, 50, 160));
         triangle->setLayer("main");
+        triangle->setName(QString::fromStdString(this->get_label()));
     }
 
     triangle->setVisible(well_defined);
@@ -48,6 +49,7 @@ void TriangleNode::display(Ui::MainWindow *ui) {
     triangle->addData(p1[0],p1[1]);
     triangle->addData(p2[0],p2[1]);
     triangle->addData(p3[0],p3[1]);
+    triangle->addData(p1[0],p1[1]);
 }
 
 void TriangleNode::access(double data[]) const {

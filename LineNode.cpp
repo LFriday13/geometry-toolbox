@@ -44,6 +44,7 @@ void LineNode::display(Ui::MainWindow *ui) {
     if(line == nullptr){ //Initialization
         line = new QCPItemStraightLine(ui->custom_plot);
         line->setPen(QPen(QColor(120, 120, 120), 2));
+        line->setObjectName(QString::fromStdString(this->get_label()));
     }
 
     line->setVisible(well_defined);
