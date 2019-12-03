@@ -64,13 +64,13 @@ void TriangleNode::point_point_point_vertices() {
   else well_defined = false;
 }
 
-void get_intersection_helper(double line1[], double line2[], double point[]) {
-    delta = line1[0] * line2[1] - line1[1] * line2[0];
+void TriangleNode::get_intersection_helper(double line1[], double line2[], double point[]) {
+    double delta = line1[0] * line2[1] - line1[1] * line2[0];
     if(delta < 1e-8 && delta > -1e-8)
         well_defined = false;
     else{
-        delta_x = line1[2] * line2[1] - line1[1] * line2[2];
-        delta_y = line1[0] * line2[2] - line1[2] * line2[0];
+        double delta_x = line1[2] * line2[1] - line1[1] * line2[2];
+        double delta_y = line1[0] * line2[2] - line1[2] * line2[0];
         point[0] = -delta_x / delta;
         point[1] = -delta_y / delta;
     }
