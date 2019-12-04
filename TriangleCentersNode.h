@@ -10,7 +10,11 @@
 
 enum TriangleCentersType {
 	CENTROID,
-  INCENTER
+  INCENTER,
+	CIRCUMCENTER,
+	ORTHOCENTER,
+	NINEPOINTCENTER,
+	SYMMEDIAN
 };
 
 class TriangleCentersNode: public GeoNode {
@@ -25,6 +29,10 @@ class TriangleCentersNode: public GeoNode {
 
 	void centroid();
 	void incenter();
+	void circumcenter();
+	void orthocenter();
+	void ninepointcenter();
+	void symmedian();
 public:
   TriangleCentersNode();
 	TriangleCentersNode(TriangleCentersType type,GeoNode* geo1);

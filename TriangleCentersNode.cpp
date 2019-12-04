@@ -2,6 +2,7 @@
  * TriangleCentersNode.cpp
  *
  */
+#include <math.h>
 #include "TriangleCentersNode.h"
 
 TriangleCentersNode::TriangleCentersNode() {}
@@ -10,6 +11,10 @@ TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1
   switch(type) {
 		case CENTROID: definition = &TriangleCentersNode::centroid; break;
 		case INCENTER: definition = &TriangleCentersNode::incenter; break;
+    case CIRCUMCENTER: definition = &TriangleCentersNode::circumcenter; break;
+    case ORTHOCENTER: definition = &TriangleCentersNode::orthocenter; break;
+    case NINEPOINTCENTER: definition = &TriangleCentersNode::ninepointcenter; break;
+    case SYMMEDIAN: definition = &TriangleCentersNode::symmedian; break;
 	}
   parents = new const GeoNode*[num_parents];
 	parents[0] = geo1;
@@ -63,5 +68,55 @@ void TriangleCentersNode::incenter() {
   barycoeff_a = triangle[0];
   barycoeff_b = triangle[1];
   barycoeff_c = triangle[2];
+  well_defined = true;
+}
+
+void TriangleCentersNode::circumcenter() {
+  double triangle[3], barycoeff[3];
+  parents[0]->access(triangle);
+  for(int i = 0; i < 3; i++){
+    barycoeff[i] = triangle[i] * triangle[i] * (triangle[(i+1)%3] * triangle[(i+1)%3] + triangle[(i+2)%3] * triangle[(i+2)%3] - triangle[i%3] * triangle[i%3]);
+  }
+  barycoeff_a = barycoeff[0];
+  barycoeff_b = barycoeff[1];
+  barycoeff_c = barycoeff[2];
+  well_defined = true;
+}
+
+void TriangleCentersNode::orthocenter() {
+  double triangle[3], barycoeff[3];
+  parents[0]->access(triangle);
+  double sum = triangle[0] * triangle[0] + triangle[1] * triangle[1] + triangle[2] * triangle[2];
+  for(int i = 0; i < 3; i++)
+  {
+    if(abs(triangle[i] * triangle[i] * 2 - sum) < 1e-8)
+    {
+      for(int j = 0; j < 3; j++)barycoeff[j] = 0.0;
+      barycoeff[i] = 1.0;
+      break;
+    }
+  }
+  barycoeff_a = barycoeff[0];
+  barycoeff_b = barycoeff[1];
+  barycoeff_c = barycoeff[2];
+  well_defined = true;
+}
+
+void TriangleCentersNode::ninepointcenter() {
+  double triangle[3];
+  parents[0]->access(triangle);
+  for(int i = 0; i < 3; i++) triangle[i] *= triangle[i];
+  barycoeff_a = triangle[0] * (triangle[1] + triangle[2]) + (triangle[1] - triangle[2]) * (triangle[1] - triangle[2]);
+  barycoeff_b = triangle[1] * (triangle[2] + triangle[0]) + (triangle[2] - triangle[0]) * (triangle[2] - triangle[0]);
+  barycoeff_c = triangle[2] * (triangle[0] + triangle[1]) + (triangle[0] - triangle[1]) * (triangle[0] - triangle[1]);
+  well_defined = true;
+}
+
+void TriangleCentersNode::symmedian() {
+  double triangle[3];
+  parents[0]->access(triangle);
+  barycoeff_a = triangle[0] * triangle[0];
+  barycoeff_b = triangle[1] * triangle[1];
+  barycoeff_c = triangle[2] * triangle[2];
   well_defined = true;
 }
