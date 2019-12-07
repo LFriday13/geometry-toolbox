@@ -50,6 +50,20 @@ void TriangleNode::update() {
   (this->*definition)();
 }
 
+void TriangleNode::access_coordinates(double data[]) {
+  if(!well_defined) return;
+  double point1[2], point2[2], point3[2];
+  parents[0]->access(point1);
+  parents[1]->access(point2);
+  parents[2]->access(point3);
+  data[0] = point1[0];
+  data[1] = point1[1];
+  data[2] = point2[0];
+  data[3] = point2[1];
+  data[4] = point3[0];
+  data[5] = point3[1];
+}
+
 TriangleNode::~TriangleNode() {}
 
 void TriangleNode::point_point_point_vertices() {
