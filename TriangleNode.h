@@ -24,6 +24,8 @@ class TriangleNode: public GeoNode {
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
 	virtual void update() override;
+	
+	void access_coordinates(double data[]);
 
 	void point_point_point_vertices();
 	void line_line_line_intersections();
