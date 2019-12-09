@@ -26,7 +26,7 @@ private:
     virtual void display(Ui::MainWindow* ui) = 0;
 	virtual void mutate(double data[]) = 0;
 	virtual void update() = 0;
-    virtual void labels(vector<string>*, vector<string>*, vector<string>*) const = 0;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const = 0;
 
 	unsigned int pid {0};
     string label {""};

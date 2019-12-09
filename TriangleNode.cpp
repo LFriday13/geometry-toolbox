@@ -53,39 +53,53 @@ void TriangleNode::display(Ui::MainWindow *ui) {
 }
 
 void TriangleNode::access(double data[]) const {
-  data[0] = side_a;
-  data[1] = side_b;
-  data[2] = side_c;
+    double point1[2], point2[2], point3[2];
+    parents[0]->access(point1);
+    parents[1]->access(point2);
+    parents[2]->access(point3);
+    data[0] = point1[0];
+    data[1] = point1[1];
+    data[2] = point2[0];
+    data[3] = point2[1];
+    data[4] = point3[0];
+    data[5] = point3[1];
+    data[6] = side_a;
+    data[7] = side_b;
+    data[8] = side_c;
 }
 
 void TriangleNode::mutate(double data[]) {
-  side_a = data[0];
-  side_b = data[1];
-  side_c = data[2];
-  (this->*definition)();
+    side_a = data[0];
+    side_b = data[1];
+    side_c = data[2];
+
+    (this->*definition)();
 }
 
 void TriangleNode::update() {
-  (this->*definition)();
+    (this->*definition)();
 }
 
-TriangleNode::~TriangleNode() {}
+TriangleNode::~TriangleNode() {
+    if(triangle != nullptr)
+        (triangle->parentPlot())->removePlottable(triangle);
+}
 
 void TriangleNode::point_point_point_vertices() {
-  double point1[2], point2[2], point3[2];
+    double point1[2], point2[2], point3[2];
 
-  parents[0]->access(point1);
-  parents[1]->access(point2);
-  parents[2]->access(point3);
+    parents[0]->access(point1);
+    parents[1]->access(point2);
+    parents[2]->access(point3);
 
-  side_a = sqrt((point2[0] - point3[0]) * (point2[0] - point3[0]) + (point2[1] - point3[1]) * (point2[1] - point3[1]));
-  side_b = sqrt((point3[0] - point1[0]) * (point3[0] - point1[0]) + (point3[1] - point1[1]) * (point3[1] - point1[1]));
-  side_c = sqrt((point1[0] - point2[0]) * (point1[0] - point2[0]) + (point1[1] - point2[1]) * (point1[1] - point2[1]));
+    side_a = sqrt((point2[0] - point3[0]) * (point2[0] - point3[0]) + (point2[1] - point3[1]) * (point2[1] - point3[1]));
+    side_b = sqrt((point3[0] - point1[0]) * (point3[0] - point1[0]) + (point3[1] - point1[1]) * (point3[1] - point1[1]));
+    side_c = sqrt((point1[0] - point2[0]) * (point1[0] - point2[0]) + (point1[1] - point2[1]) * (point1[1] - point2[1]));
 
-  if(side_a > 1e-8 && side_b > 1e-8 && side_c > 1e-8) well_defined = true;
-  else well_defined = false;
+    if(side_a > 1e-8 && side_b > 1e-8 && side_c > 1e-8) well_defined = true;
+    else well_defined = false;
 }
 
-void TriangleNode::labels(vector<string> *, vector<string> *, vector<string> *) const {
-    return;
+void TriangleNode::labels(vector<string> *, vector<string> *, vector<string> *, vector<string> *triangle_labels) const {
+    triangle_labels->push_back(this->get_label());
 }

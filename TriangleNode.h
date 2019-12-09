@@ -24,14 +24,14 @@ class TriangleNode: public GeoNode {
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
 	virtual void update() override;
-    virtual void labels(vector<string>*, vector<string>*, vector<string>*) const override;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
     void point_point_point_vertices();
 
 public:
     TriangleNode();
 	TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3);
-	virtual ~TriangleNode();
+    virtual ~TriangleNode() override;
 };
 
 #endif /* TRIANGLENODE_H_ */

@@ -8,6 +8,8 @@
 #include "Dialogs/AddPointDialogs/addpointmidpoint.h"
 #include "Dialogs/AddPointDialogs/addpointintersect.h"
 #include "Dialogs/AddPointDialogs/addpointsecondintersect.h"
+#include "Dialogs/AddTriangleDialogs/addtriangle.h"
+#include "Dialogs/AddTriangleCenterDialogs/addtrianglecenter.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
@@ -15,7 +17,7 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
 {
     //Set GeoComponents object
     this->geo_components = geo_components;
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
     //Setup Ui
     ui->setupUi(this);
@@ -36,6 +38,8 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     connect(ui->actionMidpoint, SIGNAL(triggered()), this, SLOT(add_point_midpoint()));
     connect(ui->actionIntersect, SIGNAL(triggered()), this, SLOT(add_point_intersect()));
     connect(ui->actionSecond_Intersect, SIGNAL(triggered()), this, SLOT(add_point_second_intersect()));
+    connect(ui->actionNew_Triangle, SIGNAL(triggered()), this, SLOT(add_triangle_points()));
+    connect(ui->actionAdd_Triangle_Center, SIGNAL(triggered()), this, SLOT(add_triangle_center()));
 
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
@@ -183,7 +187,9 @@ void MainWindow::onMouseRelease(){
 }
 
 // Construction Creation Slots (This way dialogs only need to emit a signal for creation)
+
 // Points
+
 void MainWindow::add_point(int type, double x, double y, std::string label) {
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -226,6 +232,7 @@ void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::st
 }
 
 // Lines
+
 void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::string label){
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
@@ -242,6 +249,7 @@ void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::str
 }
 
 // Circles
+
 void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string label){
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
@@ -273,47 +281,100 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
     ui->statusbar->showMessage(message,3000);
 }
 
+//Triangles
+void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std::string geo3, std::string label){
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
+    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+
+    geo_components->add_construction(new TriangleNode(static_cast<TriangleType>(type), parent_1, parent_2, parent_3), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created triangle '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
+}
+
+//Triangle Centers
+
+void MainWindow::add_triangle_center(int type, std::string geo, std::string label) {
+    GeoNode *parent = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+
+    if(label == ""){label = "default_" + std::to_string(next_label++);}
+
+    geo_components->add_construction(new TriangleCentersNode(static_cast<TriangleCentersType>(type), parent), label);
+
+    geo_components->display_all_constructions(ui);
+    ui->custom_plot->replot();
+
+    QString message = QString("Created triangle center '%1'").arg(QString::fromStdString(label));
+    ui->statusbar->showMessage(message,3000);
+}
 
 // Actions of the menus
+
 // Points
+
 void MainWindow::add_point_independent() {
    AddPointIndependent *Add_Point = new AddPointIndependent(this);
    Add_Point->show();
 }
 
 void MainWindow::add_point_on_line() {
-   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
    AddPointOn *Add_Point = new AddPointOn(&line_labels, this);
    Add_Point->show();
 }
 
 void MainWindow::add_point_on_circle() {
-   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
    AddPointOnCircle *Add_Point = new AddPointOnCircle(&circle_labels, this);
    Add_Point->show();
 }
 
 void MainWindow::add_point_midpoint() {
-   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
    AddPointMidpoint *Add_Point = new AddPointMidpoint(&point_labels, this);
    Add_Point->show();
 }
 
 void MainWindow::add_point_intersect() {
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
     AddPointIntersect *Add_Point = new AddPointIntersect(&line_labels, &circle_labels, this);
     Add_Point->show();
 }
 
 void MainWindow::add_point_second_intersect() {
-   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels);
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
    AddPointSecondIntersect *Add_Point = new AddPointSecondIntersect(&line_labels, &circle_labels, this);
    Add_Point->show();
+}
+
+
+// Triangles
+
+void MainWindow::add_triangle_points() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddTriangle *Add_Triangle = new AddTriangle(&point_labels, this);
+   Add_Triangle->show();
+}
+
+//Triangle Centers
+
+void MainWindow::add_triangle_center() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddTriangleCenter *Add_Triangle_Center = new AddTriangleCenter(&triangle_labels, this);
+   Add_Triangle_Center->show();
 }
 
     // Edit

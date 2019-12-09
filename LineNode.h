@@ -22,7 +22,7 @@ public:
 	LineNode();
 	LineNode(LineType type, GeoNode* geo1, GeoNode* geo2);
 
-	virtual ~LineNode();
+    virtual ~LineNode() override;
 
 private:
 	double x_coeff{0}, y_coeff{0}, c_coeff{0};
@@ -30,7 +30,7 @@ private:
 
 	virtual void print() const override;
     virtual void display(Ui::MainWindow* ui) override;
-    virtual void labels(vector<string>*, vector<string>*, vector<string>*) const override;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;

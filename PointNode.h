@@ -28,7 +28,7 @@ public:
 	PointNode(PointType type, GeoNode* geo1, double x, double y);
 	PointNode(PointType type, GeoNode* geo1, GeoNode* geo2);
 
-	virtual ~PointNode();
+    virtual ~PointNode() override;
 
 private:
 	double x{0}, y{0};
@@ -36,7 +36,7 @@ private:
 
     virtual void print() const override;
     virtual void display(Ui::MainWindow* ui) override;
-    virtual void labels(vector<string>*, vector<string>*, vector<string>*) const override;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
     virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;

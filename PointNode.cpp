@@ -262,6 +262,6 @@ void PointNode::circle_circle_second_intersection() {
     }
 }
 
-void PointNode::labels(vector<string>* point_labels, vector<string>*, vector<string>*) const {
+void PointNode::labels(vector<string>* point_labels, vector<string>*, vector<string>*, vector<string>*) const {
     point_labels->push_back(this->get_label());
 }

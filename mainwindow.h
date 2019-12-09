@@ -7,6 +7,7 @@
 #include "LineNode.h"
 #include "CircleNode.h"
 #include "TriangleNode.h"
+#include "TriangleCentersNode.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +28,8 @@ private slots:
     void add_line(int, std::string, std::string, std::string);
     void add_circle(int, std::string, std::string, std::string);
     void add_circle(int, std::string, std::string, std::string, std::string);
+    void add_triangle(int, std::string, std::string, std::string, std::string);
+    void add_triangle_center(int, std::string, std::string);
 
     void onMousePress(QMouseEvent*);
     void onMouseMove(QMouseEvent*);
@@ -46,6 +49,9 @@ private slots:
     void add_point_intersect();
     void add_point_second_intersect();
 
+    void add_triangle_points();
+    void add_triangle_center();
+
     virtual void resizeEvent(QResizeEvent *event);
 
 private:
@@ -55,7 +61,7 @@ private:
     GeoComponents* geo_components;
 
     // Labels
-    std::vector<std::string> point_labels, line_labels, circle_labels;
+    std::vector<std::string> point_labels, line_labels, circle_labels, triangle_labels;
 
     // Label Management
     int next_label {0};

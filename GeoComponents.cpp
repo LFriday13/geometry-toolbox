@@ -144,13 +144,13 @@ int GeoComponents::get_pid(string label){
 #include "LineNode.h"
 #include "CircleNode.h"
 
-void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels) {
+void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels, vector<string>* triangle_labels) {
     point_labels->clear();
     line_labels->clear();
     circle_labels->clear();
 
     for (auto it = begin(geo_components); it != end(geo_components); ++it){
         if((*it)->need_display)
-            (*it)->labels(point_labels, line_labels, circle_labels);
+            (*it)->labels(point_labels, line_labels, circle_labels, triangle_labels);
     }
 }

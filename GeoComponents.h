@@ -24,7 +24,7 @@ public:
     // Ui Dedicated
     void display_all_constructions(Ui::MainWindow *ui);
     GeoNode* get_construction(unsigned int pid);
-    void update_ui_labels(vector<string> *point_labels, vector<string> *line_labels, vector<string> *circle_labels);
+    void update_ui_labels(vector<string> *point_labels, vector<string> *line_labels, vector<string> *circle_labels, vector<string> *triangle_labels);
     int get_pid(string label);
 
 private:

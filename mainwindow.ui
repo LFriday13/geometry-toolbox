@@ -74,11 +74,13 @@
     <property name="title">
      <string>Add Triangle</string>
     </property>
+    <addaction name="actionNew_Triangle"/>
    </widget>
    <widget class="QMenu" name="menuTriangle_Centers">
     <property name="title">
      <string>Triangle Centers</string>
     </property>
+    <addaction name="actionAdd_Triangle_Center"/>
    </widget>
    <addaction name="menuAdd_Point"/>
    <addaction name="menuAdd_Line"/>
@@ -167,6 +169,16 @@
   <action name="actionCenter_and_Point">
    <property name="text">
     <string>Center and Point</string>
+   </property>
+  </action>
+  <action name="actionNew_Triangle">
+   <property name="text">
+    <string>New Triangle</string>
+   </property>
+  </action>
+  <action name="actionAdd_Triangle_Center">
+   <property name="text">
+    <string>Add Triangle Center</string>
    </property>
   </action>
  </widget>

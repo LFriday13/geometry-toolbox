@@ -23,10 +23,13 @@ SOURCES += \
     Dialogs/AddPointDialogs/addpointon.cpp \
     Dialogs/AddPointDialogs/addpointoncircle.cpp \
     Dialogs/AddPointDialogs/addpointsecondintersect.cpp \
+    Dialogs/AddTriangleCenterDialogs/addtrianglecenter.cpp \
+    Dialogs/AddTriangleDialogs/addtriangle.cpp \
     GeoComponents.cpp \
     GeoNode.cpp \
     LineNode.cpp \
     PointNode.cpp \
+    TriangleCentersNode.cpp \
     TriangleNode.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -40,10 +43,13 @@ HEADERS += \
     Dialogs/AddPointDialogs/addpointon.h \
     Dialogs/AddPointDialogs/addpointoncircle.h \
     Dialogs/AddPointDialogs/addpointsecondintersect.h \
+    Dialogs/AddTriangleCenterDialogs/addtrianglecenter.h \
+    Dialogs/AddTriangleDialogs/addtriangle.h \
     GeoComponents.h \
     GeoNode.h \
     LineNode.h \
     PointNode.h \
+    TriangleCentersNode.h \
     TriangleNode.h \
     mainwindow.h \
     qcustomplot.h
@@ -55,6 +61,8 @@ FORMS += \
     Dialogs/AddPointDialogs/addpointon.ui \
     Dialogs/AddPointDialogs/addpointoncircle.ui \
     Dialogs/AddPointDialogs/addpointsecondintersect.ui \
+    Dialogs/AddTriangleCenterDialogs/addtrianglecenter.ui \
+    Dialogs/AddTriangleDialogs/addtriangle.ui \
     mainwindow.ui
 
 # Default rules for deployment.
