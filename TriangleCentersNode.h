@@ -26,7 +26,7 @@ public:
 
 private:
     double barycoeff_a, barycoeff_b, barycoeff_c;
-    QCPGraph *center;
+    QCPGraph *center {nullptr};
 
     void (TriangleCentersNode::*definition)() {nullptr};
 
