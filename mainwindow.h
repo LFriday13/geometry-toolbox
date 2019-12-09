@@ -30,6 +30,8 @@ private slots:
     void add_circle(int, std::string, std::string, std::string, std::string);
     void add_triangle(int, std::string, std::string, std::string, std::string);
     void add_triangle_center(int, std::string, std::string);
+    void edit(std::string, double, double);
+    void remove(std::string);
 
     void onMousePress(QMouseEvent*);
     void onMouseMove(QMouseEvent*);
@@ -39,7 +41,7 @@ private slots:
     void itemClicked(QCPAbstractItem *figure);
 
     void make_plot();
-    void edit();
+    void edit_point();
     void remove();
 
     void add_point_independent();

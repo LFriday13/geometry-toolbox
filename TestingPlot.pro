@@ -30,6 +30,8 @@ SOURCES += \
     Dialogs/AddPointDialogs/addpointsecondintersect.cpp \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.cpp \
     Dialogs/AddTriangleDialogs/addtriangle.cpp \
+    Dialogs/EditDialogs/edit.cpp \
+    Dialogs/RemoveDialogs/remove.cpp \
     GeoComponents.cpp \
     GeoNode.cpp \
     LineNode.cpp \
@@ -55,6 +57,8 @@ HEADERS += \
     Dialogs/AddPointDialogs/addpointsecondintersect.h \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.h \
     Dialogs/AddTriangleDialogs/addtriangle.h \
+    Dialogs/EditDialogs/edit.h \
+    Dialogs/RemoveDialogs/remove.h \
     GeoComponents.h \
     GeoNode.h \
     LineNode.h \
@@ -78,6 +82,8 @@ FORMS += \
     Dialogs/AddPointDialogs/addpointsecondintersect.ui \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.ui \
     Dialogs/AddTriangleDialogs/addtriangle.ui \
+    Dialogs/EditDialogs/edit.ui \
+    Dialogs/RemoveDialogs/remove.ui \
     mainwindow.ui
 
 # Default rules for deployment.
