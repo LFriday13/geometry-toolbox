@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddLineThrough</class>
- <widget class="QDialog" name="AddLineThrough">
+ <class>AddCircleCenterPoint</class>
+ <widget class="QDialog" name="AddCircleCenterPoint">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -52,7 +52,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="point1Label">
       <property name="text">
-       <string>Point 1:</string>
+       <string>Center:</string>
       </property>
      </widget>
     </item>
@@ -62,7 +62,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="point2Label">
       <property name="text">
-       <string>Point 2:</string>
+       <string>Point:</string>
       </property>
      </widget>
     </item>
@@ -77,7 +77,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>AddLineThrough</receiver>
+   <receiver>AddCircleCenterPoint</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -93,7 +93,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>AddLineThrough</receiver>
+   <receiver>AddCircleCenterPoint</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

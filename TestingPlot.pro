@@ -17,6 +17,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CircleNode.cpp \
+    Dialogs/AddCircleDialogs/addcirclecenterpoint.cpp \
+    Dialogs/AddCircleDialogs/addcirclecenterradius.cpp \
+    Dialogs/AddCircleDialogs/addcirclethroughpoints.cpp \
     Dialogs/AddLineDialogs/addlinefirsttangent.cpp \
     Dialogs/AddLineDialogs/addlineparallel.cpp \
     Dialogs/AddLineDialogs/addlineperpendicularbisector.cpp \
@@ -30,8 +33,6 @@ SOURCES += \
     Dialogs/AddPointDialogs/addpointsecondintersect.cpp \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.cpp \
     Dialogs/AddTriangleDialogs/addtriangle.cpp \
-    Dialogs/EditDialogs/edit.cpp \
-    Dialogs/RemoveDialogs/remove.cpp \
     GeoComponents.cpp \
     GeoNode.cpp \
     LineNode.cpp \
@@ -44,6 +45,9 @@ SOURCES += \
 
 HEADERS += \
     CircleNode.h \
+    Dialogs/AddCircleDialogs/addcirclecenterpoint.h \
+    Dialogs/AddCircleDialogs/addcirclecenterradius.h \
+    Dialogs/AddCircleDialogs/addcirclethroughpoints.h \
     Dialogs/AddLineDialogs/addlinefirsttangent.h \
     Dialogs/AddLineDialogs/addlineparallel.h \
     Dialogs/AddLineDialogs/addlineperpendicularbisector.h \
@@ -57,8 +61,6 @@ HEADERS += \
     Dialogs/AddPointDialogs/addpointsecondintersect.h \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.h \
     Dialogs/AddTriangleDialogs/addtriangle.h \
-    Dialogs/EditDialogs/edit.h \
-    Dialogs/RemoveDialogs/remove.h \
     GeoComponents.h \
     GeoNode.h \
     LineNode.h \
@@ -69,6 +71,9 @@ HEADERS += \
     qcustomplot.h
 
 FORMS += \
+    Dialogs/AddCircleDialogs/addcirclecenterpoint.ui \
+    Dialogs/AddCircleDialogs/addcirclecenterradius.ui \
+    Dialogs/AddCircleDialogs/addcirclethroughpoints.ui \
     Dialogs/AddLineDialogs/addlinefirsttangent.ui \
     Dialogs/AddLineDialogs/addlineparallel.ui \
     Dialogs/AddLineDialogs/addlineperpendicularbisector.ui \
@@ -82,8 +87,6 @@ FORMS += \
     Dialogs/AddPointDialogs/addpointsecondintersect.ui \
     Dialogs/AddTriangleCenterDialogs/addtrianglecenter.ui \
     Dialogs/AddTriangleDialogs/addtriangle.ui \
-    Dialogs/EditDialogs/edit.ui \
-    Dialogs/RemoveDialogs/remove.ui \
     mainwindow.ui
 
 # Default rules for deployment.

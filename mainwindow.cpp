@@ -14,8 +14,9 @@
 #include "Dialogs/AddLineDialogs/addlineperpendicularbisector.h"
 #include "Dialogs/AddLineDialogs/addlinefirsttangent.h"
 #include "Dialogs/AddLineDialogs/addlinesecondtangent.h"
-#include "Dialogs/EditDialogs/edit.h"
-#include "Dialogs/RemoveDialogs/remove.h"
+#include "Dialogs/AddCircleDialogs/addcirclethroughpoints.h"
+#include "Dialogs/AddCircleDialogs/addcirclecenterpoint.h"
+#include "Dialogs/AddCircleDialogs/addcirclecenterradius.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
@@ -51,8 +52,11 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     connect(ui->actionPerpendicular_Bisector, SIGNAL(triggered()), this, SLOT(add_line_perpendicular_bisector()));
     connect(ui->actionFirst_Tangent, SIGNAL(triggered()), this, SLOT(add_line_first_tangent()));
     connect(ui->actionSecond_Tangent, SIGNAL(triggered()), this, SLOT(add_line_second_tangent()));
+    connect(ui->actionCircle_Through_Points, SIGNAL(triggered()), this, SLOT(add_circle_through_points()));
+    connect(ui->actionCircle_Center_Point, SIGNAL(triggered()), this, SLOT(add_circle_center_point()));
+    connect(ui->actionCircle_Center_Radius, SIGNAL(triggered()), this, SLOT(add_circle_center_radius()));
 
-    connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit_point()));
+    connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
 
     //Draw the plot
@@ -117,7 +121,7 @@ void MainWindow::make_plot(){
     axisRectGradient.setColorAt(1, QColor(30, 30, 30));
     ui->custom_plot->axisRect()->setBackground(axisRectGradient);
 
-    // Scaling of the axis (Proportion should remain fixed corresponding to the window.)
+    // Scaling of the axis (Proportion should probably be fixed 1:1 [corresponding to the window?])
     ui->custom_plot->rescaleAxes();
     ui->custom_plot->yAxis->setRange(-default_range_y, default_range_y);
     ui->custom_plot->xAxis->setRange(-default_range_x, default_range_x);
@@ -325,33 +329,6 @@ void MainWindow::add_triangle_center(int type, std::string geo, std::string labe
     ui->statusbar->showMessage(message,3000);
 }
 
-// Edit
-
-void MainWindow::edit(std::string geo, double x, double y){
-    int to_edit = geo_components->get_pid(geo);
-    double data [2] = {x,y};
-
-    geo_components->edit_construction(static_cast<unsigned int>(to_edit), data);
-
-    geo_components->display_all_constructions(ui);
-    ui->custom_plot->replot();
-
-    QString message = QString("Edited point '%1'").arg(QString::fromStdString(geo));
-    ui->statusbar->showMessage(message,3000);
-}
-
-// Remove
-void MainWindow::remove(std::string geo){
-    int to_remove = geo_components->get_pid(geo);
-    geo_components->remove_construction(static_cast<unsigned int>(to_remove));
-
-    geo_components->display_all_constructions(ui);
-    ui->custom_plot->replot();
-
-    QString message = QString("Removed point '%1'").arg(QString::fromStdString(geo));
-    ui->statusbar->showMessage(message,3000);
-}
-
 // Actions of the menus
 
 // Points
@@ -405,7 +382,7 @@ void MainWindow::add_triangle_points() {
    Add_Triangle->show();
 }
 
-//Triangle Centers
+// Triangle Centers
 
 void MainWindow::add_triangle_center() {
    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
@@ -451,22 +428,54 @@ void MainWindow::add_line_second_tangent() {
    Add_Line->show();
 }
 
-// Edit
+// Circles
 
-void MainWindow::edit_point() {
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+void MainWindow::add_circle_through_points() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
 
-    Edit *edit_point = new Edit(&point_labels, this);
-    edit_point->show();
+   AddCircleThroughPoints *Add_Circle = new AddCircleThroughPoints(&point_labels, this);
+   Add_Circle->show();
+}
+
+void MainWindow::add_circle_center_point() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddCircleCenterPoint *Add_Circle = new AddCircleCenterPoint(&point_labels, this);
+   Add_Circle->show();
+}
+
+void MainWindow::add_circle_center_radius() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddCircleCenterRadius *Add_Circle = new AddCircleCenterRadius(&point_labels, this);
+   Add_Circle->show();
+}
+
+    // Edit
+void MainWindow::edit() {
+    bool ok;
+    std::string label = (QInputDialog::getText(this,tr("Edit Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();
+    int to_edit = geo_components->get_pid(label);
+    if(to_edit >= 0){
+        double coor[2];
+        coor[0]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("x coordinate:"), 0, -100, 100, 2, &ok);
+        coor[1]= QInputDialog::getDouble(this, tr("QInputDialog::getDuble()"), tr("y coordinate:"), 0, -100, 100, 2, &ok);
+        geo_components->edit_construction(static_cast<unsigned int>(to_edit),coor);
+        geo_components->display_all_constructions(ui);
+        ui->custom_plot->replot();
+    }
 }
 
     //Remove
 void MainWindow::remove() {
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
-    std::vector<std::string>* labels [4] = {&point_labels, &line_labels, &circle_labels, &triangle_labels};
-
-    Remove *remove = new Remove(labels, 4, this);
-    remove->show();
+    bool ok;
+    std::string label = (QInputDialog::getText(this,tr("Remove Construction"),tr("Label:"), QLineEdit::Normal,"default_0", &ok)).toStdString();
+    int to_remove = geo_components->get_pid(label);
+    if(to_remove >= 0){
+        geo_components->remove_construction(static_cast<unsigned int>(to_remove));
+        geo_components->display_all_constructions(ui);
+        ui->custom_plot->replot();
+    }
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
