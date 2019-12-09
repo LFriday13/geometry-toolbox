@@ -4,6 +4,7 @@
 #include "LineNode.h"
 #include "CircleNode.h"
 #include "TriangleNode.h"
+#include "TriangleCentersNode.h"
 
 #include <QApplication>
 

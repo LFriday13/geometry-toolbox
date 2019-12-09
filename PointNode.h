@@ -9,10 +9,10 @@
 #include "GeoNode.h"
 
 enum PointType {
-	INDEPENDENT,
-	ON_LINE,
-	ON_CIRCLE,
-	POINT_POINT_MIDPOINT,
+    INDEPENDENT, // Point given by cartesian coordinates.
+    ON_LINE, // Point on a given line.
+    ON_CIRCLE, // Point on a circle.
+    POINT_POINT_MIDPOINT, // Midpoint
 	LINE_LINE_INTERSECTION,
 	LINE_CIRCLE_FIRST_INTERSECTION,
 	LINE_CIRCLE_SECOND_INTERSECTION,

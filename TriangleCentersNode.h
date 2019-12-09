@@ -9,12 +9,12 @@
 #include "GeoNode.h"
 
 enum TriangleCentersType {
-	CENTROID,
-  INCENTER,
-	CIRCUMCENTER,
-	ORTHOCENTER,
-	NINEPOINTCENTER,
-	SYMMEDIAN
+    CENTROID,
+    INCENTER,
+    CIRCUMCENTER,
+    ORTHOCENTER,
+    NINEPOINTCENTER,
+    SYMMEDIAN
 };
 
 class TriangleCentersNode: public GeoNode {
@@ -25,7 +25,7 @@ public:
     virtual ~TriangleCentersNode() override;
 
 private:
-    double barycoeff_a, barycoeff_b, barycoeff_c;
+    double barycoeff_a {0}, barycoeff_b {0}, barycoeff_c {0};
     QCPGraph *center {nullptr};
 
     void (TriangleCentersNode::*definition)() {nullptr};
