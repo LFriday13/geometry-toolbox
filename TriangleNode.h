@@ -14,7 +14,15 @@ enum TriangleType {
     POINT_POINT_POINT_VERTICES
 };
 
+enum TriangleType {
+	POINT_POINT_POINT_VERTICES,
+  	LINE_LINE_LINE_INTERSECTIONS
+};
+
 class TriangleNode: public GeoNode {
+	friend class TriangleCentersNode;
+	
+	private:
 	double side_a, side_b, side_c;
 	void (TriangleNode::*definition)() {nullptr};
     QCPCurve *triangle {nullptr};

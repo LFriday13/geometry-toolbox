@@ -10,7 +10,7 @@
 
 enum TriangleCentersType {
 	CENTROID,
-    INCENTER,
+  INCENTER,
 	CIRCUMCENTER,
 	ORTHOCENTER,
 	NINEPOINTCENTER,
@@ -45,7 +45,6 @@ private:
     void orthocenter();
     void ninepointcenter();
     void symmedian();
-
 
 };
 
