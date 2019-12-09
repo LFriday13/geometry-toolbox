@@ -52,6 +52,12 @@ private slots:
     void add_triangle_points();
     void add_triangle_center();
 
+    void add_line_through();
+    void add_line_parallel();
+    void add_line_perpendicular_bisector();
+    void add_line_first_tangent();
+    void add_line_second_tangent();
+
     virtual void resizeEvent(QResizeEvent *event);
 
 private:

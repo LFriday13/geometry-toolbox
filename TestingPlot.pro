@@ -17,6 +17,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CircleNode.cpp \
+    Dialogs/AddLineDialogs/addlinefirsttangent.cpp \
+    Dialogs/AddLineDialogs/addlineparallel.cpp \
+    Dialogs/AddLineDialogs/addlineperpendicularbisector.cpp \
+    Dialogs/AddLineDialogs/addlinesecondtangent.cpp \
+    Dialogs/AddLineDialogs/addlinethrough.cpp \
     Dialogs/AddPointDialogs/addpointindependent.cpp \
     Dialogs/AddPointDialogs/addpointintersect.cpp \
     Dialogs/AddPointDialogs/addpointmidpoint.cpp \
@@ -37,6 +42,11 @@ SOURCES += \
 
 HEADERS += \
     CircleNode.h \
+    Dialogs/AddLineDialogs/addlinefirsttangent.h \
+    Dialogs/AddLineDialogs/addlineparallel.h \
+    Dialogs/AddLineDialogs/addlineperpendicularbisector.h \
+    Dialogs/AddLineDialogs/addlinesecondtangent.h \
+    Dialogs/AddLineDialogs/addlinethrough.h \
     Dialogs/AddPointDialogs/addpointindependent.h \
     Dialogs/AddPointDialogs/addpointintersect.h \
     Dialogs/AddPointDialogs/addpointmidpoint.h \
@@ -55,6 +65,11 @@ HEADERS += \
     qcustomplot.h
 
 FORMS += \
+    Dialogs/AddLineDialogs/addlinefirsttangent.ui \
+    Dialogs/AddLineDialogs/addlineparallel.ui \
+    Dialogs/AddLineDialogs/addlineperpendicularbisector.ui \
+    Dialogs/AddLineDialogs/addlinesecondtangent.ui \
+    Dialogs/AddLineDialogs/addlinethrough.ui \
     Dialogs/AddPointDialogs/addpointindependent.ui \
     Dialogs/AddPointDialogs/addpointintersect.ui \
     Dialogs/AddPointDialogs/addpointmidpoint.ui \

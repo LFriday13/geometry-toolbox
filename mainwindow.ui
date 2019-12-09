@@ -26,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>496</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAdd_Point">
@@ -44,7 +44,7 @@
     <property name="title">
      <string>Add Line</string>
     </property>
-    <addaction name="actionNew_Line"/>
+    <addaction name="actionLine_Through"/>
     <addaction name="actionParallel"/>
     <addaction name="actionPerpendicular_Bisector"/>
     <addaction name="actionFirst_Tangent"/>
@@ -136,9 +136,9 @@
     <string>Parallel Line</string>
    </property>
   </action>
-  <action name="actionNew_Line">
+  <action name="actionLine_Through">
    <property name="text">
-    <string>New Line</string>
+    <string>Line Through</string>
    </property>
   </action>
   <action name="actionPerpendicular_Bisector">

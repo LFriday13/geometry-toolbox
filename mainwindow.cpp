@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include "Dialogs/AddPointDialogs/addpointindependent.h"
@@ -10,6 +9,11 @@
 #include "Dialogs/AddPointDialogs/addpointsecondintersect.h"
 #include "Dialogs/AddTriangleDialogs/addtriangle.h"
 #include "Dialogs/AddTriangleCenterDialogs/addtrianglecenter.h"
+#include "Dialogs/AddLineDialogs/addlinethrough.h"
+#include "Dialogs/AddLineDialogs/addlineparallel.h"
+#include "Dialogs/AddLineDialogs/addlineperpendicularbisector.h"
+#include "Dialogs/AddLineDialogs/addlinefirsttangent.h"
+#include "Dialogs/AddLineDialogs/addlinesecondtangent.h"
 
 MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     : QMainWindow(parent)
@@ -40,6 +44,11 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     connect(ui->actionSecond_Intersect, SIGNAL(triggered()), this, SLOT(add_point_second_intersect()));
     connect(ui->actionNew_Triangle, SIGNAL(triggered()), this, SLOT(add_triangle_points()));
     connect(ui->actionAdd_Triangle_Center, SIGNAL(triggered()), this, SLOT(add_triangle_center()));
+    connect(ui->actionLine_Through, SIGNAL(triggered()), this, SLOT(add_line_through()));
+    connect(ui->actionParallel, SIGNAL(triggered()), this, SLOT(add_line_parallel()));
+    connect(ui->actionPerpendicular_Bisector, SIGNAL(triggered()), this, SLOT(add_line_perpendicular_bisector()));
+    connect(ui->actionFirst_Tangent, SIGNAL(triggered()), this, SLOT(add_line_first_tangent()));
+    connect(ui->actionSecond_Tangent, SIGNAL(triggered()), this, SLOT(add_line_second_tangent()));
 
     connect(ui->actionEdit,SIGNAL(triggered()),this,SLOT(edit()));
     connect(ui->actionRemove,SIGNAL(triggered()),this,SLOT(remove()));
@@ -358,7 +367,6 @@ void MainWindow::add_point_second_intersect() {
    Add_Point->show();
 }
 
-
 // Triangles
 
 void MainWindow::add_triangle_points() {
@@ -375,6 +383,43 @@ void MainWindow::add_triangle_center() {
 
    AddTriangleCenter *Add_Triangle_Center = new AddTriangleCenter(&triangle_labels, this);
    Add_Triangle_Center->show();
+}
+
+// Lines
+
+void MainWindow::add_line_through() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddLineThrough *Add_Line = new AddLineThrough(&point_labels, this);
+   Add_Line->show();
+}
+
+void MainWindow::add_line_parallel() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddLineParallel *Add_Line = new AddLineParallel(&point_labels, &line_labels, this);
+   Add_Line->show();
+}
+
+void MainWindow::add_line_perpendicular_bisector() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddLinePerpendicularBisector *Add_Line = new AddLinePerpendicularBisector(&point_labels, this);
+   Add_Line->show();
+}
+
+void MainWindow::add_line_first_tangent() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddLineFirstTangent *Add_Line = new AddLineFirstTangent(&point_labels, &circle_labels, this);
+   Add_Line->show();
+}
+
+void MainWindow::add_line_second_tangent() {
+   geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+
+   AddLineSecondTangent *Add_Line = new AddLineSecondTangent(&point_labels, &circle_labels, this);
+   Add_Line->show();
 }
 
     // Edit
