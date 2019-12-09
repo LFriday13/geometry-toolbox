@@ -115,10 +115,13 @@ void TriangleCentersNode::orthocenter() {
     double sum = triangle[6] * triangle[6] + triangle[7] * triangle[7] + triangle[8] * triangle[8];
 
     for(int i = 0; i < 3; i++) {
-        if(abs(triangle[i] * triangle[i] * 2 - sum) < 1e-8) {
-            for(int j = 0; j < 3; j++)barycoeff[j] = 0.0;
-            barycoeff[i] = 1.0;
-            break;
+        barycoeff[i] = sum - 2 * triangle[6+i] * triangle[6+i];
+        if(abs(barycoeff[i]) < 1e-8){
+            well_defined = false;
+            return;
+        }
+        else{
+            barycoeff[i] = 1 / barycoeff[i];
         }
     }
 
