@@ -7,10 +7,11 @@
 #define TRIANGLENODE_H_
 
 #include "GeoNode.h"
+#include "ui_mainwindow.h"
+#include "qcustomplot.h"
 
 enum TriangleType {
-	POINT_POINT_POINT_VERTICES,
-  	LINE_LINE_LINE_INTERSECTIONS
+    POINT_POINT_POINT_VERTICES
 };
 
 class TriangleNode: public GeoNode {
@@ -19,23 +20,21 @@ class TriangleNode: public GeoNode {
 	private:
 	double side_a, side_b, side_c;
 	void (TriangleNode::*definition)() {nullptr};
-	virtual void print() const override;
-	virtual void display() const override;
+    QCPCurve *triangle {nullptr};
+
+    virtual void print() const override;
+    virtual void display(Ui::MainWindow *ui) override;
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
 	virtual void update() override;
-	
-	void access_coordinates(double data[]);
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
-	void point_point_point_vertices();
-	void line_line_line_intersections();
+    void point_point_point_vertices();
 
-	void get_intersection_helper(double line1[], double line2[], double point[]);
-	
-	public:
-	TriangleNode();
+public:
+    TriangleNode();
 	TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3);
-	virtual ~TriangleNode();
+    virtual ~TriangleNode() override;
 };
 
 #endif /* TRIANGLENODE_H_ */

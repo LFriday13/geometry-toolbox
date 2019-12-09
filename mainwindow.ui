@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>496</width>
+    <height>537</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QCustomPlot" name="custom_plot" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>496</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAdd_Point">
+    <property name="title">
+     <string>Add Point</string>
+    </property>
+    <addaction name="actionIndependent"/>
+    <addaction name="actionOn_line"/>
+    <addaction name="actionOn_Circle"/>
+    <addaction name="actionMidpoint"/>
+    <addaction name="actionIntersect"/>
+    <addaction name="actionSecond_Intersect"/>
+   </widget>
+   <widget class="QMenu" name="menuAdd_Line">
+    <property name="title">
+     <string>Add Line</string>
+    </property>
+    <addaction name="actionNew_Line"/>
+    <addaction name="actionParallel"/>
+    <addaction name="actionPerpendicular_Bisector"/>
+    <addaction name="actionFirst_Tangent"/>
+    <addaction name="actionSecond_Tangent"/>
+   </widget>
+   <widget class="QMenu" name="menuAdd_Circle">
+    <property name="title">
+     <string>Add Circle</string>
+    </property>
+    <addaction name="actionNew_Circle"/>
+    <addaction name="actionCenter_and_Radius"/>
+    <addaction name="actionCenter_and_Point"/>
+   </widget>
+   <widget class="QMenu" name="menuRemove">
+    <property name="title">
+     <string>Remove</string>
+    </property>
+    <addaction name="actionRemove"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionEdit"/>
+   </widget>
+   <widget class="QMenu" name="menuAdd_Triangle">
+    <property name="title">
+     <string>Add Triangle</string>
+    </property>
+    <addaction name="actionNew_Triangle"/>
+   </widget>
+   <widget class="QMenu" name="menuTriangle_Centers">
+    <property name="title">
+     <string>Triangle Centers</string>
+    </property>
+    <addaction name="actionAdd_Triangle_Center"/>
+   </widget>
+   <addaction name="menuAdd_Point"/>
+   <addaction name="menuAdd_Line"/>
+   <addaction name="menuAdd_Circle"/>
+   <addaction name="menuAdd_Triangle"/>
+   <addaction name="menuTriangle_Centers"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuRemove"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionIndependent">
+   <property name="text">
+    <string>New Point</string>
+   </property>
+  </action>
+  <action name="actionMidpoint">
+   <property name="text">
+    <string>Midpoint</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove Construction</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit Point</string>
+   </property>
+  </action>
+  <action name="actionOn_line">
+   <property name="text">
+    <string>Point on Line</string>
+   </property>
+  </action>
+  <action name="actionOn_Circle">
+   <property name="text">
+    <string>Point on Circle</string>
+   </property>
+  </action>
+  <action name="actionIntersect">
+   <property name="text">
+    <string>Intersect</string>
+   </property>
+  </action>
+  <action name="actionSecond_Intersect">
+   <property name="text">
+    <string>Second Intersect</string>
+   </property>
+  </action>
+  <action name="actionParallel">
+   <property name="text">
+    <string>Parallel Line</string>
+   </property>
+  </action>
+  <action name="actionNew_Line">
+   <property name="text">
+    <string>New Line</string>
+   </property>
+  </action>
+  <action name="actionPerpendicular_Bisector">
+   <property name="text">
+    <string>Perpendicular Bisector</string>
+   </property>
+  </action>
+  <action name="actionFirst_Tangent">
+   <property name="text">
+    <string>First Tangent</string>
+   </property>
+  </action>
+  <action name="actionSecond_Tangent">
+   <property name="text">
+    <string>Second Tangent</string>
+   </property>
+  </action>
+  <action name="actionNew_Circle">
+   <property name="text">
+    <string>New Circle</string>
+   </property>
+  </action>
+  <action name="actionCenter_and_Radius">
+   <property name="text">
+    <string>Center and Radius</string>
+   </property>
+  </action>
+  <action name="actionCenter_and_Point">
+   <property name="text">
+    <string>Center and Point</string>
+   </property>
+  </action>
+  <action name="actionNew_Triangle">
+   <property name="text">
+    <string>New Triangle</string>
+   </property>
+  </action>
+  <action name="actionAdd_Triangle_Center">
+   <property name="text">
+    <string>Add Triangle Center</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -21,13 +21,15 @@ public:
 	CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2);
 	CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3);
 
-	virtual ~CircleNode();
+    virtual ~CircleNode() override;
 
 private:
 	double center_x{0}, center_y{0}, radius{0};
+    QCPItemEllipse *circle {nullptr};
 
 	virtual void print() const override;
-	virtual void display() const override;
+    virtual void display(Ui::MainWindow* ui) override;
+    virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
 	virtual void access(double data[]) const override;
 	virtual void mutate(double data[]) override;
