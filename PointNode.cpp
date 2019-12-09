@@ -7,8 +7,6 @@
 #include <limits>
 #include "PointNode.h"
 
-PointNode::PointNode() {}
-
 PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definition(&PointNode::independent) {}
 
 PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNode(1) {

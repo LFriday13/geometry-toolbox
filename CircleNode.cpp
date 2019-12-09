@@ -7,8 +7,6 @@
 #include <limits>
 #include "CircleNode.h"
 
-CircleNode::CircleNode() {}
-
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 	switch(type) {
 		case POINT_POINT_CENTER_THROUGH: definition = &CircleNode::point_point_center_through; break;

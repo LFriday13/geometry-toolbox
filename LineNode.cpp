@@ -7,8 +7,6 @@
 #include <limits>
 #include "LineNode.h"
 
-LineNode::LineNode() {}
-
 LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 
 	switch(type) {
