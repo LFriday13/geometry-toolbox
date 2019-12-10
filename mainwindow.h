@@ -27,7 +27,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(GeoComponents *geo_components, QWidget *parent = nullptr); //!< @brief Takes a pointer to a dynamically-initialized GeoComponents object, and sets the figures on the plot.
+    MainWindow(GeoComponents *geo_components = nullptr, QWidget *parent = nullptr); //!< @brief Takes a pointer to a dynamically-initialized GeoComponents object, and sets the figures on the plot.
     ~MainWindow(); //!< @brief Deletes the GeoComponents object.
 
 private slots:

@@ -11,6 +11,9 @@ Edit::Edit(std::vector<std::string> *points, QWidget *parent) :
     for(auto it = points->begin(); it != points->end(); ++it){
         ui->pointComboBox->addItem(QString::fromStdString(*it));
     }
+
+    ui->newXLineEdit->setText("0");
+    ui->newYLineEdit->setText("0");
 }
 
 Edit::~Edit()

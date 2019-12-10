@@ -11,6 +11,9 @@ AddPointOn::AddPointOn(std::vector<std::string>* lines, QWidget *parent) :
     for(auto it = lines->begin(); it != lines->end(); ++it){
         ui->lineComboBox->addItem(QString::fromStdString(*it));
     }
+
+    ui->xLineEdit->setText("0");
+    ui->yLineEdit->setText("0");
 }
 
 AddPointOn::~AddPointOn()

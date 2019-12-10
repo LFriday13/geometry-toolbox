@@ -29,7 +29,7 @@ private slots:
 private:
     Ui::AddPointIndependent *ui;
     std::string label;
-    double x,y;
+    double x{0},y{0};
 };
 
 #endif // ADDPOINTINDEPENDENT_H

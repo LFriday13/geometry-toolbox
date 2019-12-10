@@ -33,7 +33,7 @@ private:
     Ui::AddPointOnCircle *ui;
 
     std::string label;
-    double x,y;
+    double x{0},y{0};
     std::string geo;
 };
 

@@ -25,8 +25,7 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     //Set GeoComponents object
-    this->geo_components = geo_components;
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+    this->geo_components = (geo_components == nullptr)? new GeoComponents: geo_components;
 
     //Setup Ui
     ui->setupUi(this);
@@ -235,6 +234,11 @@ void MainWindow::add_point(int type, double x, double y, std::string label) {
 
 void MainWindow::add_point(int type, std::string geo, double x, double y, std::string label){
     GeoNode* parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    if(parent_1 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -250,6 +254,11 @@ void MainWindow::add_point(int type, std::string geo, double x, double y, std::s
 void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::string label){
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    if(parent_1 == nullptr || parent_2 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -267,6 +276,11 @@ void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::st
 void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::string label){
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    if(parent_1 == nullptr || parent_2 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -284,6 +298,11 @@ void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::str
 void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string label){
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    if(parent_1 == nullptr || parent_2 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -300,6 +319,11 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
     GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+    if(parent_1 == nullptr || parent_2 == nullptr || parent_3 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -317,6 +341,11 @@ void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std:
     GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
     GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
     GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+    if(parent_1 == nullptr || parent_2 == nullptr || parent_3 == nullptr){
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
@@ -332,11 +361,16 @@ void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std:
 //Triangle Centers
 
 void MainWindow::add_triangle_center(int type, std::string geo, std::string label) {
-    GeoNode *parent = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    if(parent_1 == nullptr) {
+        QString message = QString("Invalid parameters.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
 
-    geo_components->add_construction(new TriangleCentersNode(static_cast<TriangleCentersType>(type), parent), label);
+    geo_components->add_construction(new TriangleCentersNode(static_cast<TriangleCentersType>(type), parent_1), label);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -368,7 +402,7 @@ void MainWindow::remove(std::string geo){
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
 
-    QString message = QString("Removed point '%1'").arg(QString::fromStdString(geo));
+    QString message = QString("Removed construction '%1'").arg(QString::fromStdString(geo));
     ui->statusbar->showMessage(message,3000);
 }
 

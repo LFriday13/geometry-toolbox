@@ -8,6 +8,8 @@ AddPointIndependent::AddPointIndependent(QWidget *parent) :
 {
     connect(this, SIGNAL(add_point(int, double, double, std::string)), parent, SLOT(add_point(int, double, double,std::string)));
     ui->setupUi(this);
+    ui->xLineEdit->setText("0");
+    ui->yLineEdit->setText("0");
 }
 
 AddPointIndependent::~AddPointIndependent()

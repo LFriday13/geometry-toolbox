@@ -30,7 +30,7 @@ private slots:
 private:
     Ui::Edit *ui;
 
-    double x,y;
+    double x{0},y{0};
     std::string geo;
 };
 

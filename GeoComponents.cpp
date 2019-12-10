@@ -144,6 +144,7 @@ void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string
 	point_labels->clear();
 	line_labels->clear();
 	circle_labels->clear();
+    triangle_labels->clear();
 
 	for (auto it = begin(geo_components); it != end(geo_components); ++it){
 		if((*it)->need_display)

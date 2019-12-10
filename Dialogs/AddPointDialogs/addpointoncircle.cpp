@@ -11,6 +11,9 @@ AddPointOnCircle::AddPointOnCircle(std::vector<std::string>* circles, QWidget *p
     for(auto it = circles->begin(); it != circles->end(); ++it){
         ui->circleComboBox->addItem(QString::fromStdString(*it));
     }
+
+    ui->xLineEdit->setText("0");
+    ui->yLineEdit->setText("0");
 }
 
 AddPointOnCircle::~AddPointOnCircle()

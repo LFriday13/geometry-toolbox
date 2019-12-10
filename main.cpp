@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     GeoComponents* geo_components = new GeoComponents;
 
-    // Demo Configuration
+    // Demo Configuration 1
     int i = 1;
     for(; i<11; ++i){geo_components->add_construction(new PointNode(PointType::INDEPENDENT, i, i*i), "demo_"+std::to_string(i-1));}
     geo_components->add_construction(new CircleNode(CircleType::POINT_POINT_POINT_THROUGH, geo_components->get_construction(0), geo_components->get_construction(1), geo_components->get_construction(2)),  "demo_"+std::to_string(i++ -1));
