@@ -118,35 +118,35 @@ void GeoComponents::print_all_constructions(){
 void GeoComponents::display_all_constructions(Ui::MainWindow *ui){
 	for (auto it = begin(geo_components); it != end(geo_components); ++it){
 		if((*it)->need_display)
-            (*it)->display(ui);
+            		(*it)->display(ui);
 	}
 }
 
 GeoNode* GeoComponents::get_construction(unsigned int pid){
-    for (auto it = begin(geo_components); it != end(geo_components); ++it){
-        if((*it)->pid == pid)
-            return (*it);
-    }
+	for (auto it = begin(geo_components); it != end(geo_components); ++it){
+		if((*it)->pid == pid)
+		    return (*it);
+	}
 
-    return nullptr;
+	return nullptr;
 }
 
 int GeoComponents::get_pid(string label){
-    for (auto it = begin(geo_components); it != end(geo_components); ++it){
-        if((*it)->label == label)
-            return (*it)->pid;
-    }
+	for (auto it = begin(geo_components); it != end(geo_components); ++it){
+		if((*it)->label == label)
+		    return (*it)->pid;
+	}
 
-    return -1;
+	return -1;
 }
 
 void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels, vector<string>* triangle_labels) {
-    point_labels->clear();
-    line_labels->clear();
-    circle_labels->clear();
+	point_labels->clear();
+	line_labels->clear();
+	circle_labels->clear();
 
-    for (auto it = begin(geo_components); it != end(geo_components); ++it){
-        if((*it)->need_display)
-            (*it)->labels(point_labels, line_labels, circle_labels, triangle_labels);
-    }
+	for (auto it = begin(geo_components); it != end(geo_components); ++it){
+		if((*it)->need_display)
+		    (*it)->labels(point_labels, line_labels, circle_labels, triangle_labels);
+	}
 }
