@@ -195,5 +195,5 @@ void LineNode::point_circle_second_tangent() {
 }
 
 void LineNode::labels(vector<string>*, vector<string>* line_labels, vector<string>*, vector<string>*) const {
-    line_labels->push_back(this->get_label());
+    	line_labels->push_back(this->get_label());
 }
