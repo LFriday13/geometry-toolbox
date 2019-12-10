@@ -13,15 +13,15 @@ class GeoComponents {
 
 public:
     GeoComponents(); /**< @brief Constructor */
-    /** @brief The following function takes a pointer to a construction and a label, updates the label of the construction and adds it to the back of the vector. */
+    /** @brief Takes a pointer to a construction and a label, updates the label of the construction and adds it to the back of the vector. */
     void add_construction(GeoNode* geo, string label = "");
-    /** @brief The following function takes a pid of a construction and an array of data to update the construction. */
-    void edit_construction(unsigned int pid, double data[]); //!< Only points have a degree of freedom, all other constructions are determined by the parents.
-    /** @brief The following function takes a pid of a construction and removes it, along with any derived construction (childs) of this construction. */
+    /** @brief Takes a pid of a construction and an array of data to update the construction. */
+    void edit_construction(unsigned int pid, double data[]);
+    /** @brief Takes a pid of a construction and removes it, along with any derived construction (childs) of this construction. */
     void remove_construction(unsigned int pid);
-    /** @brief The following function updates all the figures representing the constructions on the plot. */
+    /** @brief Updates all the figures representing the constructions on the plot. */
     void display_all_constructions(Ui::MainWindow *ui);
-    /** @brief The following function takes a collection of string vectors and sets them to be the collection of labels of current constructions. */
+    /** @brief Takes a collection of string vectors and sets them to be the collection of labels of current constructions. */
     void update_ui_labels(vector<string> *point_labels, vector<string> *line_labels, vector<string> *circle_labels, vector<string> *triangle_labels);
 
     void print_all_constructions(); /**< @brief Prints the information of all the constructions (Debugging purposes only) */

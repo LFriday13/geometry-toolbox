@@ -17,8 +17,7 @@ class GeoNode {
 public:
     GeoNode(int num_parents = 0); /**< @brief Constructor, takes the number of constructions (parents) that define this construction (child). */
 
-    virtual void access(double data[]) const = 0; /**< @brief Takes an array and sets it to be the data members of the construction. */
-    //!< The required size of the array and the data contained varies by construction (2 < size < 9).
+    virtual void access(double data[]) const = 0; /**< @brief Takes an array and sets it to be the data members of the construction, the size may vary (1<size<10). */
     string get_label() const; /**< @brief This function returns the label of the construction. */
 
     virtual ~GeoNode(); /**< @brief Destructor */

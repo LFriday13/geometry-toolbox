@@ -34,18 +34,12 @@ private slots:
     /** @brief Sets the configuration/parameters of the plot displayed. */
     void make_plot();
 
-    //@{
-    /** @brief Identifies the object clicked and shows its label on the statusbar. */
-    void graphClicked(QCPAbstractPlottable *point); //!< Handles identification of points, triangles and triangle centers.
-    void itemClicked(QCPAbstractItem *figure); //!< Handles identification of lines and circles.
-    //@}
+    void graphClicked(QCPAbstractPlottable *point); //!< @brief Identifies the object clicked and shows its label on the statusbar: Handles identification of points, triangles and triangle centers.
+    void itemClicked(QCPAbstractItem *figure); //!< @brief Identifies the object clicked and shows its label on the statusbar: Handles identification of lines and circles.
 
-    //@{
-    /** @brief Handles edition of points by click and drag events. */
-    void onMousePress(QMouseEvent*); //!< Identifies the underlying point, if any.
-    void onMouseMove(QMouseEvent*); //!< Edits the point that is currently being dragged, if any.
-    void onMouseRelease(); //!< Ends the drag event.
-    //@}
+    void onMousePress(QMouseEvent*); //!< @brief Handles edition of points by click and drag events: Identifies the underlying point, if any.
+    void onMouseMove(QMouseEvent*); //!< @brief Handles edition of points by click and drag events: Edits the point that is currently being dragged, if any.
+    void onMouseRelease(); //!< @brief Handles edition of points by click and drag events: Ends the drag event.
 
     /** @brief Adjusts the proportion of the axis and updates the plot whenever the size of the window changes. */
     virtual void resizeEvent(QResizeEvent *event);
