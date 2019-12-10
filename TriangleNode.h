@@ -34,7 +34,7 @@ private:
     /** @brief Takes a collection of string vectors and adds the label of the line to the point_labels vector. */
     virtual void labels(vector<string>*, vector<string>*, vector<string>*, vector<string>*) const override;
 
-    void point_point_point_vertices();
+    void point_point_point_vertices(); /**< @brief Defines a triangle given by the 3 vertices. */
 };
 
 #endif /* TRIANGLENODE_H_ */
