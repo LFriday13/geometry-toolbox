@@ -9,7 +9,7 @@
 
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 	switch(type) {
-		case POINT_POINT_CENTER_THROUGH: definition = &CircleNode::point_point_center_through; break;
+        case CircleType::POINT_POINT_CENTER_THROUGH: definition = &CircleNode::point_point_center_through; break;
 	}
 
 	parents = new const GeoNode*[num_parents];
@@ -20,8 +20,8 @@ CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(
 
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3) : GeoNode(3) {
 	switch(type) {
-		case POINT_POINT_POINT_THROUGH: definition = &CircleNode::point_point_point_through; break;
-		case POINT_POINT_POINT_CENTER_RADIUS: definition = &CircleNode::point_point_point_center_radius; break;
+        case CircleType::POINT_POINT_POINT_THROUGH: definition = &CircleNode::point_point_point_through; break;
+        case CircleType::POINT_POINT_POINT_CENTER_RADIUS: definition = &CircleNode::point_point_point_center_radius; break;
 	}
 
 	parents = new const GeoNode*[num_parents];

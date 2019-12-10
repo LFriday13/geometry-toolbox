@@ -10,7 +10,7 @@
 #include "ui_mainwindow.h"
 #include "qcustomplot.h"
 
-enum TriangleType {
+enum class TriangleType {
     POINT_POINT_POINT_VERTICES
 };
 

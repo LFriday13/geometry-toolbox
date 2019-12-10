@@ -9,12 +9,12 @@ TriangleCentersNode::TriangleCentersNode() {}
 
 TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1): GeoNode(1) {
     switch(type) {
-        case CENTROID: definition = &TriangleCentersNode::centroid; break;
-        case INCENTER: definition = &TriangleCentersNode::incenter; break;
-        case CIRCUMCENTER: definition = &TriangleCentersNode::circumcenter; break;
-        case ORTHOCENTER: definition = &TriangleCentersNode::orthocenter; break;
-        case NINEPOINTCENTER: definition = &TriangleCentersNode::ninepointcenter; break;
-        case SYMMEDIAN: definition = &TriangleCentersNode::symmedian; break;
+        case TriangleCentersType::CENTROID: definition = &TriangleCentersNode::centroid; break;
+        case TriangleCentersType::INCENTER: definition = &TriangleCentersNode::incenter; break;
+        case TriangleCentersType::CIRCUMCENTER: definition = &TriangleCentersNode::circumcenter; break;
+        case TriangleCentersType::ORTHOCENTER: definition = &TriangleCentersNode::orthocenter; break;
+        case TriangleCentersType::NINEPOINTCENTER: definition = &TriangleCentersNode::ninepointcenter; break;
+        case TriangleCentersType::SYMMEDIAN: definition = &TriangleCentersNode::symmedian; break;
     }
 
     parents = new const GeoNode*[num_parents];

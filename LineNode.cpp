@@ -10,11 +10,11 @@
 LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 
 	switch(type) {
-		case POINT_POINT_LINE_THROUGH: definition = &LineNode::point_point_line_through; break;
-		case POINT_LINE_PARALLEL_LINE_THROUGH: definition = &LineNode::point_line_parallel_line_through; break;
-		case POINT_POINT_PERPENDICULAR_BISECTOR: definition = &LineNode::point_point_perpendicular_bisector; break;
-		case POINT_CIRCLE_FIRST_TANGENT: definition = &LineNode::point_circle_first_tangent; break;
-		case POINT_CIRCLE_SECOND_TANGENT: definition = &LineNode::point_circle_second_tangent; break;
+        case LineType::POINT_POINT_LINE_THROUGH: definition = &LineNode::point_point_line_through; break;
+        case LineType::POINT_LINE_PARALLEL_LINE_THROUGH: definition = &LineNode::point_line_parallel_line_through; break;
+        case LineType::POINT_POINT_PERPENDICULAR_BISECTOR: definition = &LineNode::point_point_perpendicular_bisector; break;
+        case LineType::POINT_CIRCLE_FIRST_TANGENT: definition = &LineNode::point_circle_first_tangent; break;
+        case LineType::POINT_CIRCLE_SECOND_TANGENT: definition = &LineNode::point_circle_second_tangent; break;
 	}
 
 	parents = new const GeoNode*[num_parents];

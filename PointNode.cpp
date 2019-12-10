@@ -12,8 +12,8 @@ PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definitio
 PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNode(1) {
 
     switch(type) {
-        case ON_LINE: definition = &PointNode::on_line; break;
-        case ON_CIRCLE:	definition = &PointNode::on_circle; break;
+        case PointType::ON_LINE: definition = &PointNode::on_line; break;
+        case PointType::ON_CIRCLE:	definition = &PointNode::on_circle; break;
     }
 
     parents = new const GeoNode*[num_parents];
@@ -26,12 +26,12 @@ PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNod
 PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 
     switch(type) {
-        case POINT_POINT_MIDPOINT: definition = &PointNode::point_point_midpoint; break;
-        case LINE_LINE_INTERSECTION: definition = &PointNode::line_line_intersection; break;
-        case LINE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::line_circle_first_intersection; break;
-        case LINE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::line_circle_second_intersection; break;
-        case CIRCLE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::circle_circle_first_intersection; break;
-        case CIRCLE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::circle_circle_second_intersection; break;
+        case PointType::POINT_POINT_MIDPOINT: definition = &PointNode::point_point_midpoint; break;
+        case PointType::LINE_LINE_INTERSECTION: definition = &PointNode::line_line_intersection; break;
+        case PointType::LINE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::line_circle_first_intersection; break;
+        case PointType::LINE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::line_circle_second_intersection; break;
+        case PointType::CIRCLE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::circle_circle_first_intersection; break;
+        case PointType::CIRCLE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::circle_circle_second_intersection; break;
     }
 
     parents = new const GeoNode*[num_parents];

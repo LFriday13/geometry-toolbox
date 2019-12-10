@@ -7,7 +7,7 @@ This class, CircleNode, defines a Circle. It is derived from GeoNode.
 
 #include "GeoNode.h"
 /** Types of Circles */
-enum CircleType {
+enum class CircleType {
     POINT_POINT_POINT_THROUGH, //!< Circle passing through 3 given Points
     POINT_POINT_CENTER_THROUGH, //!< Circle centered at Point 1 that passes through Point 2
     POINT_POINT_POINT_CENTER_RADIUS, //!< Circle centered at Point 1 that has as radius the distance between Point 2 and Point 3

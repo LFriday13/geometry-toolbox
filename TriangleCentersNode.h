@@ -8,7 +8,7 @@
 
 #include "GeoNode.h"
 
-enum TriangleCentersType {
+enum class TriangleCentersType {
     CENTROID,
     INCENTER,
     CIRCUMCENTER,

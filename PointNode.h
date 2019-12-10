@@ -8,7 +8,7 @@
 
 #include "GeoNode.h"
 /** @brief Types of Points */
-enum PointType {
+enum class PointType {
     INDEPENDENT, //!< Point given by cartesian coordinates.
     ON_LINE, //!< Point on a given line.
     ON_CIRCLE, //!< Point on a given circle.

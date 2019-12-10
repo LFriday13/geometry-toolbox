@@ -7,7 +7,7 @@ This class, LineNode, defines a Line. It is derived from GeoNode.
 
 #include "GeoNode.h"
 /** @brief Types of Lines */
-enum LineType {
+enum class LineType {
     POINT_POINT_LINE_THROUGH, //!< Line passing through the given points.
     POINT_LINE_PARALLEL_LINE_THROUGH, //!< Line Passing through a given Point that is parallel to the given Line.
     POINT_POINT_PERPENDICULAR_BISECTOR, //!< Perpedicular bisector of the segment defined by the two points.
