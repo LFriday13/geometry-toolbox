@@ -30,7 +30,7 @@ public:
 
 private:
     //@{
-    /** Data members: x coordinate, y coordinate. */
+    /** @brief Data members: x coordinate, y coordinate. */
     double x{0}, y{0};
     //@}
     QCPGraph *point {nullptr}; //!< Corresponding figure that represents the point on the plot.

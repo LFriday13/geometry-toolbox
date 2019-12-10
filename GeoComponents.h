@@ -1,6 +1,6 @@
 /***************************************************************************
 This class, GeoComponents, serves as the container of all our constructions
-(GeoNodes), they are stored as a STL vector of pointers.
+(GeoNodes), they are stored as a STL vector of pointers to GeoNode.
 ****************************************************************************/
 
 #ifndef GEOCOMPONENTS_H_

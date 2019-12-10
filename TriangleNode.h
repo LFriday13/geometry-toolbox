@@ -19,7 +19,7 @@ public:
 
 private:
     //@{
-    /** Data members: The Barycentric Coordinates of the point is given by [barycoeff_a : barycoeff_b : barycoeff_c]. */
+    /** @brief Data members: The Barycentric Coordinates of the point is given by [barycoeff_a : barycoeff_b : barycoeff_c]. */
     double side_a {0}, side_b {0}, side_c {0};
     //@}
     QCPCurve *triangle {nullptr}; //!< Corresponding figure that represents a triangle center on the plot.

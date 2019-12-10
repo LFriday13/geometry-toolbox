@@ -67,8 +67,7 @@ MainWindow::MainWindow(GeoComponents* geo_components, QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete geo_components; // Deleted Geo_Components here, in reality only figure pointers need to be cleaned...
-
+    delete geo_components;
     delete ui;
 }
 
@@ -202,6 +201,22 @@ void MainWindow::onMouseRelease(){
     }
 }
 
+// Resize of the axis to fit the window.
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event);
+
+    if(initialized){
+        int h = ui->custom_plot->size().height();
+        int w = ui->custom_plot->size().width();
+        default_range_y = 100 * h / w;
+        ui->custom_plot->rescaleAxes();
+        ui->custom_plot->yAxis->setRange(-default_range_y, default_range_y);
+        ui->custom_plot->xAxis->setRange(-default_range_x, default_range_x);
+        ui->custom_plot->replot();
+    } else {
+        initialized = true;
+    }
+}
 // Construction Creation Slots (This way dialogs only need to emit a signal for creation)
 
 // Points
@@ -495,20 +510,4 @@ void MainWindow::remove() {
 
     Remove *remove = new Remove(labels, 4, this);
     remove->show();
-}
-
-void MainWindow::resizeEvent(QResizeEvent *event) {
-    QMainWindow::resizeEvent(event);
-
-    if(initialized){
-        int h = ui->custom_plot->size().height();
-        int w = ui->custom_plot->size().width();
-        default_range_y = 100 * h / w;
-        ui->custom_plot->rescaleAxes();
-        ui->custom_plot->yAxis->setRange(-default_range_y, default_range_y);
-        ui->custom_plot->xAxis->setRange(-default_range_x, default_range_x);
-        ui->custom_plot->replot();
-    } else {
-        initialized = true;
-    }
 }
