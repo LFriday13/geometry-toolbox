@@ -21,13 +21,13 @@ TriangleNode::TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoN
 }
 
 void TriangleNode::print() const {
-  cout << "----------------------------------------\n";
-	cout << "Identifier: " << this->get_label() << endl;
-	cout << "Data: " << side_a << '\t' << side_b << '\t' << side_c << endl;
-	cout << "Parents:";
-	for(int i = 0; i < num_parents;++i)
-		cout << " " << parents[i]->get_label();
-	cout << endl;
+    cout << "----------------------------------------\n";
+    cout << "Identifier: " << this->get_label() << endl;
+    cout << "Data: " << side_a << '\t' << side_b << '\t' << side_c << endl;
+    cout << "Parents:";
+    for(int i = 0; i < num_parents;++i)
+	cout << " " << parents[i]->get_label();
+    cout << endl;
 }
 
 void TriangleNode::display(Ui::MainWindow *ui) {
