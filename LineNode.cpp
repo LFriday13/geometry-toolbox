@@ -24,8 +24,8 @@ LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
 }
 
 LineNode::~LineNode() {
-    if(line != nullptr)
-        (line->parentPlot())->removeItem(line);
+	if(line != nullptr)
+		(line->parentPlot())->removeItem(line);
 }
 
 void LineNode::print() const {
@@ -39,15 +39,15 @@ void LineNode::print() const {
 }
 
 void LineNode::display(Ui::MainWindow *ui) {
-    if(line == nullptr){ //Initialization
-        line = new QCPItemStraightLine(ui->custom_plot);
-        line->setPen(QPen(QColor(120, 120, 120), 2));
-        line->setObjectName(QString::fromStdString(this->get_label()));
-    }
+	if(line == nullptr){ //Initialization
+		line = new QCPItemStraightLine(ui->custom_plot);
+		line->setPen(QPen(QColor(120, 120, 120), 2));
+		line->setObjectName(QString::fromStdString(this->get_label()));
+	}
 
-    line->setVisible(well_defined);
-    line->point1->setCoords(0, - c_coeff/y_coeff);
-    line->point2->setCoords(- c_coeff/x_coeff, 0);
+	line->setVisible(well_defined);
+	line->point1->setCoords(0, - c_coeff/y_coeff);
+	line->point2->setCoords(- c_coeff/x_coeff, 0);
 }
 
 void LineNode::access(double data[]) const {
@@ -80,7 +80,7 @@ void LineNode::point_point_line_through() {
 			well_defined = false;
 	} else { 
 		c_coeff = (-y_coeff)*p1[1] + (-x_coeff)*p1[0];
-        well_defined = true;
+        	well_defined = true;
 	}
 }
 
@@ -116,33 +116,33 @@ void LineNode::point_circle_first_tangent() {
 		x_coeff = point[0] - circle[0];
 		y_coeff = point[1] - circle[1];
 		c_coeff = (-x_coeff)*point[0] + (-y_coeff)*point[1];
-        well_defined = true;
+        	well_defined = true;
 		
 	} else if(distance < circle[2]) {
 		well_defined = false;
 		
 	} else { 
         //Let the line be: (y-point_y)=k(x-point_x)
-        double sk_coeff, k_coeff, c, k;
+		double sk_coeff, k_coeff, c, k;
 
-        //Define variables for simplicity
-        double delta_x, delta_y, radius;
-        delta_x = circle[0] - point[0];
-        delta_y = point[1] - circle[1];
-        radius = circle[2];
+		//Define variables for simplicity
+		double delta_x, delta_y, radius;
+		delta_x = circle[0] - point[0];
+		delta_y = point[1] - circle[1];
+		radius = circle[2];
 
-        //Compute the coefficients of the quadratic
-        sk_coeff = delta_x*delta_x - radius*radius;
-        k_coeff = 2*delta_x*delta_y;
-        c = delta_y*delta_y - radius*radius;
+		//Compute the coefficients of the quadratic
+		sk_coeff = delta_x*delta_x - radius*radius;
+		k_coeff = 2*delta_x*delta_y;
+		c = delta_y*delta_y - radius*radius;
 
-        //Solve for the slope
-        k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+		//Solve for the slope
+		k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
 
-        x_coeff = k;
-        y_coeff = -1;
-        c_coeff = -k*point[0] + point[1];
-        well_defined = true;
+		x_coeff = k;
+		y_coeff = -1;
+		c_coeff = -k*point[0] + point[1];
+		well_defined = true;
 	}
 }
 
@@ -160,36 +160,36 @@ void LineNode::point_circle_second_tangent() {
 		well_defined = false;
 		
 	} else {
-        //Let the line be: (y-point_y)=k(x-point_x)
-        double sk_coeff, k_coeff, c, k;
+		//Let the line be: (y-point_y)=k(x-point_x)
+		double sk_coeff, k_coeff, c, k;
 
-        //Define variables for simplicity
-        double delta_x, delta_y, radius;
-        delta_x = circle[0] - point[0];
-        delta_y = point[1] - circle[1];
-        radius = circle[2];
+		//Define variables for simplicity
+		double delta_x, delta_y, radius;
+		delta_x = circle[0] - point[0];
+		delta_y = point[1] - circle[1];
+		radius = circle[2];
 
-        //Compute the coefficients of the quadratic
-        sk_coeff = delta_x*delta_x - radius*radius;
-        k_coeff = 2*delta_x*delta_y;
-        c = delta_y*delta_y - radius*radius;
+		//Compute the coefficients of the quadratic
+		sk_coeff = delta_x*delta_x - radius*radius;
+		k_coeff = 2*delta_x*delta_y;
+		c = delta_y*delta_y - radius*radius;
 
-        double discriminant = k_coeff*k_coeff - 4*sk_coeff*c;
-        if(discriminant < std::numeric_limits<double>::epsilon() && discriminant > -std::numeric_limits<double>::epsilon()) {
-            y_coeff = 0;
-            x_coeff = 1;
-            c_coeff = point[1];
+		double discriminant = k_coeff*k_coeff - 4*sk_coeff*c;
+		if(discriminant < std::numeric_limits<double>::epsilon() && discriminant > -std::numeric_limits<double>::epsilon()) {
+		    y_coeff = 0;
+		    x_coeff = 1;
+		    c_coeff = point[1];
 
-        } else {
-            //Solve for the slope
-            k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+		} else {
+		    //Solve for the slope
+		    k = (-k_coeff - sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
 
-            x_coeff = k;
-            y_coeff = -1;
-            c_coeff = -k*point[0] + point[1];
+		    x_coeff = k;
+		    y_coeff = -1;
+		    c_coeff = -k*point[0] + point[1];
 
-        }
-        well_defined = true;
+		}
+		well_defined = true;
 
 	}
 }
