@@ -32,8 +32,8 @@ CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* g
 }
 
 CircleNode::~CircleNode() {
-    if(circle != nullptr)
-        (circle->parentPlot())->removeItem(circle);
+	if(circle != nullptr)
+		(circle->parentPlot())->removeItem(circle);
 }
 
 void CircleNode::print() const {
@@ -47,16 +47,16 @@ void CircleNode::print() const {
 }
 
 void CircleNode::display(Ui::MainWindow *ui) {
-    if(circle == nullptr){ //Initialization
-        circle = new QCPItemEllipse(ui->custom_plot);
-        circle->setAntialiased(true);
-        circle->setPen(QPen(QColor(120, 120, 120), 2));
-        circle->setObjectName(QString::fromStdString(this->get_label()));
-    }
+	if(circle == nullptr){ //Initialization
+		circle = new QCPItemEllipse(ui->custom_plot);
+		circle->setAntialiased(true);
+		circle->setPen(QPen(QColor(120, 120, 120), 2));
+		circle->setObjectName(QString::fromStdString(this->get_label()));
+	}
 
-    circle->setVisible(well_defined);
-    circle->topLeft->setCoords(center_x-radius, center_y+radius);
-    circle->bottomRight->setCoords(center_x+radius, center_y-radius);
+	circle->setVisible(well_defined);
+	circle->topLeft->setCoords(center_x-radius, center_y+radius);
+	circle->bottomRight->setCoords(center_x+radius, center_y-radius);
 }
 
 void CircleNode::access(double data[]) const {
@@ -105,7 +105,7 @@ void CircleNode::point_point_point_through() {
 		center_x /= (2 * ((x31) * (y12) - (x21) * (y13)));
 
 		radius = sqrt((center_x - x1)*(center_x - x1) + (center_y - y1)*(center_y - y1));
-    well_defined = true;
+    		well_defined = true;
 		
 	}
 }
@@ -123,7 +123,7 @@ void CircleNode::point_point_center_through(){
 		center_x = p1[0];
 		center_y = p1[1];
 		radius = distance;
-    well_defined = true;
+    		well_defined = true;
 	}
 }
 	
@@ -140,5 +140,5 @@ void CircleNode::point_point_point_center_radius(){
 }
 
 void CircleNode::labels(vector<string>*, vector<string>*, vector<string>* circle_labels, vector<string>*) const {
-    circle_labels->push_back(this->get_label());
+   	circle_labels->push_back(this->get_label());
 }
