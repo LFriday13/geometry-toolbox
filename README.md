@@ -1,11 +1,12 @@
 # geometry-tools
 
-## Progress
+## Prerequisites
 
-Kindly mark what you are doing to avoid overlapping!
+QTCreator (latest version 4.10.2, based on QT 5.13.2)
 
-Tien: 
+## Build
 
-Albert:
+Import the QT project file and build with kits
 
-Wemp: 
+
+	
