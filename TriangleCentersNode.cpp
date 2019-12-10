@@ -5,8 +5,6 @@
 #include <math.h>
 #include "TriangleCentersNode.h"
 
-TriangleCentersNode::TriangleCentersNode() {}
-
 TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1): GeoNode(1) {
     switch(type) {
         case TriangleCentersType::CENTROID: definition = &TriangleCentersNode::centroid; break;
@@ -14,7 +12,7 @@ TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1
         case TriangleCentersType::CIRCUMCENTER: definition = &TriangleCentersNode::circumcenter; break;
         case TriangleCentersType::ORTHOCENTER: definition = &TriangleCentersNode::orthocenter; break;
         case TriangleCentersType::NINEPOINTCENTER: definition = &TriangleCentersNode::ninepointcenter; break;
-        case TriangleCentersType::SYMMEDIAN: definition = &TriangleCentersNode::symmedian; break;
+        case TriangleCentersType::LEMOINEPOINT: definition = &TriangleCentersNode::symmedian; break;
     }
 
     parents = new const GeoNode*[num_parents];

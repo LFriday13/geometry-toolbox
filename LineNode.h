@@ -23,19 +23,23 @@ public:
     virtual ~LineNode() override; /**< @brief Destructor. */
 
 private:
-    double x_coeff{0}, y_coeff{0}, c_coeff{0}; // Data components: The line equation is given by (x_coeff)*x + (y_coeff)*y + (c_coeff) = 0.
+    //@{
+    /** @brief Data components: The line equation is given by (x_coeff)*x + (y_coeff)*y + (c_coeff) = 0. */
+    double x_coeff{0}, y_coeff{0}, c_coeff{0};
+    //@}
     QCPItemStraightLine *line {nullptr}; //!< Corresponding figure that represents the line on the plot.
+    /** @brief Function pointer indicating the definition of the line. */
+    void (LineNode::*definition)() {nullptr};
 
     virtual void print() const override; /**< @brief Prints all data components of the line (Debugging purposes only). */
     virtual void display(Ui::MainWindow* ui) override; /**< @brief Updates the corresponding figure on the plot (*line). */
-    /** @brief The following function takes a collection of string vectors and adds the label of the line to the line_labels vector. */
+    /** @brief TTakes a collection of string vectors and adds the label of the line to the line_labels vector. */
     virtual void labels(vector<string>*, vector<string>* line_labels, vector<string>*, vector<string>*) const override;
 
     virtual void access(double data[]) const override; /**< @brief Sets the array data as {x_coeff, y_coeff, c_coeff}. */
     virtual void mutate(double data[]) override; /**< @brief Edits the line based on data = {new x_coeff, new y_coeff, new c_coeff}. */
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
-    void (LineNode::*definition)() {nullptr}; /**< @brief Function pointer indicating the definition of the line. */
 
     void point_point_line_through(); /**< @brief Defines a line passing through 2 points. */
     void point_line_parallel_line_through(); /**< @brief Defines a line passing through a given point that is parallel to a given line. */

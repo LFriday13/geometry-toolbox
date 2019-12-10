@@ -24,11 +24,11 @@ public:
     virtual ~GeoNode(); /**< @brief Destructor */
 	
 private:
-    virtual void print() const = 0; /**< @brief This function prints to console the data components of the construction (Debugging purposes only). */
-    virtual void display(Ui::MainWindow* ui) = 0; /**< @brief This function updates the figure representing the construction on the plot. */
-    virtual void mutate(double data[]) = 0; /**< @brief This function can be used to edit the data members of the construction. */
-    virtual void update() = 0; /**< @brief This function updates the constructions by recalculating the data to adjust to changes on the parents. */
-    /** @brief The following function takes a collection of string vectors and adds the label of the construction to the corresponding one. */
+    virtual void print() const = 0; /**< @brief Prints to console the data components of the construction (Debugging purposes only). */
+    virtual void display(Ui::MainWindow* ui) = 0; /**< @brief Updates the figure representing the construction on the plot. */
+    virtual void mutate(double data[]) = 0; /**< @brief Edits the data members of the construction. */
+    virtual void update() = 0; /**< @brief Updates the constructions by recalculating the data to adjust to changes on the parents. */
+    /** @brief Takes a collection of string vectors and adds the label of the construction to the corresponding one. */
     virtual void labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels, vector<string>* triangle_labels) const = 0;
 
     unsigned int pid {0}; /**< @brief Index at which this construction is located on the vector. (For developer use only) */

@@ -5,8 +5,6 @@
 #include <math.h>
 #include "TriangleNode.h"
 
-TriangleNode::TriangleNode() {}
-
 TriangleNode::TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3): GeoNode(3) {
     switch(type) {
         case TriangleType::POINT_POINT_POINT_VERTICES: definition = &TriangleNode::point_point_point_vertices; break;

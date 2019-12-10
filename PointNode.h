@@ -1,7 +1,6 @@
-/*
- * PointNode.h
- *
- */
+/***************************************************************************
+This class, PointNode, defines a Point. It is derived from GeoNode.
+****************************************************************************/
 
 #ifndef POINTNODE_H_
 #define POINTNODE_H_
@@ -30,19 +29,23 @@ public:
     virtual ~PointNode() override; /**< @brief Removes the associated figure (*point). */
 
 private:
-    double x{0}, y{0}; // Data members: x coordinate, y coordinate.
+    //@{
+    /** Data members: x coordinate, y coordinate. */
+    double x{0}, y{0};
+    //@}
     QCPGraph *point {nullptr}; //!< Corresponding figure that represents the point on the plot.
+    /** @brief Function pointer indicating the definition of the point. */
+    void (PointNode::*definition)() {nullptr};
 
     virtual void print() const override; /**< @brief Prints all data components of the point (Debugging purposes only). */
     virtual void display(Ui::MainWindow* ui) override; /**< @brief Updates the corresponding figure on the plot (*point). */
-    /** @brief The following function takes a collection of string vectors and adds the label of the line to the point_labels vector. */
+    /** @brief Takes a collection of string vectors and adds the label of the line to the point_labels vector. */
     virtual void labels(vector<string>* point_labels, vector<string>*, vector<string>*, vector<string>*) const override;
 
     virtual void access(double data[]) const override; /**< @brief Sets the array data as {x coordinate, y coordinate}. */
     virtual void mutate(double data[]) override; /**< @brief Edits the point based on data = {new x coordinate, new y coordinate}. */
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
-    void (PointNode::*definition)() {nullptr}; /**< @brief Function pointer indicating the definition of the point. */
 
     void independent(); /**< @brief Defines a point given by cartesian coordinates. */
     void on_line(); /**< @brief Defines on a given line, taking the projection of a pair of cartesian coordinates. */
