@@ -117,7 +117,7 @@ void PointNode::line_line_intersection() {
     parents[1]->access(line2);
 
     delta = line1[0] * line2[1] - line1[1] * line2[0];
-    if(delta < 1e-8 && delta > -1e-8)
+    if(delta < epsilon && delta > -epsilon)
         well_defined = false;
     else{
         delta_x = - line1[2] * line2[1] + line1[1] * line2[2];
@@ -142,7 +142,7 @@ void PointNode::line_circle_first_intersection() {
 
     double dist = sqrt((project_x - circle[0]) * (project_x - circle[0]) + (project_y - circle[1]) * (project_y - circle[1]));
 
-    if(dist <= circle[2] + 1e-8){
+    if(dist <= circle[2] + epsilon){
 	double to_shift = circle[2] * circle[2] - dist * dist;
         if(to_shift < 0.0){to_shift = 0;}
         to_shift = sqrt(to_shift);
@@ -167,12 +167,12 @@ void PointNode::line_circle_second_intersection() {
     project_y -= line[1] * t;
 
     double dist = sqrt((project_x - circle[0]) * (project_x - circle[0]) + (project_y - circle[1]) * (project_y - circle[1]));
-    if(dist <= circle[2] + 1e-8){
+    if(dist <= circle[2] + epsilon){
 	double to_shift = circle[2] * circle[2] - dist * dist;
 	if(to_shift < 0.0) to_shift = 0;
 	to_shift = sqrt(to_shift);
 
-	if(to_shift < 1e-8){
+    if(to_shift < epsilon){
 	    well_defined = false;
 	    return;
 	}
@@ -193,7 +193,7 @@ void PointNode::circle_circle_first_intersection() {
     parents[1]->access(circle2);
 
     double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
-    if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
+    if(dist < abs(circle1[2] - circle2[2]) - epsilon || dist > abs(circle1[2] - circle2[2]) + epsilon)
     {
         well_defined = false;
     }
@@ -226,7 +226,7 @@ void PointNode::circle_circle_second_intersection() {
     parents[1]->access(circle2);
 
     double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
-    if(dist < abs(circle1[2] - circle2[2]) - 1e-8 || dist > abs(circle1[2] - circle2[2]) + 1e-8)
+    if(dist < abs(circle1[2] - circle2[2]) - epsilon || dist > abs(circle1[2] - circle2[2]) + epsilon)
     {
         well_defined = false;
     }

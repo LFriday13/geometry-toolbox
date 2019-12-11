@@ -9,8 +9,8 @@ our geometric constructions are derived.
 #include <iostream>
 #include "ui_mainwindow.h"
 #include "qcustomplot.h"
-using namespace std;
 
+using namespace std;
 class GeoNode {
     friend class GeoComponents; /**< @brief GeoComponents is the container class for all of our constructions. */
 
@@ -38,7 +38,7 @@ protected:
     const GeoNode** parents {nullptr}; /**< @brief Pointer to the array of constructions that define this construction. */
     bool well_defined {true}; /**< @brief Indicates wheter the current configuration gives a well defined construction. */
     bool need_display {true}; /**< @brief Indicates wheter we would like to display this construction on the plot. */
-
+    const double epsilon {1e-8}; /** @brief Sets the error tolerance used in our calculations. */
 };
 
 #endif /* GEONODE_H_ */

@@ -94,7 +94,7 @@ void TriangleNode::point_point_point_vertices() {
     side_b = sqrt((point3[0] - point1[0]) * (point3[0] - point1[0]) + (point3[1] - point1[1]) * (point3[1] - point1[1]));
     side_c = sqrt((point1[0] - point2[0]) * (point1[0] - point2[0]) + (point1[1] - point2[1]) * (point1[1] - point2[1]));
 
-    if(side_a > 1e-8 && side_b > 1e-8 && side_c > 1e-8) well_defined = true;
+    if(side_a > epsilon && side_b > epsilon && side_c > epsilon) well_defined = true;
     else well_defined = false;
 }
 

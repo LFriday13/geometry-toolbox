@@ -108,7 +108,7 @@ private:
     /** @brief Used for handling the resize event that occurs on creation of the main window. */
     boolean initialized {false};
     /** @brief This indicated the pid of the point that is being dragged on a click and drag event. */
-    int point_to_drag {-1};
+    unsigned int point_to_drag {static_cast<unsigned int>(-1)};
 
 };
 

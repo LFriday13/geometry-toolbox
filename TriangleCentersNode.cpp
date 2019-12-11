@@ -36,7 +36,7 @@ void TriangleCentersNode::display(Ui::MainWindow *ui) {
         center = ui->custom_plot->addGraph();
         center->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, QPen(Qt::black, 1.5), QBrush(Qt::white), 9));
         center->setPen(QPen(QColor(120, 120, 120), 2));
-        center->setLayer("main");
+        center->setLayer("front");
         center->setName(QString::fromStdString(this->get_label()));
     }
 
@@ -58,7 +58,7 @@ void TriangleCentersNode::mutate(double data[]) {
     barycoeff_b = data[1];
     barycoeff_c = data[2];
 
-    if(barycoeff_a * barycoeff_a + barycoeff_b * barycoeff_b + barycoeff_c * barycoeff_c < 1e-8 )
+    if(barycoeff_a * barycoeff_a + barycoeff_b * barycoeff_b + barycoeff_c * barycoeff_c < epsilon )
     well_defined = false;
 
     else well_defined = true;
@@ -114,7 +114,7 @@ void TriangleCentersNode::orthocenter() {
 
     for(int i = 0; i < 3; i++) {
         barycoeff[i] = sum - 2 * triangle[6+i] * triangle[6+i];
-        if(abs(barycoeff[i]) < 1e-8){
+        if(abs(barycoeff[i]) < epsilon){
             well_defined = false;
             return;
         }

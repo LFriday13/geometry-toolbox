@@ -122,7 +122,7 @@ void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string
     triangle_labels->clear();
 
     for (auto it = begin(geo_components); it != end(geo_components); ++it){
-        if((*it)->need_display)
+        if((*it)->need_display && (*it)->well_defined)
             (*it)->labels(point_labels, line_labels, circle_labels, triangle_labels);
     }
 }
@@ -133,13 +133,13 @@ void GeoComponents::print_all_constructions(){
 	}
 }
 
-int GeoComponents::get_pid(string label){
+unsigned int GeoComponents::get_pid(string label){
     for (auto it = begin(geo_components); it != end(geo_components); ++it){
         if((*it)->label == label)
             return (*it)->pid;
     }
 
-    return -1;
+    return static_cast<unsigned int>(-1);
 }
 
 GeoNode* GeoComponents::get_construction(unsigned int pid){

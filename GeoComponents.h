@@ -26,7 +26,7 @@ public:
 
     void print_all_constructions(); /**< @brief Prints the information of all the constructions (Debugging purposes only) */
 
-    int get_pid(string label); /**< @brief Takes a label and returns the pid of the construction with the corresponding label, if there is no construction with that label resturns -1. */
+    unsigned int get_pid(string label); /**< @brief Takes a label and returns the pid of the construction with the corresponding label, if there is no construction with that label resturns -1. */
     GeoNode* get_construction(unsigned int pid); /**< @brief Takes a pid of a construction and returns a pointer to it, if there is no construction at that index returns a nullptr. */
 
     virtual ~GeoComponents(); /**< @brief Deletes all constructions */

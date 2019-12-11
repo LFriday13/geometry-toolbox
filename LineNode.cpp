@@ -45,8 +45,8 @@ void LineNode::display(Ui::MainWindow *ui) {
 	}
 
 	line->setVisible(well_defined);
-    (abs(y_coeff) > 1e-8) ? line->point1->setCoords(0, - c_coeff/y_coeff): line->point1->setCoords(-c_coeff/x_coeff, 1);
-    (abs(x_coeff) > 1e-8) ? line->point2->setCoords(- c_coeff/x_coeff, 0): line->point2->setCoords(1, - c_coeff/y_coeff);
+    (abs(y_coeff) > epsilon) ? line->point1->setCoords(0, - c_coeff/y_coeff): line->point1->setCoords(-c_coeff/x_coeff, 1);
+    (abs(x_coeff) > epsilon) ? line->point2->setCoords(- c_coeff/x_coeff, 0): line->point2->setCoords(1, - c_coeff/y_coeff);
 }
 
 void LineNode::access(double data[]) const {
@@ -74,8 +74,8 @@ void LineNode::point_point_line_through() {
 	x_coeff = p1[1] - p2[1];
 	y_coeff = p2[0] - p1[0];
 	
-    if(x_coeff < 1e-8 && x_coeff > -1e-8) {
-        if(y_coeff < 1e-8 && y_coeff > -1e-8)
+    if(x_coeff < epsilon && x_coeff > -epsilon) {
+        if(y_coeff < epsilon && y_coeff > -epsilon)
 			well_defined = false;
 	} else { 
 		c_coeff = (-y_coeff)*p1[1] + (-x_coeff)*p1[0];
@@ -102,6 +102,7 @@ void LineNode::point_point_perpendicular_bisector() {
 	x_coeff = p2[0] - p1[0];
 	y_coeff = p2[1] - p1[1];
 	c_coeff = (-x_coeff)*(p1[0] + p2[0])/2 + (-y_coeff)*(p1[1] + p2[1])/2;
+    (abs(x_coeff) + abs(y_coeff) > epsilon) ? well_defined = true: well_defined = false;
 }
 
 void LineNode::point_circle_first_tangent() {
@@ -111,7 +112,7 @@ void LineNode::point_circle_first_tangent() {
 	
 	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
 	
-    if(distance - circle[2] < 1e-8 && distance - circle[2] > -1e-8) {
+    if(distance - circle[2] < epsilon && distance - circle[2] > -epsilon) {
 		x_coeff = point[0] - circle[0];
 		y_coeff = point[1] - circle[1];
 		c_coeff = (-x_coeff)*point[0] + (-y_coeff)*point[1];
@@ -136,7 +137,7 @@ void LineNode::point_circle_first_tangent() {
 		c = delta_y*delta_y - radius*radius;
 
 		//Solve for the slope
-        if(abs(sk_coeff) < 1e-8) {x_coeff = 1; y_coeff = 0; c_coeff = -point[0];}
+        if(abs(sk_coeff) < epsilon) {x_coeff = 1; y_coeff = 0; c_coeff = -point[0];}
         else {
             k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
             x_coeff = k;
@@ -156,7 +157,7 @@ void LineNode::point_circle_second_tangent() {
 	
 	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
 	
-    if(distance - circle[2] < 1e-8 && distance - circle[2] > -1e-8) {
+    if(distance - circle[2] < epsilon && distance - circle[2] > -epsilon) {
 		well_defined = false;
 		
 	} else if(distance < circle[2]) {
@@ -177,7 +178,7 @@ void LineNode::point_circle_second_tangent() {
 		k_coeff = 2*delta_x*delta_y;
 		c = delta_y*delta_y - radius*radius;
 
-        if(abs(sk_coeff) < 1e-8) {
+        if(abs(sk_coeff) < epsilon) {
             // Linear case
             k = -c/k_coeff;
             x_coeff = k;

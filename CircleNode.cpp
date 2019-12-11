@@ -87,7 +87,7 @@ void CircleNode::point_point_point_through() {
 	
 	double distance = p3[0]*(p1[1] - p2[1]) + p3[1]*(p2[0] - p1[0]) - (p1[0]*(p1[1] - p2[1]) + p1[1]*(p2[0] - p1[0]));
 	
-    if(distance < 1e-8 && distance > -1e-8) {
+    if(distance < epsilon && distance > -epsilon) {
 		well_defined = false;
 		
 	} else {
@@ -120,7 +120,7 @@ void CircleNode::point_point_center_through(){
 	
 	double distance = sqrt((p2[0] - p1[0])*(p2[0] - p1[0]) + (p2[1] - p1[1])*(p2[1] - p1[1]));
 	
-    if(distance < 1e-8 && distance > -1e-8) {
+    if(distance < epsilon && distance > -epsilon) {
 		well_defined = false;	
 	} else {
 		center_x = p1[0];
@@ -140,4 +140,5 @@ void CircleNode::point_point_point_center_radius(){
 	center_y = p1[1];
 	
 	radius = sqrt((p3[0] - p2[0])*(p3[0] - p2[0]) + (p3[1] - p2[1])*(p3[1] - p3[1]));
+    (abs(radius) > epsilon) ? well_defined = true: well_defined = false;
 }

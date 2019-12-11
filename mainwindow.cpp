@@ -180,12 +180,12 @@ void MainWindow::onMousePress(QMouseEvent* event){
 }
 
 void MainWindow::onMouseMove(QMouseEvent* event){
-    if(point_to_drag >= 0){
+    if(point_to_drag != static_cast<unsigned int>(-1)){
         double data[2];
         data[0] = this->ui->custom_plot->xAxis->pixelToCoord(event->pos().x());
         data[1] = this->ui->custom_plot->yAxis->pixelToCoord(event->pos().y());
 
-        geo_components->edit_construction(static_cast<unsigned int>(point_to_drag), data);
+        geo_components->edit_construction(point_to_drag, data);
 
         geo_components->display_all_constructions(ui);
         ui->custom_plot->replot();
@@ -193,8 +193,8 @@ void MainWindow::onMouseMove(QMouseEvent* event){
 }
 
 void MainWindow::onMouseRelease(){
-    if(point_to_drag >= 0){
-        point_to_drag = -1;
+    if(point_to_drag != static_cast<unsigned int>(-1)){
+        point_to_drag = static_cast<unsigned int>(-1);
         ui->custom_plot->setInteraction(QCP::iRangeDrag, true);
         ui->statusbar->clearMessage();
     }
@@ -233,7 +233,7 @@ void MainWindow::add_point(int type, double x, double y, std::string label) {
 }
 
 void MainWindow::add_point(int type, std::string geo, double x, double y, std::string label){
-    GeoNode* parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    GeoNode* parent_1 = geo_components->get_construction(geo_components->get_pid(geo));
     if(parent_1 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -252,8 +252,8 @@ void MainWindow::add_point(int type, std::string geo, double x, double y, std::s
 }
 
 void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::string label){
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
-    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo1));
+    GeoNode *parent_2 = geo_components->get_construction(geo_components->get_pid(geo2));
     if(parent_1 == nullptr || parent_2 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -274,8 +274,8 @@ void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::st
 // Lines
 
 void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::string label){
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
-    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo1));
+    GeoNode *parent_2 = geo_components->get_construction(geo_components->get_pid(geo2));
     if(parent_1 == nullptr || parent_2 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -296,8 +296,8 @@ void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::str
 // Circles
 
 void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string label){
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
-    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo1));
+    GeoNode *parent_2 = geo_components->get_construction(geo_components->get_pid(geo2));
     if(parent_1 == nullptr || parent_2 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -316,9 +316,9 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
 }
 
 void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::string geo3, std::string label){
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
-    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
-    GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo1));
+    GeoNode *parent_2 = geo_components->get_construction(geo_components->get_pid(geo2));
+    GeoNode *parent_3 = geo_components->get_construction(geo_components->get_pid(geo3));
     if(parent_1 == nullptr || parent_2 == nullptr || parent_3 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -338,9 +338,9 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
 
 //Triangles
 void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std::string geo3, std::string label){
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo1)));
-    GeoNode *parent_2 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo2)));
-    GeoNode *parent_3 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo3)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo1));
+    GeoNode *parent_2 = geo_components->get_construction(geo_components->get_pid(geo2));
+    GeoNode *parent_3 = geo_components->get_construction(geo_components->get_pid(geo3));
     if(parent_1 == nullptr || parent_2 == nullptr || parent_3 == nullptr){
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -361,7 +361,7 @@ void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std:
 //Triangle Centers
 
 void MainWindow::add_triangle_center(int type, std::string geo, std::string label) {
-    GeoNode *parent_1 = geo_components->get_construction(static_cast<unsigned int>(geo_components->get_pid(geo)));
+    GeoNode *parent_1 = geo_components->get_construction(geo_components->get_pid(geo));
     if(parent_1 == nullptr) {
         QString message = QString("Invalid parameters.");
         ui->statusbar->showMessage(message,3000);
@@ -382,10 +382,10 @@ void MainWindow::add_triangle_center(int type, std::string geo, std::string labe
 // Edit
 
 void MainWindow::edit(std::string geo, double x, double y){
-    int to_edit = geo_components->get_pid(geo);
+    unsigned int to_edit = geo_components->get_pid(geo);
     double data [2] = {x,y};
 
-    geo_components->edit_construction(static_cast<unsigned int>(to_edit), data);
+    geo_components->edit_construction(to_edit, data);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -396,8 +396,8 @@ void MainWindow::edit(std::string geo, double x, double y){
 
 // Remove
 void MainWindow::remove(std::string geo){
-    int to_remove = geo_components->get_pid(geo);
-    geo_components->remove_construction(static_cast<unsigned int>(to_remove));
+    unsigned int to_remove = geo_components->get_pid(geo);
+    geo_components->remove_construction(to_remove);
 
     geo_components->display_all_constructions(ui);
     ui->custom_plot->replot();
@@ -537,7 +537,7 @@ void MainWindow::edit_point() {
     edit_point->show();
 }
 
-    //Remove
+//Remove
 void MainWindow::remove() {
     geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
     std::vector<std::string>* labels [4] = {&point_labels, &line_labels, &circle_labels, &triangle_labels};
