@@ -41,8 +41,8 @@ private:
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
 
     void point_point_point_through(); /**< @brief Defines a circle passing through the 3 Points. */
-    void point_point_point_center_radius(); /**< @brief Defines a circle centered at Point 1 that passes through Point 2. */
-    void point_point_center_through(); /**< @brief Defines a circle centered at Point 1 that has as radius the distance between Point 2 and Point 3. */
+    void point_point_center_through(); /**< @brief Defines a circle centered at Point 1 that passes through Point 2. */
+    void point_point_point_center_radius(); /**< @brief Defines a circle centered at Point 1 that has as radius the distance between Point 2 and Point 3. */
 
 };
 

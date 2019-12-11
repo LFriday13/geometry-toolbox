@@ -4,7 +4,6 @@
  */
 
 #include <cmath>
-#include <limits>
 #include "LineNode.h"
 
 LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2)  : GeoNode(2) {
@@ -46,8 +45,8 @@ void LineNode::display(Ui::MainWindow *ui) {
 	}
 
 	line->setVisible(well_defined);
-	line->point1->setCoords(0, - c_coeff/y_coeff);
-	line->point2->setCoords(- c_coeff/x_coeff, 0);
+    (abs(y_coeff) > 1e-8) ? line->point1->setCoords(0, - c_coeff/y_coeff): line->point1->setCoords(-c_coeff/x_coeff, 1);
+    (abs(x_coeff) > 1e-8) ? line->point2->setCoords(- c_coeff/x_coeff, 0): line->point2->setCoords(1, - c_coeff/y_coeff);
 }
 
 void LineNode::access(double data[]) const {
@@ -75,8 +74,8 @@ void LineNode::point_point_line_through() {
 	x_coeff = p1[1] - p2[1];
 	y_coeff = p2[0] - p1[0];
 	
-	if(x_coeff < std::numeric_limits<double>::epsilon() && x_coeff > -std::numeric_limits<double>::epsilon()) {
-		if(y_coeff < std::numeric_limits<double>::epsilon() && y_coeff > -std::numeric_limits<double>::epsilon())
+    if(x_coeff < 1e-8 && x_coeff > -1e-8) {
+        if(y_coeff < 1e-8 && y_coeff > -1e-8)
 			well_defined = false;
 	} else { 
 		c_coeff = (-y_coeff)*p1[1] + (-x_coeff)*p1[0];
@@ -112,11 +111,11 @@ void LineNode::point_circle_first_tangent() {
 	
 	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
 	
-	if(distance - circle[2] < std::numeric_limits<double>::epsilon() && distance - circle[2] > -std::numeric_limits<double>::epsilon()) {
+    if(distance - circle[2] < 1e-8 && distance - circle[2] > -1e-8) {
 		x_coeff = point[0] - circle[0];
 		y_coeff = point[1] - circle[1];
 		c_coeff = (-x_coeff)*point[0] + (-y_coeff)*point[1];
-        	well_defined = true;
+        well_defined = true;
 		
 	} else if(distance < circle[2]) {
 		well_defined = false;
@@ -137,12 +136,16 @@ void LineNode::point_circle_first_tangent() {
 		c = delta_y*delta_y - radius*radius;
 
 		//Solve for the slope
-		k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+        if(abs(sk_coeff) < 1e-8) {x_coeff = 1; y_coeff = 0; c_coeff = -point[0];}
+        else {
+            k = (-k_coeff + sqrt(k_coeff*k_coeff - 4*sk_coeff*c))/(2*sk_coeff);
+            x_coeff = k;
+            y_coeff = -1;
+            c_coeff = -k*point[0] + point[1];
 
-		x_coeff = k;
-		y_coeff = -1;
-		c_coeff = -k*point[0] + point[1];
-		well_defined = true;
+        }
+
+        well_defined = true;
 	}
 }
 
@@ -153,7 +156,7 @@ void LineNode::point_circle_second_tangent() {
 	
 	double distance = sqrt((point[0] - circle[0]) * (point[0] - circle[0]) + (point[1] - circle[1]) * (point[1] - circle[1]));
 	
-	if(distance - circle[2] < std::numeric_limits<double>::epsilon() && distance - circle[2] > -std::numeric_limits<double>::epsilon()) {
+    if(distance - circle[2] < 1e-8 && distance - circle[2] > -1e-8) {
 		well_defined = false;
 		
 	} else if(distance < circle[2]) {
@@ -174,11 +177,12 @@ void LineNode::point_circle_second_tangent() {
 		k_coeff = 2*delta_x*delta_y;
 		c = delta_y*delta_y - radius*radius;
 
-		double discriminant = k_coeff*k_coeff - 4*sk_coeff*c;
-		if(discriminant < std::numeric_limits<double>::epsilon() && discriminant > -std::numeric_limits<double>::epsilon()) {
-		    y_coeff = 0;
-		    x_coeff = 1;
-		    c_coeff = point[1];
+        if(abs(sk_coeff) < 1e-8) {
+            // Linear case
+            k = -c/k_coeff;
+            x_coeff = k;
+            y_coeff = -1;
+            c_coeff = -k*point[0] + point[1];
 
 		} else {
 		    //Solve for the slope
@@ -187,7 +191,6 @@ void LineNode::point_circle_second_tangent() {
 		    x_coeff = k;
 		    y_coeff = -1;
 		    c_coeff = -k*point[0] + point[1];
-
 		}
 		well_defined = true;
 

@@ -2,7 +2,7 @@
  * TriangleCentersNode.cpp
  *
  */
-#include <math.h>
+#include <cmath>
 #include "TriangleCentersNode.h"
 
 TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1): GeoNode(1) {

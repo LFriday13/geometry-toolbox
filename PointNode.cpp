@@ -4,7 +4,6 @@
  */
 
 #include <cmath>
-#include <limits>
 #include "PointNode.h"
 
 PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definition(&PointNode::independent) {}
@@ -118,7 +117,7 @@ void PointNode::line_line_intersection() {
     parents[1]->access(line2);
 
     delta = line1[0] * line2[1] - line1[1] * line2[0];
-    if(delta < std::numeric_limits<double>::epsilon() && delta > -std::numeric_limits<double>::epsilon())
+    if(delta < 1e-8 && delta > -1e-8)
         well_defined = false;
     else{
         delta_x = - line1[2] * line2[1] + line1[1] * line2[2];

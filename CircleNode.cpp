@@ -4,7 +4,6 @@
  */
 
 #include <cmath>
-#include <limits>
 #include "CircleNode.h"
 
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
@@ -59,6 +58,10 @@ void CircleNode::display(Ui::MainWindow *ui) {
 	circle->bottomRight->setCoords(center_x+radius, center_y-radius);
 }
 
+void CircleNode::labels(vector<string>*, vector<string>*, vector<string>* circle_labels, vector<string>*) const {
+    circle_labels->push_back(this->get_label());
+}
+
 void CircleNode::access(double data[]) const {
 	data[0] = center_x;
 	data[1] = center_y;
@@ -84,7 +87,7 @@ void CircleNode::point_point_point_through() {
 	
 	double distance = p3[0]*(p1[1] - p2[1]) + p3[1]*(p2[0] - p1[0]) - (p1[0]*(p1[1] - p2[1]) + p1[1]*(p2[0] - p1[0]));
 	
-	if(distance < std::numeric_limits<double>::epsilon() && distance > -std::numeric_limits<double>::epsilon()) {
+    if(distance < 1e-8 && distance > -1e-8) {
 		well_defined = false;
 		
 	} else {
@@ -105,7 +108,7 @@ void CircleNode::point_point_point_through() {
 		center_x /= (2 * ((x31) * (y12) - (x21) * (y13)));
 
 		radius = sqrt((center_x - x1)*(center_x - x1) + (center_y - y1)*(center_y - y1));
-    		well_defined = true;
+        well_defined = true;
 		
 	}
 }
@@ -117,13 +120,13 @@ void CircleNode::point_point_center_through(){
 	
 	double distance = sqrt((p2[0] - p1[0])*(p2[0] - p1[0]) + (p2[1] - p1[1])*(p2[1] - p1[1]));
 	
-	if(distance < std::numeric_limits<double>::epsilon() && distance > -std::numeric_limits<double>::epsilon()) {
+    if(distance < 1e-8 && distance > -1e-8) {
 		well_defined = false;	
 	} else {
 		center_x = p1[0];
 		center_y = p1[1];
 		radius = distance;
-    		well_defined = true;
+        well_defined = true;
 	}
 }
 	
@@ -137,8 +140,4 @@ void CircleNode::point_point_point_center_radius(){
 	center_y = p1[1];
 	
 	radius = sqrt((p3[0] - p2[0])*(p3[0] - p2[0]) + (p3[1] - p2[1])*(p3[1] - p3[1]));
-}
-
-void CircleNode::labels(vector<string>*, vector<string>*, vector<string>* circle_labels, vector<string>*) const {
-   	circle_labels->push_back(this->get_label());
 }

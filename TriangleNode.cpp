@@ -2,7 +2,7 @@
  * TriangleNode.cpp
  *
  */
-#include <math.h>
+#include <cmath>
 #include "TriangleNode.h"
 
 TriangleNode::TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3): GeoNode(3) {

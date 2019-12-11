@@ -13,13 +13,23 @@ int main(int argc, char *argv[])
     GeoComponents* geo_components = new GeoComponents;
 
     // Demo Configuration 1
-    int i = 1;
+    /* int i = 1;
     for(; i<11; ++i){geo_components->add_construction(new PointNode(PointType::INDEPENDENT, i, i*i), "demo_"+std::to_string(i-1));}
     geo_components->add_construction(new CircleNode(CircleType::POINT_POINT_POINT_THROUGH, geo_components->get_construction(0), geo_components->get_construction(1), geo_components->get_construction(2)),  "demo_"+std::to_string(i++ -1));
     geo_components->add_construction(new LineNode(LineType::POINT_CIRCLE_FIRST_TANGENT, geo_components->get_construction(5), geo_components->get_construction(10)),  "demo_"+std::to_string(i++ -1));
     geo_components->add_construction(new LineNode(LineType::POINT_CIRCLE_SECOND_TANGENT, geo_components->get_construction(5), geo_components->get_construction(10)),  "demo_"+std::to_string(i++ -1));
     geo_components->add_construction(new PointNode(PointType::INDEPENDENT, -10, 0), "demo_"+std::to_string(i++ -1));
     geo_components->add_construction(new TriangleNode(TriangleType::POINT_POINT_POINT_VERTICES, geo_components->get_construction(0), geo_components->get_construction(1), geo_components->get_construction(13)),  "demo_"+std::to_string(i++ -1));
+    */
+
+    // Testing tangents
+    int i = 0;
+    geo_components->add_construction(new PointNode(PointType::INDEPENDENT, 0.0, 0.0), "demo_"+std::to_string(i++));
+    geo_components->add_construction(new PointNode(PointType::INDEPENDENT, 0.0, 10.0), "demo_"+std::to_string(i++));
+    geo_components->add_construction(new CircleNode(CircleType::POINT_POINT_CENTER_THROUGH, geo_components->get_construction(0), geo_components->get_construction(1)), "demo_"+std::to_string(i++));
+    geo_components->add_construction(new PointNode(PointType::INDEPENDENT, 10.0, 10.0), "demo_"+std::to_string(i++));
+    geo_components->add_construction(new LineNode(LineType::POINT_CIRCLE_FIRST_TANGENT, geo_components->get_construction(3), geo_components->get_construction(2)), "demo_"+std::to_string(i++));
+    geo_components->add_construction(new LineNode(LineType::POINT_CIRCLE_SECOND_TANGENT, geo_components->get_construction(3), geo_components->get_construction(2)), "demo_"+std::to_string(i++));
 
     // Application Setup
     QApplication a(argc, argv);
