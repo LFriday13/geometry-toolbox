@@ -39,7 +39,9 @@ void GeoComponents::edit_construction(unsigned int pid, double data[]) {
 		} else if (i == pid) {
 			is_child[i] = true;
 			(*it)->mutate(data);
-
+            for(int parent = 0; parent < (*it)->num_parents; ++parent){
+                (*it)->well_defined &= (*it)->parents[parent]->well_defined;
+            }
 		} else {
 			is_child[i] = false;
 
@@ -52,8 +54,12 @@ void GeoComponents::edit_construction(unsigned int pid, double data[]) {
 				}
 			}
 
-			if (is_child[i])
+            if (is_child[i]){
 				(*it)->update();
+                for(int parent = 0; parent < (*it)->num_parents; ++parent){
+                    (*it)->well_defined &= (*it)->parents[parent]->well_defined;
+                }
+            }
 		}
 	}
 
@@ -115,14 +121,14 @@ void GeoComponents::display_all_constructions(Ui::MainWindow *ui){
     }
 }
 
-void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels, vector<string>* triangle_labels) {
+void GeoComponents::update_ui_labels(vector<string>* point_labels, vector<string>* line_labels, vector<string>* circle_labels, vector<string>* triangle_labels, bool undefined) {
     point_labels->clear();
     line_labels->clear();
     circle_labels->clear();
     triangle_labels->clear();
 
     for (auto it = begin(geo_components); it != end(geo_components); ++it){
-        if((*it)->need_display && (*it)->well_defined)
+        if((*it)->need_display && ((*it)->well_defined || undefined))
             (*it)->labels(point_labels, line_labels, circle_labels, triangle_labels);
     }
 }

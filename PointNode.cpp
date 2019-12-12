@@ -97,8 +97,13 @@ void PointNode::on_circle() {
     double circle[3];
     parents[0]->access(circle);
     double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
-    x = circle[0] + (x - circle[0]) * circle[2] / current_radius;
-    y = circle[1] + (y - circle[1]) * circle[2] / current_radius;
+    if(current_radius < epsilon){
+        well_defined = false;
+    } else {
+        x = circle[0] + (x - circle[0]) * circle[2] / current_radius;
+        y = circle[1] + (y - circle[1]) * circle[2] / current_radius;
+        well_defined = true;
+    }
 }
 
 void PointNode::point_point_midpoint() {

@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     GeoComponents* geo = new GeoComponents;
 
     // Demo 1: Circles and Tangents
-    /* int i = 0, k = 1;
+    int i = 0, k = 1;
     geo->add_construction(new PointNode(PointType::INDEPENDENT, 0.0, 0.0), "demo_"+std::to_string(i++));
     while(k<11){
         geo->add_construction(new PointNode(PointType::INDEPENDENT, 0.0, 10.0*k), "demo_"+std::to_string(i++));
@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
         geo->add_construction(new LineNode(LineType::POINT_CIRCLE_SECOND_TANGENT, geo->get_construction(i-2), geo->get_construction(i-6)), "demo_"+std::to_string(i));++i;
         ++k;
     }
-    */
 
+    /*
     // Demo 2: Triangle, Triangle Centers and Perpendicular/Parallel lines.
     geo->add_construction(new PointNode(PointType::INDEPENDENT, -50.0, 0.0), "Vertex A");
     geo->add_construction(new PointNode(PointType::INDEPENDENT, 10, 70), "Vertex B");
@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     geo->add_construction(new CircleNode(CircleType::POINT_POINT_CENTER_THROUGH, geo->get_construction(geo->get_pid("Incenter")), geo->get_construction(geo->get_pid("M_a"))), "Incircle");
     geo->add_construction(new CircleNode(CircleType::POINT_POINT_CENTER_THROUGH, geo->get_construction(geo->get_pid("Circumcenter")), geo->get_construction(geo->get_pid("Vertex A"))), "Circumcircle");
     geo->add_construction(new LineNode(LineType::POINT_POINT_LINE_THROUGH, geo->get_construction(geo->get_pid("Orthocenter")), geo->get_construction(geo->get_pid("Centroid"))), "Euler's Line");
+    */
 
     // Application Setup
     QApplication a(argc, argv);

@@ -539,7 +539,7 @@ void MainWindow::edit_point() {
 
 //Remove
 void MainWindow::remove() {
-    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels);
+    geo_components->update_ui_labels(&point_labels, &line_labels, &circle_labels, &triangle_labels, true);
     std::vector<std::string>* labels [4] = {&point_labels, &line_labels, &circle_labels, &triangle_labels};
 
     Remove *remove = new Remove(labels, 4, this);

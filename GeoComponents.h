@@ -22,7 +22,7 @@ public:
     /** @brief Updates all the figures representing the constructions on the plot. */
     void display_all_constructions(Ui::MainWindow *ui);
     /** @brief Takes a collection of string vectors and sets them to be the collection of labels of current constructions. */
-    void update_ui_labels(vector<string> *point_labels, vector<string> *line_labels, vector<string> *circle_labels, vector<string> *triangle_labels);
+    void update_ui_labels(vector<string> *point_labels, vector<string> *line_labels, vector<string> *circle_labels, vector<string> *triangle_labels, bool undefined = false);
 
     void print_all_constructions(); /**< @brief Prints the information of all the constructions (Debugging purposes only) */
 
