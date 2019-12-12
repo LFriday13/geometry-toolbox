@@ -94,7 +94,6 @@ void CircleNode::point_point_point_through() {
 		double x1=p1[0], x2=p2[0], x3=p3[0];
 		double y1=p1[1], y2=p2[1], y3=p3[1];
 
-		
 		double x12 = x1 - x2, x13 = x1 - x3, x31 = x3 - x1, x21 = x2 - x1;
 		double y12 = y1 - y2, y13 = y1 - y3, y31 = y3 - y1, y21 = y2 - y1;
 
@@ -122,11 +121,13 @@ void CircleNode::point_point_center_through(){
 	
     if(distance < epsilon && distance > -epsilon) {
 		well_defined = false;	
+
 	} else {
 		center_x = p1[0];
 		center_y = p1[1];
 		radius = distance;
         well_defined = true;
+
 	}
 }
 	

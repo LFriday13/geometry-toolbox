@@ -58,10 +58,9 @@ void TriangleCentersNode::mutate(double data[]) {
     barycoeff_b = data[1];
     barycoeff_c = data[2];
 
-    if(barycoeff_a * barycoeff_a + barycoeff_b * barycoeff_b + barycoeff_c * barycoeff_c < epsilon )
-    well_defined = false;
+    (barycoeff_a * barycoeff_a + barycoeff_b * barycoeff_b + barycoeff_c * barycoeff_c < epsilon ) ?
+        well_defined = false: well_defined = true;
 
-    else well_defined = true;
     (this->*definition)();
 }
 
@@ -76,8 +75,6 @@ TriangleCentersNode::~TriangleCentersNode() {
 
 void TriangleCentersNode::centroid() {
     barycoeff_a = barycoeff_b = barycoeff_c = 1;
-
-    well_defined = true;
 }
 
 void TriangleCentersNode::incenter() {
@@ -87,8 +84,6 @@ void TriangleCentersNode::incenter() {
     barycoeff_a = triangle[6];
     barycoeff_b = triangle[7];
     barycoeff_c = triangle[8];
-
-    well_defined = true;
 }
 
 void TriangleCentersNode::circumcenter() {
@@ -103,7 +98,6 @@ void TriangleCentersNode::circumcenter() {
     barycoeff_a = barycoeff[0];
     barycoeff_b = barycoeff[1];
     barycoeff_c = barycoeff[2];
-    well_defined = true;
 }
 
 void TriangleCentersNode::orthocenter() {
@@ -126,7 +120,6 @@ void TriangleCentersNode::orthocenter() {
     barycoeff_a = barycoeff[0];
     barycoeff_b = barycoeff[1];
     barycoeff_c = barycoeff[2];
-    well_defined = true;
 }
 
 void TriangleCentersNode::ninepointcenter() {
@@ -138,8 +131,6 @@ void TriangleCentersNode::ninepointcenter() {
     barycoeff_a = triangle[6] * (triangle[7] + triangle[8]) + (triangle[7] - triangle[8]) * (triangle[7] - triangle[8]);
     barycoeff_b = triangle[7] * (triangle[8] + triangle[6]) + (triangle[8] - triangle[6]) * (triangle[8] - triangle[6]);
     barycoeff_c = triangle[8] * (triangle[6] + triangle[7]) + (triangle[6] - triangle[7]) * (triangle[6] - triangle[7]);
-
-    well_defined = true;
 }
 
 void TriangleCentersNode::symmedian() {
@@ -149,8 +140,6 @@ void TriangleCentersNode::symmedian() {
     barycoeff_a = triangle[6] * triangle[6];
     barycoeff_b = triangle[7] * triangle[7];
     barycoeff_c = triangle[8] * triangle[8];
-
-    well_defined = true;
 }
 
 void TriangleCentersNode::cartesian(double coordinates []) const {
