@@ -1,4 +1,4 @@
-# geometry-tools
+# Synthetic Geometry Toolbox
 
 ## Prerequisites
 
