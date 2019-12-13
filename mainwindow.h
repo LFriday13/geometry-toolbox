@@ -106,7 +106,7 @@ private:
     int default_range_x {100}, default_range_y {100};
     //@}
     /** @brief Used for handling the resize event that occurs on creation of the main window. */
-    uint8_t initialized {false};
+    bool initialized {false};
     /** @brief This indicated the pid of the point that is being dragged on a click and drag event. */
     unsigned int point_to_drag {static_cast<unsigned int>(-1)};
 
