@@ -39,9 +39,9 @@ void GeoComponents::edit_construction(unsigned int pid, double data[]) {
 		} else if (i == pid) {
 			is_child[i] = true;
 			(*it)->mutate(data);
-            for(int parent = 0; parent < (*it)->num_parents; ++parent){
-                (*it)->well_defined &= (*it)->parents[parent]->well_defined;
-            }
+			for(int parent = 0; parent < (*it)->num_parents; ++parent){
+				(*it)->well_defined &= (*it)->parents[parent]->well_defined;
+			}
 		} else {
 			is_child[i] = false;
 
@@ -54,12 +54,12 @@ void GeoComponents::edit_construction(unsigned int pid, double data[]) {
 				}
 			}
 
-            if (is_child[i]){
-				(*it)->update();
-                for(int parent = 0; parent < (*it)->num_parents; ++parent){
-                    (*it)->well_defined &= (*it)->parents[parent]->well_defined;
-                }
-            }
+			if (is_child[i]){
+					(*it)->update();
+					for(int parent = 0; parent < (*it)->num_parents; ++parent){
+					    (*it)->well_defined &= (*it)->parents[parent]->well_defined;
+					}
+			}
 		}
 	}
 
