@@ -222,6 +222,11 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 void MainWindow::add_point(int type, double x, double y, std::string label) {
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), x, y), label);
 
@@ -241,6 +246,11 @@ void MainWindow::add_point(int type, std::string geo, double x, double y, std::s
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), parent_1, x, y), label);
 
@@ -261,6 +271,11 @@ void MainWindow::add_point(int type, std::string geo1, std::string geo2, std::st
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new PointNode(static_cast<PointType>(type), parent_1, parent_2), label);
 
@@ -283,6 +298,11 @@ void MainWindow::add_line(int type, std::string geo1, std::string geo2, std::str
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new LineNode(static_cast<LineType>(type), parent_1, parent_2), label);
 
@@ -305,6 +325,11 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), parent_1, parent_2), label);
 
@@ -326,6 +351,11 @@ void MainWindow::add_circle(int type, std::string geo1, std::string geo2, std::s
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new CircleNode(static_cast<CircleType>(type), parent_1, parent_2, parent_3), label);
 
@@ -348,6 +378,11 @@ void MainWindow::add_triangle(int type, std::string geo1, std::string geo2, std:
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new TriangleNode(static_cast<TriangleType>(type), parent_1, parent_2, parent_3), label);
 
@@ -369,6 +404,11 @@ void MainWindow::add_triangle_center(int type, std::string geo, std::string labe
     }
 
     if(label == ""){label = "default_" + std::to_string(next_label++);}
+    if(geo_components->get_pid(label) != static_cast<unsigned int>(-1)){
+        QString message = QString("Label already exists.");
+        ui->statusbar->showMessage(message,3000);
+        return;
+    }
 
     geo_components->add_construction(new TriangleCentersNode(static_cast<TriangleCentersType>(type), parent_1), label);
 
