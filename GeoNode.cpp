@@ -13,6 +13,10 @@ string GeoNode::get_label() const {
 	return label;
 }
 
+bool GeoNode::get_well_defined() const {
+    return well_defined;
+}
+
 GeoNode::~GeoNode() {
 	if (num_parents != 0)
 		delete [] parents;
