@@ -6,15 +6,29 @@
 #include <cmath>
 #include "PointNode.h"
 
-PointNode::PointNode(PointType type, double x, double y) : x(x), y(y), definition(&PointNode::independent) {}
+PointNode::PointNode(PointType type, double x, double y) {
+
+    // Identification of definition from PointType
+    switch(type) {
+    case PointType::INDEPENDENT: definition = &PointNode::independent; break;
+    default: well_defined = false; return;
+    }
+
+    // Initialization of Data Members
+    this->x = x;
+    this->y = y;
+}
 
 PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNode(1) {
 
+    // Identification of definition from PointType
     switch(type) {
-        case PointType::ON_LINE: definition = &PointNode::on_line; break;
-        case PointType::ON_CIRCLE:	definition = &PointNode::on_circle; break;
+    case PointType::ON_LINE: definition = &PointNode::on_line; break;
+    case PointType::ON_CIRCLE:	definition = &PointNode::on_circle; break;
+    default: well_defined = false; return;
     }
 
+    // Initialization of Data Members
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
     this->x = x;
@@ -24,15 +38,18 @@ PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNod
 
 PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
 
+    // Identification of definition from PointType
     switch(type) {
-        case PointType::POINT_POINT_MIDPOINT: definition = &PointNode::point_point_midpoint; break;
-        case PointType::LINE_LINE_INTERSECTION: definition = &PointNode::line_line_intersection; break;
-        case PointType::LINE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::line_circle_first_intersection; break;
-        case PointType::LINE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::line_circle_second_intersection; break;
-        case PointType::CIRCLE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::circle_circle_first_intersection; break;
-        case PointType::CIRCLE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::circle_circle_second_intersection; break;
+    case PointType::POINT_POINT_MIDPOINT: definition = &PointNode::point_point_midpoint; break;
+    case PointType::LINE_LINE_INTERSECTION: definition = &PointNode::line_line_intersection; break;
+    case PointType::LINE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::line_circle_first_intersection; break;
+    case PointType::LINE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::line_circle_second_intersection; break;
+    case PointType::CIRCLE_CIRCLE_FIRST_INTERSECTION: definition = &PointNode::circle_circle_first_intersection; break;
+    case PointType::CIRCLE_CIRCLE_SECOND_INTERSECTION: definition = &PointNode::circle_circle_second_intersection; break;
+    default: well_defined = false; return;
     }
 
+    // Initialization of Data Members
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
     parents[1] = geo2;
@@ -86,43 +103,62 @@ void PointNode::update() {
 void PointNode::independent() {}
 
 void PointNode::on_line() {
+
+    // Data Access
     double line[3];
     parents[0]->access(line);
+
+    // Mathematical Formula
     double t = (line[0] * x + line[1] * y + line[2])/(line[0] * line[0] + line[1] * line[1]);
     x -= line[0] * t;
     y -= line[1] * t;
 }
 
 void PointNode::on_circle() {
+
+    // Data Access
     double circle[3];
     parents[0]->access(circle);
+
+    // Mathematical Formula
     double current_radius = sqrt((x - circle[0]) * (x - circle[0]) + (y - circle[1]) * (y - circle[1]));
-    if(current_radius < epsilon) {
+
+    if(current_radius < EPSILON) {
         well_defined = false;
+
     } else {
         x = circle[0] + (x - circle[0]) * circle[2] / current_radius;
         y = circle[1] + (y - circle[1]) * circle[2] / current_radius;
+
         well_defined = true;
+
     }
 }
 
 void PointNode::point_point_midpoint() {
+
+    // Data Access
     double p1[2], p2[2];
     parents[0]->access(p1);
     parents[1]->access(p2);
+
+    // Mathematical Formula
     x = (p1[0]+p2[0])/2;
     y = (p1[1]+p2[1])/2;
 }
 
 void PointNode::line_line_intersection() {
+
+    // Data Access
     double delta, delta_x, delta_y;
     double line1[3], line2[3];
-
     parents[0]->access(line1);
     parents[1]->access(line2);
 
+    // Mathematical Formula
     delta = line1[0] * line2[1] - line1[1] * line2[0];
-    if(delta < epsilon && delta > -epsilon) {
+
+    if(delta < EPSILON && delta > -EPSILON) {
         well_defined = false;
 
     } else {
@@ -130,18 +166,21 @@ void PointNode::line_line_intersection() {
         delta_y = - line1[0] * line2[2] + line1[2] * line2[0];
         x = delta_x / delta;
         y = delta_y / delta;
+
         well_defined = true;
 
     }
 }
 
 void PointNode::line_circle_first_intersection() {
+
+    // Data Access
     double line[3], circle[3];
     parents[0]->access(line);
     parents[1]->access(circle);
 
+    // Mathematical Formula
     double project_x = circle[0], project_y = circle[1];
-
     double t = (line[0] * project_x + line[1] * project_y + line[2])/(line[0] * line[0] + line[1] * line[1]);
 
     project_x -= line[0] * t;
@@ -149,23 +188,28 @@ void PointNode::line_circle_first_intersection() {
 
     double dist = sqrt((project_x - circle[0]) * (project_x - circle[0]) + (project_y - circle[1]) * (project_y - circle[1]));
 
-    if(dist <= circle[2] + epsilon) {
+    if(dist <= circle[2] + EPSILON) {
         double to_shift = circle[2] * circle[2] - dist * dist;
-        if(to_shift < 0.0){to_shift = 0;}
+        if(to_shift < 0.0) {to_shift = 0;}
         to_shift = sqrt(to_shift);
+
         double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
         x = project_x + to_shift * line[0] / normalize_factor;
         y = project_y + to_shift * line[1] / normalize_factor;
+
         well_defined = true;
 
     } else { well_defined = false; }
 }
 
 void PointNode::line_circle_second_intersection() {
+
+    // Data Access
     double line[3], circle[3];
     parents[0]->access(line);
     parents[1]->access(circle);
 
+    // Mathematical Formula
     double project_x = circle[0], project_y = circle[1];
     double t = (line[0] * project_x + line[1] * project_y + line[2])/(line[0] * line[0] + line[1] * line[1]);
 
@@ -173,12 +217,13 @@ void PointNode::line_circle_second_intersection() {
     project_y -= line[1] * t;
 
     double dist = sqrt((project_x - circle[0]) * (project_x - circle[0]) + (project_y - circle[1]) * (project_y - circle[1]));
-    if(dist <= circle[2] + epsilon){
+
+    if(dist <= circle[2] + EPSILON){
         double to_shift = circle[2] * circle[2] - dist * dist;
         if(to_shift < 0.0) { to_shift = 0; }
         to_shift = sqrt(to_shift);
 
-        if(to_shift < epsilon){
+        if(to_shift < EPSILON){
             well_defined = false;
             return;
         }
@@ -186,6 +231,7 @@ void PointNode::line_circle_second_intersection() {
         double normalize_factor = sqrt(line[0] * line[0] + line[1] * line[1]);
         x = project_x - to_shift * line[0] / normalize_factor;
         y = project_y - to_shift * line[1] / normalize_factor;
+
         well_defined = true;
 
     } else { well_defined = false; }
@@ -193,15 +239,20 @@ void PointNode::line_circle_second_intersection() {
 
 
 void PointNode::circle_circle_first_intersection() {
+
+    // Data Access
     double circle1[3], circle2[3];
     parents[0]->access(circle1);
     parents[1]->access(circle2);
 
+    // Mathematical Formula
     double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
-    if(dist < abs(circle1[2] - circle2[2]) - epsilon || dist > abs(circle1[2] - circle2[2]) + epsilon) {
+
+    if(dist < abs(circle1[2] - circle2[2]) - EPSILON || dist > abs(circle1[2] - circle2[2]) + EPSILON) {
         well_defined = false;
 
     } else {
+
         if(circle1[2] < circle2[2]) {
             for(int i = 0; i < 3; i++)
                 std::swap(circle1[i], circle2[i]);
@@ -209,31 +260,39 @@ void PointNode::circle_circle_first_intersection() {
 
         double result_x = circle1[0], result_y = circle1[0];
         double R = circle1[2], r = circle2[2];
+        double normalize_factor = dist;
+
         double shift_horizontal = (R * R - r * r) / dist;
         shift_horizontal = (dist + shift_horizontal) / 2;
-        double normalize_factor = dist;
         result_x = result_x + (circle2[0] - circle1[0]) * shift_horizontal / normalize_factor;
         result_y = result_y + (circle2[1] - circle1[1]) * shift_horizontal / normalize_factor;
-        double shift_verticle = sqrt(R * R - shift_horizontal * shift_horizontal);
-        result_x = result_x + (circle2[1] - circle1[1]) * shift_verticle / normalize_factor;
-        result_y = result_y - (circle2[0] - circle1[0]) * shift_verticle / normalize_factor;
+
+        double shift_vertical = sqrt(R * R - shift_horizontal * shift_horizontal);
+        result_x = result_x + (circle2[1] - circle1[1]) * shift_vertical / normalize_factor;
+        result_y = result_y - (circle2[0] - circle1[0]) * shift_vertical / normalize_factor;
+
         x = result_x;
         y = result_y;
-        well_defined = true;
 
+        well_defined = true;
     }
 }
 
 void PointNode::circle_circle_second_intersection() {
+
+    // Data Access
     double circle1[3], circle2[3];
     parents[0]->access(circle1);
     parents[1]->access(circle2);
 
+    // Mathematical Formula
     double dist = sqrt((circle1[0] - circle2[0]) * (circle1[0] - circle2[0]) + (circle1[1] - circle2[1]) * (circle1[1] - circle2[1]));
-    if(dist < abs(circle1[2] - circle2[2]) - epsilon || dist > abs(circle1[2] - circle2[2]) + epsilon) {
+
+    if(dist < abs(circle1[2] - circle2[2]) - EPSILON || dist > abs(circle1[2] - circle2[2]) + EPSILON) {
         well_defined = false;
 
     } else {
+
         if(circle1[2] < circle2[2]) {
             for(int i = 0; i < 3; i++)
                 std::swap(circle1[i], circle2[i]);
@@ -241,16 +300,20 @@ void PointNode::circle_circle_second_intersection() {
 
         double result_x = circle1[0], result_y = circle1[0];
         double R = circle1[2], r = circle2[2];
+        double normalize_factor = dist;
+
         double shift_horizontal = (R * R - r * r) / dist;
         shift_horizontal = (dist + shift_horizontal) / 2;
-        double normalize_factor = dist;
         result_x = result_x + (circle2[0] - circle1[0]) * shift_horizontal / normalize_factor;
         result_y = result_y + (circle2[1] - circle1[1]) * shift_horizontal / normalize_factor;
-        double shift_verticle = -sqrt(R * R - shift_horizontal * shift_horizontal);
-        result_x = result_x + (circle2[1] - circle1[1]) * shift_verticle / normalize_factor;
-        result_y = result_y - (circle2[0] - circle1[0]) * shift_verticle / normalize_factor;
+
+        double shift_vertical = -sqrt(R * R - shift_horizontal * shift_horizontal);
+        result_x = result_x + (circle2[1] - circle1[1]) * shift_vertical / normalize_factor;
+        result_y = result_y - (circle2[0] - circle1[0]) * shift_vertical / normalize_factor;
+
         x = result_x;
         y = result_y;
+
         well_defined = true;
 
     }

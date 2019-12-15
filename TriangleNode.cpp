@@ -6,15 +6,18 @@
 #include "TriangleNode.h"
 
 TriangleNode::TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3): GeoNode(3) {
+
+    // Identification of definition from TriangleType
     switch(type) {
-        case TriangleType::POINT_POINT_POINT_VERTICES: definition = &TriangleNode::point_point_point_vertices; break;
+    case TriangleType::POINT_POINT_POINT_VERTICES: definition = &TriangleNode::point_point_point_vertices; break;
+    default: well_defined = false; return;
     }
 
+    // Initialization of Data Members
     parents = new const GeoNode*[num_parents];
-	parents[0] = geo1;
-	parents[1] = geo2;
+    parents[0] = geo1;
+    parents[1] = geo2;
     parents[2] = geo3;
-
     (this->*definition)();
 }
 
@@ -24,7 +27,7 @@ void TriangleNode::print() const {
     cout << "Data: " << side_a << '\t' << side_b << '\t' << side_c << endl;
     cout << "Parents:";
     for(int i = 0; i < num_parents;++i)
-	cout << " " << parents[i]->get_label();
+        cout << " " << parents[i]->get_label();
     cout << endl;
 }
 
@@ -70,7 +73,6 @@ void TriangleNode::mutate(double data[]) {
     side_a = data[0];
     side_b = data[1];
     side_c = data[2];
-
     (this->*definition)();
 }
 
@@ -84,17 +86,19 @@ TriangleNode::~TriangleNode() {
 }
 
 void TriangleNode::point_point_point_vertices() {
-    double point1[2], point2[2], point3[2];
 
+    // Data Access
+    double point1[2], point2[2], point3[2];
     parents[0]->access(point1);
     parents[1]->access(point2);
     parents[2]->access(point3);
 
+    // Mathematical Formula
     side_a = sqrt((point2[0] - point3[0]) * (point2[0] - point3[0]) + (point2[1] - point3[1]) * (point2[1] - point3[1]));
     side_b = sqrt((point3[0] - point1[0]) * (point3[0] - point1[0]) + (point3[1] - point1[1]) * (point3[1] - point1[1]));
     side_c = sqrt((point1[0] - point2[0]) * (point1[0] - point2[0]) + (point1[1] - point2[1]) * (point1[1] - point2[1]));
 
-    (side_a > epsilon && side_b > epsilon && side_c > epsilon) ? well_defined = true: well_defined = false;
+    well_defined = (side_a > EPSILON && side_b > EPSILON && side_c > EPSILON);
 }
 
 void TriangleNode::labels(vector<string> *, vector<string> *, vector<string> *, vector<string> *triangle_labels) const {
