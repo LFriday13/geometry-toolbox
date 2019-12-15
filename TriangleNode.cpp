@@ -78,9 +78,10 @@ void TriangleNode::mutate(double data[]) {
 }
 
 void TriangleNode::update() {
+    bool parents_well_defined = true;
     for (int i = 0; i < num_parents; ++i)
-        well_defined &= parents[i]->get_well_defined();
-    if (well_defined)
+        parents_well_defined &= parents[i]->get_well_defined();
+    if (parents_well_defined)
         (this->*definition)();
 }
 
