@@ -9,8 +9,8 @@ This class, LineNode, defines a Line. It is derived from GeoNode.
 /** @brief Types of Lines */
 enum class LineType {
     POINT_POINT_LINE_THROUGH, //!< Line passing through the given points.
-    POINT_LINE_PARALLEL_LINE_THROUGH, //!< Line Passing through a given Point that is parallel to the given Line.
-    POINT_POINT_PERPENDICULAR_BISECTOR, //!< Perpedicular bisector of the segment defined by the two points.
+    POINT_LINE_PARALLEL_LINE_THROUGH, //!< Line passing through a given point that is parallel to the given Line.
+    POINT_POINT_PERPENDICULAR_BISECTOR, //!< Perpedicular bisector of the segment defined by two given points.
     POINT_CIRCLE_FIRST_TANGENT, //!< First tangent from the given point to the given circle.
     POINT_CIRCLE_SECOND_TANGENT //!< Second tangent from the given point to the given circle.
 };
@@ -18,7 +18,7 @@ enum class LineType {
 class LineNode: public GeoNode {
 
 public:
-    LineNode(LineType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a line defined by 2 parents. */
+    LineNode(LineType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a line defined by two parents. */
 
     virtual ~LineNode() override; /**< @brief Destructor. */
 
@@ -33,7 +33,7 @@ private:
 
     virtual void print() const override; /**< @brief Prints all data components of the line (Debugging purposes only). */
     virtual void display(Ui::MainWindow* ui) override; /**< @brief Updates the corresponding figure on the plot (*line). */
-    /** @brief TTakes a collection of string vectors and adds the label of the line to the line_labels vector. */
+    /** @brief Takes a collection of string vectors and adds the label of the line to the line_labels vector. */
     virtual void labels(vector<string>*, vector<string>* line_labels, vector<string>*, vector<string>*) const override;
 
     virtual void access(double data[]) const override; /**< @brief Sets the array data as {x_coeff, y_coeff, c_coeff}. */
@@ -41,11 +41,11 @@ private:
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
 
-    void point_point_line_through(); /**< @brief Defines a line passing through 2 points. */
+    void point_point_line_through(); /**< @brief Defines a line passing through two given points. */
     void point_line_parallel_line_through(); /**< @brief Defines a line passing through a given point that is parallel to a given line. */
-    void point_point_perpendicular_bisector(); /**< @brief Defines a line that is the perpedicular bisector of the segment given by the 2 points. */
-    void point_circle_first_tangent(); /**< @brief Defines a line as the first tangent from the given point to the given circle. */
-    void point_circle_second_tangent(); /**< @brief Defines a line as the second tangent from the given point to the given circle. */
+    void point_point_perpendicular_bisector(); /**< @brief Defines a line that is the perpedicular bisector of the segment defined by two given points. */
+    void point_circle_first_tangent(); /**< @brief Defines a line that is the first tangent from the given point to the given circle. */
+    void point_circle_second_tangent(); /**< @brief Defines a line that is the second tangent from the given point to the given circle. */
 
 };
 

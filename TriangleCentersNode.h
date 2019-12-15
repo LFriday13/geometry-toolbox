@@ -38,10 +38,10 @@ private:
     virtual void mutate(double data[]) override; /**< @brief Edits the triangle center based on data = {new bary_a, new bary_b, new bary_c}. */
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
-    /** @brief Takes a collection of string vectors and adds the label of the line to the point_labels vector. */
+    /** @brief Takes a collection of string vectors and adds the label of the triangle center to the point_labels vector. */
     virtual void labels(vector<string>*point_labels, vector<string>*, vector<string>*, vector<string>*) const override;
 
-    void cartesian(double data []) const; /**< @brief Performs conversion from barycentric coordinates to cartesian. */
+    void cartesian(double data []) const; /**< @brief Performs conversion from barycentric coordinates to Cartesian coordinates. */
 
     void centroid(); /**< @brief Defines a triangle center that corresponds to the centroid. */
     void incenter(); /**< @brief Defines a triangle center that corresponds to the incenter. */

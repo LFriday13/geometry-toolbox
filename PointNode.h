@@ -8,7 +8,7 @@ This class, PointNode, defines a Point. It is derived from GeoNode.
 #include "GeoNode.h"
 /** @brief Types of Points */
 enum class PointType {
-    INDEPENDENT, //!< Point given by cartesian coordinates.
+    INDEPENDENT, //!< Point given by Cartesian coordinates.
     ON_LINE, //!< Point on a given line.
     ON_CIRCLE, //!< Point on a given circle.
     POINT_POINT_MIDPOINT, //!< Midpoint of the two given points.
@@ -24,7 +24,7 @@ class PointNode: public GeoNode {
 public:
     PointNode(PointType type, double x, double y); /**< @brief Constructor of an independent point. */
     PointNode(PointType type, GeoNode* geo1, double x, double y); /**< @brief Constructor of a point with a single parent. */
-    PointNode(PointType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a poitn with two parents. */
+    PointNode(PointType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a point with two parents. */
 
     virtual ~PointNode() override; /**< @brief Removes the associated figure (*point). */
 
@@ -39,7 +39,7 @@ private:
 
     virtual void print() const override; /**< @brief Prints all data components of the point (Debugging purposes only). */
     virtual void display(Ui::MainWindow* ui) override; /**< @brief Updates the corresponding figure on the plot (*point). */
-    /** @brief Takes a collection of string vectors and adds the label of the line to the point_labels vector. */
+    /** @brief Takes a collection of string vectors and adds the label of the point to the point_labels vector. */
     virtual void labels(vector<string>* point_labels, vector<string>*, vector<string>*, vector<string>*) const override;
 
     virtual void access(double data[]) const override; /**< @brief Sets the array data as {x coordinate, y coordinate}. */
@@ -47,9 +47,9 @@ private:
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
 
-    void independent(); /**< @brief Defines a point given by cartesian coordinates. */
-    void on_line(); /**< @brief Defines on a given line, taking the projection of a pair of cartesian coordinates. */
-    void on_circle(); /**< @brief Defines on a given circle, taking the projection of a pair of cartesian coordinates. */
+    void independent(); /**< @brief Defines a point given by Cartesian coordinates. */
+    void on_line(); /**< @brief Defines a point on a given line, taking the projection of the given Cartesian coordinates. */
+    void on_circle(); /**< @brief Defines a point on a given circle, taking the projection of the given Cartesian coordinates. */
     void point_point_midpoint(); /**< @brief Defines a point as the midpoint of two given points. */
     void line_line_intersection(); /**< @brief Defines a point given by the intersection of two lines. */
     void line_circle_first_intersection(); /**< @brief Defines a point given by the first intersection of a lines and a circle. */

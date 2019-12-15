@@ -8,16 +8,16 @@ This class, CircleNode, defines a Circle. It is derived from GeoNode.
 #include "GeoNode.h"
 /** @brief Types of Circles */
 enum class CircleType {
-    POINT_POINT_POINT_THROUGH, //!< Circle passing through 3 given Points
-    POINT_POINT_CENTER_THROUGH, //!< Circle centered at Point 1 that passes through Point 2
-    POINT_POINT_POINT_CENTER_RADIUS, //!< Circle centered at Point 1 that has as radius the distance between Point 2 and Point 3
+    POINT_POINT_POINT_THROUGH, //!< Circle passing through three given points
+    POINT_POINT_CENTER_THROUGH, //!< Circle centered at the first point that passes through the second point
+    POINT_POINT_POINT_CENTER_RADIUS, //!< Circle centered at the first point with radius the distance between the second and third points
 };
 
 class CircleNode: public GeoNode {
 
 public:
-    CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a circle defined by 2 parents. */
-    CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3); /**< @brief Constructor of a circle defined by 3 parents. */
+    CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2); /**< @brief Constructor of a circle defined by two parents. */
+    CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3); /**< @brief Constructor of a circle defined by three parents. */
 
     virtual ~CircleNode() override; /**< @brief Deletes the corresponding QCPItemEllipse that represents the circle from the plot. */
 
@@ -40,9 +40,9 @@ private:
 
     virtual void update() override; /**< @brief Updates the construction to adjust for changes of the parents. */
 
-    void point_point_point_through(); /**< @brief Defines a circle passing through the 3 Points. */
-    void point_point_center_through(); /**< @brief Defines a circle centered at Point 1 that passes through Point 2. */
-    void point_point_point_center_radius(); /**< @brief Defines a circle centered at Point 1 that has as radius the distance between Point 2 and Point 3. */
+    void point_point_point_through(); /**< @brief Defines a circle passing through three given points. */
+    void point_point_center_through(); /**< @brief Defines a circle centered at the first point that passes through the second point. */
+    void point_point_point_center_radius(); /**< @brief Defines a circle centered at the first point with radius the distance between the second and third points. */
 
 };
 
