@@ -21,7 +21,8 @@ TriangleCentersNode::TriangleCentersNode(TriangleCentersType type, GeoNode* geo1
     // Initialization of Data Members
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
-    (this->*definition)();
+
+    update();
 }
 
 void TriangleCentersNode::print() const {
@@ -60,11 +61,14 @@ void TriangleCentersNode::mutate(double data[]) {
     barycoeff_a = data[0];
     barycoeff_b = data[1];
     barycoeff_c = data[2];
-    (this->*definition)();
+    update();
 }
 
 void TriangleCentersNode::update() {
-    (this->*definition)();
+    for (int i = 0; i < num_parents; ++i)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
+        (this->*definition)();
 }
 
 TriangleCentersNode::~TriangleCentersNode() {

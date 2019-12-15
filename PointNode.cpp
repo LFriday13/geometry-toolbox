@@ -33,7 +33,8 @@ PointNode::PointNode(PointType type, GeoNode* geo1, double x, double y) : GeoNod
     parents[0] = geo1;
     this->x = x;
     this->y = y;
-    (this->*definition)();
+
+    update();
 }
 
 PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
@@ -53,7 +54,8 @@ PointNode::PointNode(PointType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) 
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
     parents[1] = geo2;
-    (this->*definition)();
+
+    update();
 }
 
 PointNode::~PointNode() {
@@ -93,11 +95,14 @@ void PointNode::access(double data[]) const {
 void PointNode::mutate(double data[]) {
     x = data[0];
     y = data[1];
-    (this->*definition)();
+    update();
 }
 
 void PointNode::update() {
-    (this->*definition)();
+    for (int i = 0; i < num_parents; ++i)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
+        (this->*definition)();
 }
 
 void PointNode::independent() {}

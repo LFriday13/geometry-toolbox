@@ -18,7 +18,8 @@ TriangleNode::TriangleNode(TriangleType type, GeoNode* geo1, GeoNode* geo2, GeoN
     parents[0] = geo1;
     parents[1] = geo2;
     parents[2] = geo3;
-    (this->*definition)();
+
+    update();
 }
 
 void TriangleNode::print() const {
@@ -77,7 +78,10 @@ void TriangleNode::mutate(double data[]) {
 }
 
 void TriangleNode::update() {
-    (this->*definition)();
+    for (int i = 0; i < num_parents; ++i)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
+        (this->*definition)();
 }
 
 TriangleNode::~TriangleNode() {

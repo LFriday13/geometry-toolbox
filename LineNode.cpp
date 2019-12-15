@@ -22,7 +22,8 @@ LineNode::LineNode(LineType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(2) {
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
     parents[1] = geo2;
-    (this->*definition)();
+
+    update();
 }
 
 LineNode::~LineNode() {
@@ -62,11 +63,14 @@ void LineNode::mutate(double data[]) {
     x_coeff = data[0];
     y_coeff = data[1];
     c_coeff = data[2];
-    (this->*definition)();
+    update();
 }
 
 void LineNode::update() {
-    (this->*definition)();
+    for (int i = 0; i < num_parents; ++i)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
+        (this->*definition)();
 }
 
 void LineNode::point_point_line_through() {

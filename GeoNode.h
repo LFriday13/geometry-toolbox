@@ -18,7 +18,8 @@ public:
     GeoNode(int num_parents = 0); /**< @brief Constructor, takes the number of constructions (parents) that define this construction (child). */
 
     virtual void access(double data[]) const = 0; /**< @brief Takes an array and sets it to be the data members of the construction, the size may vary. */
-    string get_label() const; /**< @brief This function returns the label of the construction. */
+    string get_label() const; /**< @brief Returns the label of the construction. */
+    bool get_well_defined() const; /**< @brief Returns whether the current configuration gives a well-defined construction. */
 
     virtual ~GeoNode(); /**< @brief Destructor */
 	
@@ -37,7 +38,6 @@ protected:
     const int num_parents {0}; /**< @brief Number of constructions that defines this construction. */
     const GeoNode** parents {nullptr}; /**< @brief Pointer to the array of constructions that define this construction. */
     bool well_defined {true}; /**< @brief Indicates whether the current configuration gives a well-defined construction. */
-    bool need_display {true}; /**< @brief Indicates whether display of this construction on the plot is needed. */
     static const double EPSILON; /** @brief Sets the error tolerance used in our calculations. */
 };
 

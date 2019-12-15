@@ -18,7 +18,8 @@ CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2) : GeoNode(
     parents = new const GeoNode*[num_parents];
     parents[0] = geo1;
     parents[1] = geo2;
-    (this->*definition)();
+
+    update();
 }
 
 CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* geo3) : GeoNode(3) {
@@ -35,7 +36,8 @@ CircleNode::CircleNode(CircleType type, GeoNode* geo1, GeoNode* geo2, GeoNode* g
     parents[0] = geo1;
     parents[1] = geo2;
     parents[2] = geo3;
-    (this->*definition)();
+
+    update();
 }
 
 CircleNode::~CircleNode() {
@@ -80,11 +82,14 @@ void CircleNode::mutate(double data[]) {
     center_x = data[0];
     center_y = data[1];
     radius = data[2];
-    (this->*definition)();
+    update();
 }
 
 void CircleNode::update() {
-    (this->*definition)();
+    for (int i = 0; i < num_parents; ++i)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
+        (this->*definition)();
 }
 
 void CircleNode::point_point_point_through() {
