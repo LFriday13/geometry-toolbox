@@ -5,7 +5,7 @@
 
 #include "GeoNode.h"
 
-const double EPSILON = 1e-8;
+const double GeoNode::EPSILON = 1e-8;
 
 GeoNode::GeoNode(int num_parents): num_parents(num_parents) {}
 
