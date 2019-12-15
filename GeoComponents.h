@@ -17,7 +17,7 @@ public:
     void add_construction(GeoNode* geo, string label = "");
     /** @brief Takes a pid of a construction and an array of data to update the construction. */
     void edit_construction(unsigned int pid, double data[]);
-    /** @brief Takes a pid of a construction and removes it, along with any derived construction (childs) of this construction. */
+    /** @brief Takes a pid of a construction and removes it, along with any derived constructions (children) of this construction. */
     void remove_construction(unsigned int pid);
     /** @brief Updates all the figures representing the constructions on the plot. */
     void display_all_constructions(Ui::MainWindow *ui);
@@ -26,13 +26,13 @@ public:
 
     void print_all_constructions(); /**< @brief Prints the information of all the constructions (Debugging purposes only) */
 
-    unsigned int get_pid(string label); /**< @brief Takes a label and returns the pid of the construction with the corresponding label, if there is no construction with that label resturns -1. */
-    GeoNode* get_construction(unsigned int pid); /**< @brief Takes a pid of a construction and returns a pointer to it, if there is no construction at that index returns a nullptr. */
+    unsigned int get_pid(string label); /**< @brief Takes a label and returns the pid of the construction with the corresponding label, if there is no construction with that label, returns -1. */
+    GeoNode* get_construction(unsigned int pid); /**< @brief Takes a pid of a construction and returns a pointer to it, if there is no construction at that index, returns nullptr. */
 
     virtual ~GeoComponents(); /**< @brief Deletes all constructions */
 
 private:
-    vector<GeoNode*> geo_components; /**< @brief STL vector containing pointer to all the constructions. */
+    vector<GeoNode*> geo_components; /**< @brief STL vector containing pointers to all the constructions. */
     unsigned int next_pid {0}; /**< @brief The pid to be assigned to the next construction added to the vector.*/
 
 };
