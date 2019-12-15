@@ -21,9 +21,7 @@ signals:
 private slots:
     void on_buttonBox_accepted();
     void on_labelLineEdit_textEdited(const QString &arg1);
-
     void on_xLineEdit_textEdited(const QString &arg1);
-
     void on_yLineEdit_textEdited(const QString &arg1);
 
 private:

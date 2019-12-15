@@ -20,11 +20,8 @@ signals:
 
 private slots:
     void on_pointComboBox_currentTextChanged(const QString &arg1);
-
     void on_newXLineEdit_textEdited(const QString &arg1);
-
     void on_newYLineEdit_textEdited(const QString &arg1);
-
     void on_buttonBox_accepted();
 
 private:

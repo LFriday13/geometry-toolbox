@@ -22,7 +22,6 @@ private slots:
     void on_labelLineEdit_textEdited(const QString &arg1);
     void on_triangleComboBox_currentTextChanged(const QString &arg1);
     void on_buttonBox_accepted();
-
     void on_centerComboBox_currentIndexChanged(int index);
 
 private:

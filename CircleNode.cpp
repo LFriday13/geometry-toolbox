@@ -86,6 +86,7 @@ void CircleNode::mutate(double data[]) {
 }
 
 void CircleNode::update() {
+    well_defined = true;
     for (int i = 0; i < num_parents; ++i)
         well_defined &= parents[i]->get_well_defined();
     if (well_defined)
