@@ -67,10 +67,9 @@ void LineNode::mutate(double data[]) {
 }
 
 void LineNode::update() {
-    bool parents_well_defined = true;
     for (int i = 0; i < num_parents; ++i)
-        parents_well_defined &= parents[i]->get_well_defined();
-    if (parents_well_defined)
+        well_defined &= parents[i]->get_well_defined();
+    if (well_defined)
         (this->*definition)();
 }
 
